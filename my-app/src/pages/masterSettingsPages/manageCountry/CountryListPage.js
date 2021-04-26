@@ -48,7 +48,7 @@ const CountryListcountry = ({history}) => {
         } else {
             history.push('/admin-login')
         }
-    }, [dispatch, successDelete, updateSuccess])
+    }, [dispatch, successDelete, updateSuccess, adminInfo])
 
     return (
         <div class="wapper">

@@ -24,6 +24,7 @@ import EditStartagPage from './pages/startagPages/EditStartagPage';
 import verifyRequestList from './pages/userPages/RequestListPage';
 import RequestViewPage from './pages/userPages/RequestViewPage';
 import PostListPage from './pages/postPages/PostListPage';
+import Sidebar from './components/Sidebar';
 
 function App() {  
 
@@ -33,6 +34,7 @@ function App() {
   return (    
     <div className="App">    
     {adminInfo && <Navbar />}
+    {/* <Sidebar /> */}
     <Switch>
       <Route path="/" exact component={Dashboard} />
       <Route path="/admin-login" exact component={Login} />

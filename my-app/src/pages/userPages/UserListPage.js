@@ -145,6 +145,17 @@ const UserListPage = ({history}) => {
                 </tr>
             ))}
         </tbody>
+        {/* <tfoot>
+            <tr className="fw-bold fs-6 text-muted">
+                <th>S No.</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Added on</th>
+                <th>Status</th>
+            </tr>
+        </tfoot> */}
 	</table>
     </div>
     )}
