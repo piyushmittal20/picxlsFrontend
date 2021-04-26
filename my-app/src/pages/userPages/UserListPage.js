@@ -13,6 +13,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../components/Loader';
 import { ADMIN_ADDUSER_RESET, ADMIN_UPDATEUSER_RESET } from '../../constants/adminConstants';
+import ErrorToast from '../../components/ErrorToast';
 
 const UserListPage = ({history}) => {
     const [show, setShow] = useState(false);
@@ -50,9 +51,28 @@ const UserListPage = ({history}) => {
             dispatch({type: ADMIN_ADDUSER_RESET})
             dispatch({type: ADMIN_UPDATEUSER_RESET})
             dispatch(listUsers())
-            setTimeout(() => {
-                $('#datatable1').DataTable()
-            }, 2000)
+                setTimeout(() => {
+                    $('#datatable1').DataTable({
+                        initComplete: function () {
+                            this.api().columns().every( function () {
+                                var column = this;
+                                var select = $('<select><option value=""></option></select>')
+                                    .appendTo( $(column.footer()).empty() )
+                                    .on( 'change', function () {
+                                        var val = $.fn.dataTable.util.escapeRegex(
+                                            $(this).val()
+                                        );
+                                        column
+                                            .search( val ? '^'+val+'$' : '', true, false )
+                                            .draw();
+                                    } );
+                                column.data().unique().sort().each( function ( d, j ) {
+                                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                                } );
+                            } );
+                        }
+                    })
+                }, 2000)
         } else {
             history.push('/admin-login')
         }
@@ -62,7 +82,7 @@ const UserListPage = ({history}) => {
         <>
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
-        {loading ? <Loader /> : (
+        {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
         <div style={{padding: '15px', margin: '10px 80px'}}>
         <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -118,7 +138,8 @@ const UserListPage = ({history}) => {
                                     handleShow2()
                                     statusHandler(user._id)
                                     setStatus(user.status)
-                                }}>{user.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}</li>
+                                }}>{user.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
+                            </li>
                         </ul>
                     </td>
                 </tr>

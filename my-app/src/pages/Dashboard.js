@@ -154,7 +154,7 @@ const Dashboard = ({history}) => {
                         </h4>
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
-                            <Link className="menu-link py-2" to="/CMS">
+                            <Link className="menu-link py-2" to="/postlist">
                               <span className="menu-title">Manage Posts</span>
                             </Link>
                           </div>

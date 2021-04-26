@@ -131,11 +131,17 @@ export const updateStartag = (startag) => async(dispatch, getState) => {
     }
 }
 
-export const updateStartagStatus = (id) => async(dispatch, getState) => {
+export const updateStartagStatus = (startag, id) => async(dispatch, getState) => {
     try {
         dispatch({type: ADMIN_STARTAGSTATUS_REQUEST})
 
-        const {data: {updatedStartag}} = await axios.put(`${startagStatus}/startag/${id}`)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        } 
+
+        const {data: {updatedStartag}} = await axios.put(`${startagStatus}/startagStatus/${id}`, startag, config)
 
         dispatch({
             type: ADMIN_STARTAGSTATUS_SUCCESS,

@@ -3,6 +3,8 @@ import {useDispatch} from 'react-redux';
 import { updateCountryStatus, updateCityStatus, updateStateStatus } from '../actions/masterSettings';
 import {changeStatus} from '../actions/cmsActions';
 import { updateUserStatus } from '../actions/userActions';
+import { updateStartagStatus } from '../actions/startagActions';
+import { updatePostStatus } from '../actions/postActions';
 
 const Modals = ({show, setShow, status}) => {
 
@@ -11,6 +13,8 @@ const Modals = ({show, setShow, status}) => {
   const stateId = localStorage.getItem('stateId');
   const pageId = localStorage.getItem('pageId');
   const userId = localStorage.getItem('userId');
+  const starId = localStorage.getItem('starId');
+  const postId = localStorage.getItem('postId');
 
   const dispatch = useDispatch()
 
@@ -49,6 +53,20 @@ const Modals = ({show, setShow, status}) => {
       }
       dispatch(updateUserStatus(user, userId))
       localStorage.removeItem('userId')
+    }
+    if(starId) {
+      const startag = {
+        isActive: !status
+      }
+      dispatch(updateStartagStatus(startag, starId))
+      localStorage.removeItem('starId')
+    }
+    if(postId) {
+      const post = {
+        status: !status
+      }
+      dispatch(updatePostStatus(post, postId));
+      localStorage.removeItem('postId')
     }
   }
 

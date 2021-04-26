@@ -23,6 +23,7 @@ import AddStartagPage from './pages/startagPages/AddStartagPage';
 import EditStartagPage from './pages/startagPages/EditStartagPage';
 import verifyRequestList from './pages/userPages/RequestListPage';
 import RequestViewPage from './pages/userPages/RequestViewPage';
+import PostListPage from './pages/postPages/PostListPage';
 
 function App() {  
 
@@ -55,6 +56,7 @@ function App() {
       <Route path="/userlist" exact component={UserListPage} />
       <Route path="/requestList" exact component={verifyRequestList} />
       <Route path="/viewrequest/:id" exact component={RequestViewPage} />
+      <Route path="/postlist" exact component={PostListPage} />
     </Switch>
     <Footer />
     </div>

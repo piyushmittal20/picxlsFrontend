@@ -2,12 +2,14 @@ import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import {removeStartag} from '../actions/startagActions';
 import {deleteUser} from '../actions/userActions';
+import {deletePost} from '../actions/postActions';
 
 const DeleteModal = ({show, setShow}) => {
   const dispatch = useDispatch()
 
   const delStarId = localStorage.getItem('delStarId');
   const delUserId = localStorage.getItem('delUserId');
+  const delPostId = localStorage.getItem('delPostId');
 
   const deleteHandler = () => {
     if(delStarId) {
@@ -17,6 +19,10 @@ const DeleteModal = ({show, setShow}) => {
     if(delUserId) {
       dispatch(deleteUser(delUserId))
       localStorage.removeItem('delUserId')
+    }
+    if(delPostId) {
+      dispatch(deletePost(delPostId))
+      localStorage.removeItem('delPostId')
     }
   }
 

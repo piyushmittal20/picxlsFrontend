@@ -1,65 +1,62 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAllStartag} from '../../actions/startagActions';
 import {Link} from 'react-router-dom';
-import {Button, Badge} from 'react-bootstrap';
-import DeleteModal from '../../components/DeleteModal';
-import Modals from '../../components/Modal';
-import {FaTrashAlt, FaEdit} from 'react-icons/fa';
-import Loader from '../../components/Loader';
-import ErrorToast from '../../components/ErrorToast';
-import {BsToggleOff, BsToggleOn} from 'react-icons/bs';
-import {RiEyeFill} from 'react-icons/ri'
+import {Badge} from 'react-bootstrap';
 import $ from 'jquery';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
-import { ADMIN_ADDSTARTAG_RESET, ADMIN_UPDATESTARTAG_RESET } from "../../constants/adminConstants";
+import Loader from '../../components/Loader';
+import DeleteModal from '../../components/DeleteModal';
+import Modals from '../../components/Modal';
+import ErrorToast from '../../components/ErrorToast';
+import {RiEyeFill} from 'react-icons/ri'
+import {FaTrashAlt, FaEdit} from 'react-icons/fa';
+import {BsToggleOff, BsToggleOn} from 'react-icons/bs';
+import {getAllPosts} from '../../actions/postActions';
 
-const StartagList = ({history}) => {
+const PostListPage = ({history}) => {
     const [show, setShow] = useState(false);
     const [show2, setShow2] = useState(false);
     const [status, setStatus] = useState('');
 
     const dispatch = useDispatch()
 
-    const startagList = useSelector(state => state.startagList)
-    const {loading, error, startags} = startagList
-
-    const startagDelete = useSelector(state => state.startagDelete)
-    const {loading: loadingDelete, error: errorDelete, success: successDelete} = startagDelete;
-
     const adminLogin = useSelector(state => state.adminLogin)
 	const {adminInfo} = adminLogin
 
-    const startagStatus = useSelector(state => state.startagStatus)
-    const {success: statusSuccess} = startagStatus;
+    const listPost = useSelector(state => state.listPost)
+    const {loading, error, posts} = listPost;
+
+    const postDelete = useSelector(state => state.postDelete)
+    const {success: deleteSuccess} = postDelete;
+
+    const postStatus = useSelector(state => state.postStatus)
+    const {success: updateSuccess} = postStatus;
 
     const handleShow = () => setShow(true)
 
     const handleShow2 = () => setShow2(true)
 
     const deleteHandler = (id) => {
-        localStorage.setItem('delStarId', id);
+        localStorage.setItem('delPostId', id);
     }
 
     const statusHandler = (id) => {
-        localStorage.setItem('starId', id);
+        localStorage.setItem('postId', id);
     }
 
     useEffect(() => {
         if(adminInfo) {
-            dispatch({type: ADMIN_ADDSTARTAG_RESET})
-            dispatch({type: ADMIN_UPDATESTARTAG_RESET})
-            dispatch(getAllStartag())
+            dispatch(getAllPosts())
             setTimeout(() => {
                 $('#datatable1').DataTable()
             }, 2000)
         } else {
             history.push('/admin-login')
         }
-    }, [dispatch, history, adminInfo, successDelete, statusSuccess])
+    }, [dispatch, history, adminInfo, deleteSuccess, updateSuccess])
 
-    return(
+    return (
         <>
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
@@ -69,39 +66,41 @@ const StartagList = ({history}) => {
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <polyline points="15 6 9 12 15 18" />
-            </svg></Link> Startag Listing</h2>
-        <Link to="/addstartag">
-        <Button variant="dark" className="add-btn"><i className="fas fa-plus"></i>Add Startag</Button>
-        </Link>
+            </svg></Link> Posts Listing</h2>
         </div>
         <table id="datatable1"  className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
                 <th>S No.</th>
                 <th>Name</th>
-                <th>Created At</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Post</th>
+                <th>Added on</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {startags && startags.map((startag, index) => (
-                <tr key={startag._id}>
+            {posts &&  posts.map((post, index) => (
+                <tr key={post._id}>
                     <td>{index+1}.</td>
-                    <td>{startag.name}</td>
-                    <td>{startag.createdAt.substring(0, 10)}</td>
-                    <td>{startag.isActive ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
+                    <td>{post.creator_details.firstname}</td>
+                    <td>{post.creator_details.username}</td>
+                    <td>{post.creator_details.email ? post.creator_details.email : <span>NA</span>}</td>
+                    <td>{post.creator_details.phoneNumber ? post.creator_details.phoneNumber : <span>NA</span>}</td>
+                    <td>Feed</td>
+                    <td>{post.createdAt.substring(0, 10)}</td>
+                    <td>{post.status ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
                     <td style={{padding: '10px'}}>
                         <ul className="action-list">
-                        <li className="action-list-item"><RiEyeFill style={{color: "darkblue"}} /></li>
-                        <Link to={`/editstartag/${startag._id}`}>
-                            <li className="action-list-item"><FaEdit /></li>
-                        </Link>
+                            <li className="action-list-item"><RiEyeFill style={{color: "darkblue"}} /></li>
                             <li 
                                 className="action-list-item" 
                                 onClick={() => {
                                     handleShow()
-                                    deleteHandler(startag._id)
+                                    deleteHandler(post._id)
                                 }}
                                 ><FaTrashAlt style={{color: 'red'}} />
                             </li>
@@ -109,9 +108,9 @@ const StartagList = ({history}) => {
                                 className="action-list-item" 
                                 onClick={() => {
                                     handleShow2()
-                                    statusHandler(startag._id)
-                                    setStatus(startag.isActive)
-                                }}>{startag.isActive ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
+                                    statusHandler(post._id)
+                                    setStatus(post.status)
+                                }}>{post.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
                             </li>
                         </ul>
                     </td>
@@ -123,6 +122,6 @@ const StartagList = ({history}) => {
     )}
     </>
     )
-};
+}
 
-export default StartagList;
+export default PostListPage

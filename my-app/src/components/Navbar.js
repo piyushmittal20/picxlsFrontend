@@ -1,3 +1,4 @@
+import {RiLogoutBoxRFill} from "react-icons/ri"
 
 const Navbar = () => {
   return (
@@ -129,6 +130,9 @@ const Navbar = () => {
                 </svg>
               </span>
             </button>
+            <div class="ms-1 ms-lg-6">
+              <RiLogoutBoxRFill style={{color: 'white', fontSize: '20px'}} />
+            </div>
             {/* <div class="ms-1 ms-lg-6">
               <div
                 class="btn btn-icon btn-sm btn-active-bg-accent"
@@ -343,7 +347,7 @@ const Navbar = () => {
                 </div>
               </div>
             </div> */}
-            <div class="ms-1 ms-lg-6">
+            {/* <div class="ms-1 ms-lg-6">
               <button
                 class="btn btn-icon btn-sm btn-light-danger fw-bolder pulse pulse-danger"
                 data-kt-menu-trigger="click"
@@ -567,7 +571,7 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <button
               class="btn btn-icon btn-sm btn-active-bg-accent d-lg-none ms-1 ms-lg-6"
               id="kt_sidebar_toggler"

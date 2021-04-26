@@ -55,6 +55,12 @@ import {
     userStatusReducer,
 } from './reducers/userReducers.js';
 
+import {
+    listPostReducer,
+    postDeleteReducer,
+    postStatusReducer,
+} from './reducers/postReducers';
+
 const reducer = combineReducers({
     adminLogin: adminLoginReducer,
     pageList: pageListReducer,
@@ -94,6 +100,9 @@ const reducer = combineReducers({
     pageStatus: pageStatusReducer,
     startagStatus: startagStatusReducer,
     userStatus: userStatusReducer,
+    listPost: listPostReducer,
+    postDelete: postDeleteReducer,
+    postStatus: postStatusReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem('adminInfo') ? JSON.parse
