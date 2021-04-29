@@ -61,3 +61,88 @@
 .login-btn p {
     margin: 0 !important;
 }
+
+.box {
+    margin: 10px 0;
+    padding: 15px 0;
+}
+
+.btn-container {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.btn-container .btn {
+    margin: 15px;
+    padding: 10px 30px !important;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.card {
+    font-size: 17px;
+    margin: 10px;
+    border-radius: 3px;
+}
+
+.list {
+    color: darkblue;
+    margin: 10px;
+    padding: 10px;
+}
+
+.list-item {
+    margin: 10px;
+}
+
+.image {
+    width: 100%;
+    height: 470px;
+}
+
+.table {
+    padding: 10px;
+}
+
+.filter-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px;
+    padding: 10px;
+}
+
+.filter-container input {
+    height: 30px;
+    width: 200px;
+}
+
+.filter-container select {
+    height: 30px;
+    width: 200px;
+}
+
+.reset-icon {
+    font-size: 26px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 10px 20px
+}
+
+.modal-input {
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    border: 1px solid darkblue;
+    border-radius: 3px;
+}
+
+#kt_layout_builder_export {
+    background: red;
+    color: white;
+}

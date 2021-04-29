@@ -58,8 +58,8 @@ const CountryListcountry = ({history}) => {
             <div style={{padding: '15px', margin: '10px 80px'}}>
                 <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
                     <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> Country Listing</h2>
                     <Link to="/addcountry">
                     <Button variant="dark" className="add-btn"><i className="fas fa-plus"></i>Add Country</Button>
@@ -73,7 +73,6 @@ const CountryListcountry = ({history}) => {
                             <th>Created At</th>
                             <th>Status</th>
                             <th>Actions</th>
-                            
                         </tr>
                     </thead>
                     <tbody>

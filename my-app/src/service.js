@@ -37,3 +37,5 @@ export const postList = IpAddress;
 export const postDetail = IpAddress;
 export const postDelete = IpAddress;
 export const postStatusUpdate = IpAddress;
+export const reportsList = IpAddress;
+export const reportStatus = IpAddress;

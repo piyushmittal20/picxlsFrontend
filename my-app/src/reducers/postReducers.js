@@ -11,6 +11,12 @@ import {
     ADMIN_POSTSTATUS_REQUEST,
     ADMIN_POSTSTATUS_SUCCESS,
     ADMIN_POSTSTATUS_FAIL,
+    ADMIN_REPORTLIST_REQUEST,
+    ADMIN_REPORTLIST_SUCCESS,
+    ADMIN_REPORTLIST_FAIL,
+    ADMIN_REPORTSTATUS_REQUEST,
+    ADMIN_REPORTSTATUS_SUCCESS,
+    ADMIN_REPORTSTATUS_FAIL,
 } from '../constants/adminConstants';
 
 export const listPostReducer = (state={}, action) => {
@@ -23,6 +29,25 @@ export const listPostReducer = (state={}, action) => {
                 posts: action.payload
             }
         case ADMIN_POSTLIST_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const postDetailReducer = (state={feed: {}}, action) => {
+    switch(action.type) {
+        case ADMIN_POSTDETAIL_REQUEST:
+            return {loading: true}
+        case ADMIN_POSTDETAIL_SUCCESS:
+            return {
+                loading: false,
+                feed: action.payload
+            }
+        case ADMIN_POSTDETAIL_FAIL:
             return {
                 loading: false,
                 error: action.payload
@@ -61,6 +86,44 @@ export const postStatusReducer = (state={}, action) => {
                 success: true
             }
         case ADMIN_POSTSTATUS_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const listReportReducer = (state={}, action) => {
+    switch(action.type) {
+        case ADMIN_REPORTLIST_REQUEST:
+            return {loading: true}
+        case ADMIN_REPORTLIST_SUCCESS:
+            return {
+                loading: false,
+                reports: action.payload
+            }
+        case ADMIN_REPORTLIST_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+}
+
+export const statusUpdateReducer = (state={}, action) => {
+    switch(action.type) {
+        case ADMIN_REPORTSTATUS_REQUEST:
+            return {loading: true}
+        case ADMIN_REPORTSTATUS_SUCCESS:
+            return {
+                loading: false,
+                success: true
+            }
+        case ADMIN_REPORTSTATUS_FAIL:
             return {
                 loading: false,
                 error: action.payload

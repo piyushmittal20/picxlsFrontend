@@ -81,8 +81,7 @@ const EditStartagPage = ({history, match}) => {
 
         const isValid =  validate()
         if(isValid) {
-            setType('')
-            setCost('')
+            
         }
 
         dispatch(updateStartag(newStartag));

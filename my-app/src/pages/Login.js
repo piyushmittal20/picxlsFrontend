@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {Spinner} from 'react-bootstrap';
 import ErrorToast from '../components/ErrorToast';
 import { ADMIN_LOGIN_RESET } from '../constants/adminConstants';
+import Meta from '../components/Meta';
 
 const Login = ({history}) => {
     const [email, setEmail] = useState('')
@@ -55,14 +56,12 @@ const Login = ({history}) => {
 			setPassword('')
 		}
 
-		setEmailErr('')
-		setPasswordErr('')
-
 		dispatch(login(email, password))
 	}
 
 	return (
         <>
+		<Meta title="Sign In | Picxls" />
 		{error && <ErrorToast message={error.message} />}
 		<div className="d-flex flex-column flex-root">
 			<div className="d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">

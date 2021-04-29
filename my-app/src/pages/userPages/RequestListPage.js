@@ -10,6 +10,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../components/Loader';
 import ErrorToast from '../../components/ErrorToast';
+import {ADMIN_VERIFYING_RESET} from '../../constants/adminConstants';
 
 const RequestListPage = ({history}) => {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const RequestListPage = ({history}) => {
     const {success: dropSuccess} = userDropping;
 
     useEffect(() => {
+        dispatch({type: ADMIN_VERIFYING_RESET})
         if(adminInfo) {
             dispatch(verifyRequestList())
             setTimeout(() => {

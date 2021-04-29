@@ -76,7 +76,7 @@ const Modals = ({show, setShow, status}) => {
         <Modal.Header closeButton>
           <Modal.Title style={{color: "black"}}><strong>Change Status</strong></Modal.Title>
         </Modal.Header>
-        <Modal.Body>Sure, you want to Change the Status!!</Modal.Body>
+        <Modal.Body>Sure, you want to Change the Status ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
           <i className="fas fa-times"></i> Cancel

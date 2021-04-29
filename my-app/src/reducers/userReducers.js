@@ -23,6 +23,7 @@ import {
     ADMIN_USERSTATUS_SUCCESS,
     ADMIN_VERIFYING_FAIL,
     ADMIN_VERIFYING_REQUEST,
+    ADMIN_VERIFYING_RESET,
     ADMIN_VERIFYING_SUCCESS,
     ADMIN_VERIFYREQUESTDETAIL_FAIL,
     ADMIN_VERIFYREQUESTDETAIL_REQUEST,
@@ -182,6 +183,8 @@ export const userVerifyingReducer = (state={}, action) => {
                 loading: false,
                 error: action.payload
             }
+        case ADMIN_VERIFYING_RESET:
+            return {}
         default:
             return state
     }

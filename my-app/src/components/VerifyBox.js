@@ -1,19 +1,28 @@
-import {useDispatch} from 'react-redux';
-import {logout} from '../actions/authActions';
 import { Button, Modal } from "react-bootstrap";
+import {useDispatch} from 'react-redux';
+import {verifying} from '../actions/userActions';
 
-const LogoutBox = ({show, setShow}) => {
-    const dispatch = useDispatch();
+const VerifyBox = ({show, setShow}) => {
+    const dispatch = useDispatch()
+
+    const userId = localStorage.getItem('userVerifyId')
+
+    const deleteHandler = () => {
+        if(userId) {
+            dispatch(verifying(userId))
+            localStorage.removeItem('userVerifyId')
+        }
+    }
 
     return (
         <>
-            <Modal show={show} onHide={() => setShow(false)}>
+        <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
-            <strong>Logout</strong>
+            <strong>Verify</strong>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Sure, you want to Logout ?</Modal.Body>
+        <Modal.Body>Sure, you want to Verify the user ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
             <i className="fas fa-times"></i> Cancel
@@ -22,7 +31,7 @@ const LogoutBox = ({show, setShow}) => {
             variant="dark"
             onClick={() => {
               setShow(false);
-              dispatch(logout());
+              deleteHandler();
             }}
           >
             <i className="fas fa-check"></i> Yes
@@ -33,4 +42,4 @@ const LogoutBox = ({show, setShow}) => {
     )
 }
 
-export default LogoutBox
+export default VerifyBox

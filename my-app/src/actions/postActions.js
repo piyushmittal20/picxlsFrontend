@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { FaThermometerEmpty } from 'react-icons/fa';
 
 import {
     ADMIN_POSTLIST_REQUEST,
@@ -17,8 +16,11 @@ import {
     ADMIN_POSTSTATUS_REQUEST,
     ADMIN_POSTSTATUS_SUCCESS,
     ADMIN_POSTSTATUS_FAIL,
+    ADMIN_REPORTSTATUS_REQUEST,
+    ADMIN_REPORTSTATUS_SUCCESS,
+    ADMIN_REPORTSTATUS_FAIL,
 } from '../constants/adminConstants';
-import { postDelete, postDetail, postList, postStatusUpdate } from '../service';
+import { postDelete, postDetail, postList, postStatusUpdate, reportsList, reportStatus } from '../service';
 
 export const getAllPosts = () => async(dispatch, getState) => {
     try {
@@ -93,6 +95,42 @@ export const updatePostStatus = (post, id) => async(dispatch, getState) => {
     } catch (error) {
         dispatch({
             type: ADMIN_POSTSTATUS_FAIL,
+            payload: error.response.data
+        })
+    }
+}
+
+export const reportList = () => async(dispatch, getState) => {
+    try {
+        dispatch({type: ADMIN_REPORTLIST_REQUEST})
+
+        const {data: {reports}} = await axios.get(`${reportsList}/reports`)
+
+        dispatch({
+            type: ADMIN_REPORTLIST_SUCCESS,
+            payload: reports
+        })
+    } catch (error) {
+        dispatch({
+            type: ADMIN_REPORTLIST_FAIL,
+            payload: error.response.data
+        })
+    }
+}
+
+export const reportStatusUpdate = (report, id) => async(dispatch, getState) => {
+    try {
+        dispatch({type: ADMIN_REPORTSTATUS_REQUEST})
+
+        const {data: {updatedReport}} = await axios.put(`${reportStatus}/report/${id}`, report)
+
+        dispatch({
+            type: ADMIN_REPORTSTATUS_SUCCESS,
+            payload: updatedReport
+        })
+    } catch (error) {
+        dispatch({
+            type: ADMIN_REPORTSTATUS_FAIL,
             payload: error.response.data
         })
     }

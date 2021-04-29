@@ -1,5 +1,5 @@
 import { Button, Modal } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import {useDispatch } from "react-redux";
 import {removeStartag} from '../actions/startagActions';
 import {deleteUser} from '../actions/userActions';
 import {deletePost} from '../actions/postActions';
@@ -34,7 +34,7 @@ const DeleteModal = ({show, setShow}) => {
             <strong>Delete</strong>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>Sure, you want to Delete!!</Modal.Body>
+        <Modal.Body>Sure, you want to Delete ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>
             <i className="fas fa-times"></i> Cancel

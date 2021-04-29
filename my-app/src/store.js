@@ -57,8 +57,11 @@ import {
 
 import {
     listPostReducer,
+    postDetailReducer,
     postDeleteReducer,
     postStatusReducer,
+    listReportReducer,
+    statusUpdateReducer,
 } from './reducers/postReducers';
 
 const reducer = combineReducers({
@@ -103,6 +106,9 @@ const reducer = combineReducers({
     listPost: listPostReducer,
     postDelete: postDeleteReducer,
     postStatus: postStatusReducer,
+    postDetail: postDetailReducer,
+    listReport: listReportReducer,
+    statusUpdate: statusUpdateReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem('adminInfo') ? JSON.parse

@@ -203,11 +203,17 @@ export const verifying = (id) => async(dispatch, getState) => {
     }
 }
 
-export const dropping = (id) => async(dispatch, getState) => {
+export const dropping = (reason, id) => async(dispatch, getState) => {
     try {
         dispatch({type: ADMIN_DROPPING_REQUEST})
 
-        const {data: savedUser} = await axios.put(`${droppingUser}/dropping/${id}`)
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const {data: savedUser} = await axios.put(`${droppingUser}/dropping/${id}`, reason, config)
 
         dispatch({
             type: ADMIN_DROPPING_SUCCESS,

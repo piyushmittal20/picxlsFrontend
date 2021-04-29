@@ -24,7 +24,10 @@ import EditStartagPage from './pages/startagPages/EditStartagPage';
 import verifyRequestList from './pages/userPages/RequestListPage';
 import RequestViewPage from './pages/userPages/RequestViewPage';
 import PostListPage from './pages/postPages/PostListPage';
-import Sidebar from './components/Sidebar';
+import PostViewPage from './pages/postPages/PostViewPage';
+import StartagViewPage from './pages/startagPages/StartagViewPage';
+import UserViewPage from './pages/userPages/UserViewPage';
+// import Sidebar from './components/Sidebar';
 
 function App() {  
 
@@ -59,6 +62,9 @@ function App() {
       <Route path="/requestList" exact component={verifyRequestList} />
       <Route path="/viewrequest/:id" exact component={RequestViewPage} />
       <Route path="/postlist" exact component={PostListPage} />
+      <Route path="/viewpost/:id" exact component={PostViewPage} />
+      <Route path="/viewstartag/:id" exact component={StartagViewPage} />
+      <Route path="/viewuser/:id" exact component={UserViewPage} />
     </Switch>
     <Footer />
     </div>

@@ -1,9 +1,9 @@
 import {useEffect} from "react";
 import {useSelector} from 'react-redux';
 import { Link } from "react-router-dom";
+import Meta from '../components/Meta';
 
 const Dashboard = ({history}) => {
-
   const adminLogin = useSelector(state => state.adminLogin)
 	const {adminInfo} = adminLogin
 
@@ -15,6 +15,7 @@ const Dashboard = ({history}) => {
 
   return (
     <>
+    <Meta title="Dashboard | Picxls" />
       {/*begin::Main*/}
       {/*begin::Root*/}
       <div className="d-flex flex-column flex-root">
