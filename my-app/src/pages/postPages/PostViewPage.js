@@ -85,25 +85,25 @@ const PostViewPage = ({ history, match }) => {
                     <ListGroup.Item className="list-item">
                         <Row>
                             <Col>Views</Col>
-                            <Col></Col>
+                            <Col>{f.views.length > 0 ? f.views[0].view_count : 0}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item className="list-item">
                         <Row>
                             <Col>Comments</Col>
-                            <Col></Col>
+                            <Col>{f.comments.length > 0 ? f.comments[0].comment_count : 0}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item className="list-item">
                         <Row>
                             <Col>Likes</Col>
-                            <Col></Col>
+                            <Col>{f.likes.length > 0 ? f.likes[0].like_count : 0}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item className="list-item">
                         <Row>
                             <Col>Reports</Col>
-                            <Col></Col>
+                            <Col>{f.reports.length > 0 ? f.reports[0].report_count : 0}</Col>
                         </Row>
                     </ListGroup.Item>
                 </ListGroup>
