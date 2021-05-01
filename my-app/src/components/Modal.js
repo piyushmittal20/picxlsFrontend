@@ -73,9 +73,6 @@ const Modals = ({show, setShow, status}) => {
     return (
         <>
         <Modal show={show} onHide={() => setShow(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title style={{color: "black"}}><strong>Change Status</strong></Modal.Title>
-        </Modal.Header>
         <Modal.Body>Sure, you want to Change the Status ?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShow(false)}>

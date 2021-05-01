@@ -44,13 +44,17 @@ const StartagViewPage = ({history, match}) => {
         <>
             {show && <DeleteModal show={show} setShow={setShow} />}
             {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
-            <Container>
-            <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px', marginTop: '25px'}}>
-            <h2 className="head"> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <container>
+                <div class="container-fluid mt-10">
+            <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
+                    <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> Startag Detail</h2>
-            </div>
+                    <Link to="/addcountry">
+                    <Button variant="dark" className="add-btn"><i className="fas fa-plus"></i>Add Country</Button>
+                    </Link>
+                </div>
             {startag && (
                 <Row className="box">
                     <Col md={6}>
@@ -99,7 +103,8 @@ const StartagViewPage = ({history, match}) => {
                     </Col>
                 </Row>
             )}
-            </Container>
+            </div>
+            </container>
             )}
         </>
     )

@@ -66,15 +66,16 @@ const EditCountryPage = ({history, match}) => {
 
     return (
         <div class="wapper">
-            <Container>
+            <div class="container-fluid mt-40">
+            <container>
             {updateError && <ErrorToast message={updateError.message} />}
             {error && <ErrorToast message={error.message} />}
             {loading ? <Loader /> : (
-            <form className="m-3 p-2" onSubmit={submitHandler}>
-            <h1> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <form onSubmit={submitHandler}>
+            <h2 class="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
               <polyline points="15 6 9 12 15 18" />
-            </svg></Link> EDIT COUNTRY</h1>
+            </svg></Link>Edit Country</h2>
             <input 
                 type="text" 
                 className="form-control my-5"
@@ -96,7 +97,8 @@ const EditCountryPage = ({history, match}) => {
             </div>
             </form>
             )}
-            </Container>
+            </container>
+            </div>
         </div>
     )
 }

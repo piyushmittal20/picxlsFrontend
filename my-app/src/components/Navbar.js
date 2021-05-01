@@ -65,7 +65,7 @@ const Navbar = () => {
               <img
                 alt="Logo"
                 src="../assets/media/picxls-logo.png"
-                class="h-30px"
+                class="h-50px"
               />
             </a>
           </div>
@@ -77,8 +77,8 @@ const Navbar = () => {
             >
               <span class="svg-icon svg-icon-1 svg-icon-dark">
                 <svg
-                  width="24px"
-                  height="24px"
+                  width="35px"
+                  height="35px"
                   viewBox="0 0 24 24"
                   version="1.1"
                 >
