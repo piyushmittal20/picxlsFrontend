@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {getUserDetails, userUpdate} from '../../actions/userActions';
 import Loader from '../../components/Loader';
@@ -51,8 +51,9 @@ const EditUserPage = ({history, match}) => {
     }
 
     return (
-        <>
-            <Container>
+        <div className="wapper">
+            <div className="container-fluid mt-40">
+            <container>
             {updateError && <ErrorToast message={updateError.message} />}
             {error && <ErrorToast message={error.message} />}
             {loading ? <Loader /> : (
@@ -93,8 +94,9 @@ const EditUserPage = ({history, match}) => {
             </div>
             </form>
             )}
-            </Container>
-        </>
+            </container>
+            </div>
+        </div>
     )
 }
 

@@ -102,11 +102,11 @@ const PostListPage = ({history}) => {
     }
 
     return (
-        <>
+        <div className="wrapper">
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
         {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
-        <div style={{padding: '15px', margin: '10px 80px'}}>
+        <div className="container-fluid mt-10">
         <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -130,15 +130,15 @@ const PostListPage = ({history}) => {
         <table id="datatable1"  className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
-                <th>S No.</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Contact Number</th>
-                <th>Post</th>
-                <th>Added on</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className="colorblack"><bold>#</bold></th>
+                <th className="colorblack">Name</th>
+                <th className="colorblack">Username</th>
+                <th className="colorblack">Email</th>
+                <th className="colorblack">Contact Number</th>
+                <th className="colorblack">Post</th>
+                <th className="colorblack">Added on</th>
+                <th className="colorblack">Status</th>
+                <th className="colorblack">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -182,7 +182,7 @@ const PostListPage = ({history}) => {
 	</table>
     </div>
     )}
-    </>
+    </div>
     )
 }
 

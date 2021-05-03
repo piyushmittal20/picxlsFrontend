@@ -48,27 +48,27 @@ const RequestListPage = ({history}) => {
     }
 
     return (
-        <>
+        <div className="wrapper">
         {error && <ErrorToast message={error.message} />}
         {loading ? <Loader /> : (
-        <div style={{padding: '15px', margin: '10px 80px'}}>
+        <div className="container-fluid mt-10">
         <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> Requests Listing</h2>
         </div>
         <table id="datatable1"  className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
-                <th>S No.</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Contact Number</th>
-                <th>Request Date</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className="colorblack"><bold>#</bold></th>
+                <th className="colorblack">Name</th>
+                <th className="colorblack">Username</th>
+                <th className="colorblack">Email</th>
+                <th className="colorblack">Contact Number</th>
+                <th className="colorblack">Request Date</th>
+                <th className="colorblack">Status</th>
+                <th className="colorblack">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -107,7 +107,7 @@ const RequestListPage = ({history}) => {
 	</table>
     </div>
         )}
-        </>
+        </div>
     )
 }
 
