@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllStartag} from '../../actions/startagActions';
 import {Link} from 'react-router-dom';
-import {Button, Badge, Row, Col} from 'react-bootstrap';
+import {Button, Badge} from 'react-bootstrap';
 import DeleteModal from '../../components/DeleteModal';
 import Modals from '../../components/Modal';
 import {FaTrashAlt, FaEdit} from 'react-icons/fa';
@@ -110,11 +110,11 @@ const StartagList = ({history}) => {
     }
 
     return(
-        <>
+        <div className="wapper">
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
         {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
-        <div style={{padding: '15px', margin: '10px 80px'}}>
+        <div className="container-fluid mt-10">
         <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -148,12 +148,12 @@ const StartagList = ({history}) => {
         <table id="datatable1"  className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
-                <th>S No.</th>
-                <th>Name</th>
-                <th>Created At</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th className="colorblack"><bold>#</bold></th>
+                <th className="colorblack">Name</th>
+                <th className="colorblack">Created On</th>
+                <th className="colorblack">Type</th>
+                <th className="colorblack">Status</th>
+                <th className="colorblack">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -197,7 +197,7 @@ const StartagList = ({history}) => {
 	</table>
     </div>
     )}
-    </>
+    </div>
     )
 };
 

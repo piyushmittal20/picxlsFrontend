@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {getCountry, updateCountry} from '../../../actions/masterSettings';
 import Loader from '../../../components/Loader';
@@ -73,8 +73,8 @@ const EditCountryPage = ({history, match}) => {
             {loading ? <Loader /> : (
             <form onSubmit={submitHandler}>
             <h2 class="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link>Edit Country</h2>
             <input 
                 type="text" 
@@ -89,7 +89,7 @@ const EditCountryPage = ({history, match}) => {
             </Link>
             {updateLoading ? 
             <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
                 Updating...
             </Button>
             :

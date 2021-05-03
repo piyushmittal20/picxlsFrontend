@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {createCity, getAllCountries, getAllStates} from '../../../actions/masterSettings';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ErrorToast from '../../../components/ErrorToast';
 import Loader from '../../../components/Loader';
@@ -78,14 +78,15 @@ const AddCityPage = ({history}) => {
     }
 
     return (
-        <div class="wapper">
-            <Container>
+        <div className="wapper">
+            <div className="container-fluid mt-40">
+            <container>
             {createError && <ErrorToast message={createError.message} />}
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={submitForm}>
             <h1> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> ADD CITY</h1>
             <select className="form-select my-5" aria-label="Select example" value={country} onChange={e => setCountry(e.target.value)}>
                 <option>Select Country</option>
@@ -114,7 +115,7 @@ const AddCityPage = ({history}) => {
             </Link>
             {createLoading ? 
                 <Button type="submit" variant="dark" disabled>
-                    <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                    <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
                     Creating...
                 </Button>
                 :
@@ -123,7 +124,8 @@ const AddCityPage = ({history}) => {
             </div>
             </form>
             )}
-            </Container>
+            </container>
+            </div>
         </div>
     )
 }

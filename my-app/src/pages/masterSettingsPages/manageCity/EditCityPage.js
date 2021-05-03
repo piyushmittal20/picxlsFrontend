@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Loader from '../../../components/Loader';
@@ -79,14 +79,15 @@ const EditCityPage = ({history, match}) => {
     }
 
     return (
-        <div class="wapper">
-            <Container>
+        <div className="wapper">
+            <div class="container-fluid mt-40">
+            <container>
             {updateErr && <ErrorToast message={updateErr.message} />}
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={submitForm}>
             <h1> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> EDIT CITY</h1>
             <input 
                 type="text" 
@@ -121,7 +122,8 @@ const EditCityPage = ({history, match}) => {
             </div>
             </form>
             )}
-            </Container>
+            </container>
+            </div>
         </div>
     )
 }

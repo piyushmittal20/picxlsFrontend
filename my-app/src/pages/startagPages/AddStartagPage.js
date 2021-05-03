@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import {createStartag} from '../../actions/startagActions';
 import ErrorToast from '../../components/ErrorToast';
 
@@ -70,13 +70,14 @@ const AddStartagPage = ({history}) => {
     }, [history, createSuccess])
 
     return (
-        <>
-            <Container>
+        <div className="wrapper">
+            <div className="container-fluid mt-40">
+            <container>
             {error && <ErrorToast message={error.message} />}
             <form className="m-3 p-2" onSubmit={submitForm}>
             <h1> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> ADD STARTAG</h1>
             <input 
                 type="text" 
@@ -114,15 +115,16 @@ const AddStartagPage = ({history}) => {
             </Link>
             {loading ?
             <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
                 Creating...
             </Button>
             :
             <Button type="submit" variant="dark">Create</Button>}
             </div>
             </form>
-            </Container>
-        </>
+            </container>
+            </div>
+        </div>
     )
 }
 

@@ -51,13 +51,13 @@ const CountryListcountry = ({history}) => {
     }, [dispatch, successDelete, updateSuccess, adminInfo])
 
     return (
-        <div class="wapper">
+        <div className="wapper">
             {show && <Modals show={show} setShow={setShow} status={status} />}
             {error && <ErrorToast message={error.message}/>}
             {loading ? <Loader /> : (
-            <div class="container-fluid mt-10">
+            <div className="container-fluid mt-10">
                 <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
-                    <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> Country Listing</h2>
@@ -68,11 +68,11 @@ const CountryListcountry = ({history}) => {
                 <table id="datatable1"  className="table table-row-bordered gy-5">
                     <thead>
                         <tr className="fw-bold fs-6 text-muted">
-                            <th class="colorblack"><bold>#</bold></th>
-                            <th class="colorblack">Title</th>
-                            <th class="colorblack">Created At</th>
-                            <th class="colorblack">Status</th>
-                            <th class="colorblack">Actions</th>
+                            <th className="colorblack"><bold>#</bold></th>
+                            <th className="colorblack">Title</th>
+                            <th className="colorblack">Created On</th>
+                            <th className="colorblack">Status</th>
+                            <th className="colorblack">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -102,7 +102,7 @@ const CountryListcountry = ({history}) => {
                             </tr>
                         ))}
                     </tbody>
-        	   </table>
+                </table>
             </div>
             )}
         </div>

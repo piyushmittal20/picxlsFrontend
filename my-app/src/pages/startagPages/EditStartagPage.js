@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getStartag} from '../../actions/startagActions';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {updateStartag} from '../../actions/startagActions';
 import Loader from '../../components/Loader';
@@ -88,15 +88,16 @@ const EditStartagPage = ({history, match}) => {
     }
 
     return (
-        <>
-            <Container>
+        <div className="wrapper">
+            <div className="container-fluid mt-40">
+            <container>
             {error && <ErrorToast message={error.message} />}
             {updateError && <ErrorToast message={updateError.message} />}
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={submitForm}>
             <h1> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link> EDIT STARTAG</h1>
             <input 
                 type="text" 
@@ -144,8 +145,9 @@ const EditStartagPage = ({history, match}) => {
             </div>
             </form>
             )}
-            </Container>
-        </>
+            </container>
+            </div>
+        </div>
     )
 }
 

@@ -46,14 +46,14 @@ const CmsPageList = ({history}) => {
     }, [dispatch, history, adminInfo, updateSuccess])
 
     return (
-    <div class="wapper">
+    <div className="wapper">
     <Meta title="CMS | Picxls" />
     {show && <Modals show={show} setShow={setShow} status={status} />}
     {error && <ErrorToast message={error.message} />}
     {loading ? <Loader /> : (
-    <div style={{padding: '15px', margin: '10px 80px'}}>
+    <div className="container-fluid mt-10">
     <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
-                    <h2> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <h2> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> CMS Listing</h2>
@@ -61,11 +61,11 @@ const CmsPageList = ({history}) => {
     <table id="datatable1" className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
-                <th>S No.</th>
-                <th>Title</th>
-                <th>Created At</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <th className="colorblack"><bold>#</bold></th>
+                <th className="colorblack">Title</th>
+                <th className="colorblack">Created On</th>
+                <th className="colorblack">Status</th>
+                <th className="colorblack">Actions</th>
             </tr>
         </thead>
         <tbody>

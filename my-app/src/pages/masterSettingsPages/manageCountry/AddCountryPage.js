@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {createCountry} from '../../../actions/masterSettings';
-import {Button, Container, Spinner} from 'react-bootstrap';
+import {Button, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import ErrorToast from '../../../components/ErrorToast';
 
@@ -50,14 +50,14 @@ const AddCountryPage = ({history}) => {
     }, [history, createSuccess])
 
     return (
-        <div class="wapper">
-            <div class="container-fluid mt-40">
+        <div className="wapper">
+            <div className="container-fluid mt-40">
             <container>
             {error && <ErrorToast message={error.message} />}
             <form onSubmit={submitForm}>
-            <h2 class="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-              <polyline points="15 6 9 12 15 18" />
+            <h2 className="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <polyline points="15 6 9 12 15 18" />
             </svg></Link>Add Country</h2>
             <input 
                 type="text" 
@@ -72,7 +72,7 @@ const AddCountryPage = ({history}) => {
                     </Link>
                     {loading ?
                     <Button type="submit" variant="dark" disabled>
-                        <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                        <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
                         Creating...
                     </Button>
                     :

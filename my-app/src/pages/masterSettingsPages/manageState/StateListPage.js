@@ -11,6 +11,7 @@ import $ from 'jquery';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../../components/Loader';
+import ErrorToast from '../../../components/ErrorToast';
 
 const StateListPage = ({history}) => {
     const [show, setShow] = useState(false);
@@ -51,8 +52,8 @@ const StateListPage = ({history}) => {
     return (
         <div class="wapper">
         {show && <Modals show={show} setShow={setShow} status={status} />}
-        {loading ? <Loader /> : (
-        <div style={{padding: '15px', margin: '10px 80px'}}>
+        {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
+        <div className="container-fluid mt-10">
         <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px'}}>
             <h2 className="head"> <Link to="/"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -65,12 +66,11 @@ const StateListPage = ({history}) => {
         <table id="datatable1" className="table table-row-bordered gy-5">
         <thead>
             <tr className="fw-bold fs-6 text-muted">
-                <th>S No.</th>
-                <th>Name</th>
-                <th>Created At</th>
-                <th>Status</th>
-                <th>Actions</th>
-                
+                <th className="colorblack"><bold>#</bold></th>
+                <th className="colorblack">Name</th>
+                <th className="colorblack">Created On</th>
+                <th className="colorblack">Status</th>
+                <th className="colorblack">Actions</th>
             </tr>
         </thead>
         <tbody>
