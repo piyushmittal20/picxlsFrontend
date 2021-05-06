@@ -1,66 +1,36 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {Button, Spinner} from 'react-bootstrap';
 import {createUser} from '../../actions/userActions';
 import ErrorToast from '../../components/ErrorToast';
+import Meta from '../../components/Meta';
+import {useForm} from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const AddUserPage = ({history}) => {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [contactNumber, setContactNumber] = useState('')
-    const [nameErr, setNameErr] = useState('')
-    const [emailErr, setEmailErr] = useState('')
-    const [contactNumberErr, setContactNumberErr] = useState('')
-
-    const validate = () => {
-        let nameErr = ''
-        let emailErr = ''
-        let contactNumberErr = ''
-
-        if(!name){
-            nameErr = "Only empty sapce isn't required"
-        }
-        if(!email){
-            emailErr = "Only empty space isn't required"
-        }
-        if(!contactNumber){
-            contactNumberErr = "Only empty space isn't required"
-        }
-
-        if(nameErr && emailErr && contactNumberErr) {
-            setEmailErr(emailErr)
-            setNameErr(nameErr)
-            setContactNumberErr(contactNumberErr)
-            return false
-        }
-
-        return true
-    }
-
     const dispatch = useDispatch();
 
     const userCreate = useSelector(state => state.userCreate)
     const {loading, error, success: createSuccess} = userCreate
 
-    const submitForm = (e) => {
-        e.preventDefault()
+    const schema = yup.object().shape({
+        firstname: yup.string().required('This Field is Required').max(50).trim(),
+        lastname: yup.string().required('This Field is Required').max(50).trim(),
+        email: yup.string().email().required('This Field is Required').trim(),
+        phoneNumber: yup.number().required('This Field is Required').min(7)
+    });
+    const { register, handleSubmit, formState:{errors}, watch } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(schema),
+    })
 
-        const newUser = {
-            firstname: name,
-            email: email,
-            phoneNumber: contactNumber
-        }
-
-        const isValid = validate()
-        if(isValid) {
-            setName('')
-            setEmail('')
-            setContactNumber('')
-        }
-
-        dispatch(createUser(newUser))
+    const submitForm = (data) => {
+        dispatch(createUser(data))
     }
+
+    console.log(errors);
 
     useEffect(() => {
         if(createSuccess) {
@@ -70,35 +40,39 @@ const AddUserPage = ({history}) => {
 
     return (
         <div className="wapper">
+            <Meta title="Add User - Picxls" />
             <div className="container-fluid mt-40">
             <container>
-            {error && <ErrorToast message={error.message} />}
-            <form className="m-3 p-2" onSubmit={submitForm}>
+            {errors.firstname && <ErrorToast message={errors.firstname.message} />}
+            <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1> <Link to="/userlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> ADD USER</h1>
             <input 
                 type="text" 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                {...register("firstname")}
                 className="form-control my-5" 
-                placeholder="Enter Name"/>
-            <span className="error-msg">{nameErr}</span>
+                placeholder="Enter firstname"/>
+            {errors.firstname && <p className="text-danger small p-1">{errors.firstname.message}</p>}
             <input 
                 type="text" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("lastname")}
+                className="form-control my-5" 
+                placeholder="Enter lastname"/>
+            {errors.lastname && <p className="text-danger small p-1">{errors.lastname.message}</p>}
+            <input 
+                type="text" 
+                {...register("email")}
                 className="form-control my-5" 
                 placeholder="Enter Email"/>
-            <span className="error-msg">{emailErr}</span>
+            {errors.email && <p className="text-danger small p-1">{errors.email.message}</p>}
             <input 
-                type="text" 
-                value={contactNumber}
-                onChange={(e) => setContactNumber(e.target.value)}
+                type="number" 
+                {...register("phoneNumber")}
                 className="form-control my-5" 
                 placeholder="Enter Contact number"/>
-            <span className="error-msg">{contactNumberErr}</span>
+            {errors.phoneNumber && <p className="text-danger small p-1">{errors.phoneNumber.message}</p>}
             <div className="text-right">
             <Link to="/userlist">
                 <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>

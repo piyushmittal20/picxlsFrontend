@@ -5,26 +5,30 @@ import {Link} from 'react-router-dom';
 import {getCountry, updateCountry} from '../../../actions/masterSettings';
 import Loader from '../../../components/Loader';
 import ErrorToast from '../../../components/ErrorToast';
+import Meta from '../../../components/Meta';
+import {useForm} from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const EditCountryPage = ({history, match}) => {
     const countryId = match.params.id;
 
-    const [title, setTitle] = useState('');
-    const [titleError, setTitleError] = useState('')
+    // const [title, setTitle] = useState('');
+    // const [titleError, setTitleError] = useState('')
 
-    const validate = () => {
-        let titleError = '';
+    // const validate = () => {
+    //     let titleError = '';
 
-        if(!title) {
-            titleError = "Only empty sapce isn't required"
-        }
+    //     if(!title) {
+    //         titleError = "Only empty sapce isn't required"
+    //     }
 
-        if(titleError) {
-            setTitleError(titleError)
-            return false
-        }
-        return true;
-    }
+    //     if(titleError) {
+    //         setTitleError(titleError)
+    //         return false
+    //     }
+    //     return true;
+    // }
 
     const dispatch = useDispatch();
 
@@ -34,6 +38,18 @@ const EditCountryPage = ({history, match}) => {
     const countryUpdate = useSelector(state => state.countryUpdate)
     const {loading: updateLoading, error: updateError, success: updateSuccess} = countryUpdate
 
+    const schema = yup.object().shape({
+        title: yup
+            .string()
+            .required('This Field is Required').max(50).trim()
+    });
+    const { register, handleSubmit, formState:{errors}, watch, setValue } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(schema),
+    })
+
+    console.log(errors);
+
     useEffect(() => {
         if(updateSuccess) {
             history.push('/countrylist')
@@ -42,36 +58,25 @@ const EditCountryPage = ({history, match}) => {
                 if(!country.title || country._id !== countryId) {
                     dispatch(getCountry(countryId))
                 } else {
-                    setTitle(country.title)
+                    setValue('title', country.title)
                 }
             }
         }
     }, [dispatch, country, countryId, updateSuccess, history])
 
-    const submitHandler = (e) => {
-        e.preventDefault()
-
-        const updatedCountry = {
-            _id: countryId,
-            title: title
-        }
-
-        const isValid = validate();
-        if(isValid) {
-            setTitle('')
-        }
-
-        dispatch(updateCountry(updatedCountry))
+    const submitHandler = (data) => {
+        dispatch(updateCountry(data, countryId))
     }
 
     return (
         <div class="wapper">
+            <Meta title="Edit Country - Picxls" />
             <div class="container-fluid mt-40">
             <container>
             {updateError && <ErrorToast message={updateError.message} />}
-            {error && <ErrorToast message={error.message} />}
+            {errors.title && <ErrorToast message={errors.title.message} />}
             {loading ? <Loader /> : (
-            <form onSubmit={submitHandler}>
+            <form onSubmit={handleSubmit(submitHandler)}>
             <h2 class="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
@@ -79,10 +84,9 @@ const EditCountryPage = ({history, match}) => {
             <input 
                 type="text" 
                 className="form-control my-5"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                {...register("title")}
                 placeholder="Enter Country"/>
-            <span className="error-msg">{titleError}</span>
+            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
             <div className="text-right">
             <Link to="/countrylist">
             <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>

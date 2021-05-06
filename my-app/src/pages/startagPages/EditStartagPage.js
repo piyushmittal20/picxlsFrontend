@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {updateStartag} from '../../actions/startagActions';
 import Loader from '../../components/Loader';
 import ErrorToast from '../../components/ErrorToast';
+import Meta from '../../components/Meta';
 
 const EditStartagPage = ({history, match}) => {
     const startagId = match.params.id;
@@ -89,6 +90,7 @@ const EditStartagPage = ({history, match}) => {
 
     return (
         <div className="wrapper">
+            <Meta title="Edit Startag - Picxls" />
             <div className="container-fluid mt-40">
             <container>
             {error && <ErrorToast message={error.message} />}

@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllStates} from '../../../actions/masterSettings'
 import {Link} from 'react-router-dom';
-import {Button, Badge} from 'react-bootstrap';
+import {Button, Badge, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {ADMIN_ADDSTATE_RESET} from '../../../constants/adminConstants';
 import Modals from '../../../components/Modal';
 import {FaEdit} from 'react-icons/fa';
@@ -12,6 +12,8 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../../components/Loader';
 import ErrorToast from '../../../components/ErrorToast';
+import Meta from '../../../components/Meta';
+import moment from 'moment';
 
 const StateListPage = ({history}) => {
     const [show, setShow] = useState(false);
@@ -51,6 +53,7 @@ const StateListPage = ({history}) => {
 
     return (
         <div class="wapper">
+            <Meta title="State List - Picxls" />
         {show && <Modals show={show} setShow={setShow} status={status} />}
         {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
         <div className="container-fluid mt-10">
@@ -78,13 +81,28 @@ const StateListPage = ({history}) => {
                 <tr key={state._id}>
                     <td>{index+1}.</td>
                     <td>{state.title}</td>
-                    <td>{state.createdAt.substring(0, 10)}</td>
+                    <td>{moment(state.createdAt.substring(0, 10)).format("MMMM Do YYYY")}</td>
                     <td>{state.status ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
                     <td>
                         <ul className="action-list">
                             <Link to={`/editstate/${state._id}`}>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Edit
+                                    </Tooltip>
+                                )}>
                             <li className="action-list-item"><FaEdit /></li>
+                            </OverlayTrigger>
                             </Link>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Change Status
+                                    </Tooltip>
+                                )}>
                             <li 
                             className="action-list-item"
                             onClick = {() => {
@@ -93,6 +111,7 @@ const StateListPage = ({history}) => {
                                 setStatus(state.status)
                             }}
                             >{state.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}</li>
+                            </OverlayTrigger>
                         </ul>
                     </td>
                 </tr>

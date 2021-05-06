@@ -61,7 +61,7 @@ const Login = ({history}) => {
 
 	return (
         <>
-		<Meta title="Sign In | Picxls" />
+		<Meta title="Sign In - Picxls" />
 		{error && <ErrorToast message={error.message} />}
 		<div className="d-flex flex-column flex-root">
 			<div className="d-flex flex-column flex-lg-row flex-column-fluid" id="kt_login">

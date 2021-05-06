@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Container, Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap';
+import {Image, Button} from 'react-bootstrap';
 import {verifyRequestDetail} from '../../actions/userActions';
 import VerifyBox from '../../components/VerifyBox';
 import DropModal from '../../components/DropModal';
@@ -15,7 +15,7 @@ const RequestViewPage = ({history, match}) => {
     const dispatch = useDispatch()
 
     const adminLogin = useSelector(state => state.adminLogin)
-	const {adminInfo} = adminLogin
+    const {adminInfo} = adminLogin
 
     const requestDetail = useSelector(state => state.requestDetail)
     const {loading, error, request} = requestDetail;
@@ -51,7 +51,8 @@ const RequestViewPage = ({history, match}) => {
         <>
             {show2 && <DropModal show={show2} setShow={setShow2} />}
             {show && <VerifyBox show={show} setShow={setShow} />}
-            <Container>
+            <container>
+            <div className="container-fluid mt-10">
             <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px', marginTop: '25px'}}>
             <h2 className="head"> <Link to="/requestlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -59,53 +60,49 @@ const RequestViewPage = ({history, match}) => {
             </svg></Link> Request Detail</h2>
             </div>
             {request && request.userId && (
-                <Row>
-                    <Col md={6} style={{padding: '15px'}}>
-                        <Image className="image" src={`https://picxls-testing.herokuapp.com/${request.photo}`} alt="Id Proof" fluid />
-                    </Col>
-                    <Col md={6}>
-                        <Card className="card">
-                        <ListGroup variant="flush" className="list">
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>Name:</Col>
-                                <Col>{request.name}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>Username:</Col>
-                                <Col>{request.username}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>Category:</Col>
-                                <Col>{request.category}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>DOB:</Col>
-                                <Col>{request.userId.birthday}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>Email:</Col>
-                                <Col>{request.userId.email}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                            <ListGroup.Item className="list-item">
-                            <Row>
-                                <Col>Contact no:</Col>
-                                <Col>{request.userId.phoneNumber ? request.userId.phoneNumber: <span>NA</span>}</Col>
-                            </Row>
-                            </ListGroup.Item>
-                        </ListGroup>
-                        </Card>
-                        <div className="btn-container">
-                        <Button 
+                <div class="card mb-5 mb-xxl-8">
+                <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
+                  <div
+                    class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
+                  >
+                      <Image
+                      className="image"
+                      src={request.photo}
+                      alt="photo"
+                      fluid
+                    />
+                  </div>
+                  <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
+                    <div class="card-body bg-light px-12 py-10">
+                      <h3 class="fw-bolder fs-1 mb-9">
+                        <a href="#" class="text-gray-800">
+                        {request.username}
+                        </a>
+                      </h3>
+                      <table class="table table-borderless align-middle fw-bold">
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Name</td>
+                          <td class="tdpd text-dark pe-0">{request.name}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Category</td>
+                          <td class="tdpd text-dark pe-0">{request.category}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">DOB:</td>
+                          <td class="tdpd text-dark pe-0">{request.userId.birthday}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Email:</td>
+                          <td class="tdpd text-dark pe-0">{request.userId.email}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Contact No:</td>
+                          <td class="tdpd text-dark pe-0">{request.userId.phoneNumber}</td>
+                        </tr>
+                      </table>
+                      <div className="btn-container">
+                      <Button 
                         className="btn" 
                         variant="success" 
                         style={{background: 'green'}}
@@ -123,11 +120,81 @@ const RequestViewPage = ({history, match}) => {
                             showHandler2(request._id)
                         }}
                         >Dropped</Button>
-                        </div>
-                    </Col>
-                </Row>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                // <Row>
+                //     <Col md={6} style={{padding: '15px'}}>
+                //         <Image className="image" src={`https://picxls-testing.herokuapp.com/${request.photo}`} alt="Id Proof" fluid />
+                //     </Col>
+                //     <Col md={6}>
+                //         <Card className="card">
+                //         <ListGroup variant="flush" className="list">
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>Name:</Col>
+                //                 <Col>{request.name}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>Username:</Col>
+                //                 <Col>{request.username}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>Category:</Col>
+                //                 <Col>{request.category}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>DOB:</Col>
+                //                 <Col>{request.userId.birthday}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>Email:</Col>
+                //                 <Col>{request.userId.email}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //             <ListGroup.Item className="list-item">
+                //             <Row>
+                //                 <Col>Contact no:</Col>
+                //                 <Col>{request.userId.phoneNumber ? request.userId.phoneNumber: <span>NA</span>}</Col>
+                //             </Row>
+                //             </ListGroup.Item>
+                //         </ListGroup>
+                //         </Card>
+                //         <div className="btn-container">
+                        // <Button 
+                        // className="btn" 
+                        // variant="success" 
+                        // style={{background: 'green'}}
+                        // onClick={() => {
+                        //     handleShow()
+                        //     showHandler(request._id)
+                        // }}
+                        // >Verify</Button>
+                        // <Button 
+                        // className="btn" 
+                        // variant="danger" 
+                        // style={{background: 'red'}}
+                        // onClick={() => {
+                        //     handleShow2()
+                        //     showHandler2(request._id)
+                        // }}
+                        // >Dropped</Button>
+                //         </div>
+                //     </Col>
+                // </Row>
             )}
-            </Container>
+            </div>
+            </container>
         </>
     )
 }

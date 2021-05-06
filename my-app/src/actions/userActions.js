@@ -124,7 +124,8 @@ export const getUserDetails = (id) => async(dispatch, getState) => {
     }
 }
 
-export const userUpdate = (user) => async(dispatch, getState) => {
+export const userUpdate = (user, id) => async(dispatch, getState) => {
+    console.log(user)
     try {
         dispatch({type: ADMIN_UPDATEUSER_REQUEST})
 
@@ -134,7 +135,9 @@ export const userUpdate = (user) => async(dispatch, getState) => {
             }
         }
 
-        const {data: {savedUser}} = await axios.put(`${updateUser}/user/${user._id}`, user, config)
+        const {data: {savedUser}} = await axios.put(`${updateUser}/user/${id}`, user, config)
+
+        console.log(savedUser)
 
         dispatch({type: ADMIN_UPDATEUSER_SUCCESS})
         dispatch({
@@ -237,7 +240,7 @@ export const updateUserStatus = (user, id) =>  async(dispatch, getState) => {
             }
         }
 
-        const {data: {updatedUser}} = await axios.put(`${userStatus}/user/${id}`, user, config)
+        const {data: {updatedUser}} = await axios.put(`${userStatus}/userStatus/${id}`, user, config)
 
         dispatch({
             type: ADMIN_USERSTATUS_SUCCESS,

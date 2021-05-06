@@ -2,6 +2,7 @@
 const IpAddress = `https://picxls-testing.herokuapp.com/api/admin`;
 
 export const adminLogin = IpAddress ;
+export const getPages = IpAddress;
 export const addcountry = IpAddress ;
 export const listCountry = IpAddress;
 export const detailCountry = IpAddress;

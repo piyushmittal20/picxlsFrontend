@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {Button, Badge} from 'react-bootstrap';
+import {Button, Badge, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {listUsers} from '../../actions/userActions';
 import DeleteModal from '../../components/DeleteModal';
 import Modals from '../../components/Modal';
@@ -16,6 +16,7 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../components/Loader';
 import { ADMIN_ADDUSER_RESET, ADMIN_UPDATEUSER_RESET } from '../../constants/adminConstants';
 import ErrorToast from '../../components/ErrorToast';
+import Meta from '../../components/Meta';
 
 const UserListPage = ({history}) => {
     const [show, setShow] = useState(false);
@@ -104,6 +105,7 @@ const UserListPage = ({history}) => {
 
     return (
         <div className="wrapper">
+        <Meta title = "User Management - Picxls" />
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
         {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
@@ -152,19 +154,42 @@ const UserListPage = ({history}) => {
                     <td>{user.username}</td>
                     <td>{user.email ? user.email : <span>NA</span>}</td>
                     <td>{user.phoneNumber ? user.phoneNumber : <span>NA</span>}</td>
-                    <td>{user.createdAt.substring(0, 10)}</td>
+                    <td>{moment(user.createdAt.substring(0, 10)).format("MMMM Do YYYY")}</td>
                     {/* <td>{user.status ? "Active" : "InActive"}</td> */}
                     <td>{user.status ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
                     <td style={{padding: '10px'}}>
                         <ul className="action-list">
                             <Link to={`/viewuser/${user._id}`}>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    View
+                                    </Tooltip>
+                            )}>
                             <li className="action-list-item"><RiEyeFill style={{color: "darkblue"}} /></li>
+                            </OverlayTrigger>
                             </Link>
                             <Link to={`/edituser/${user._id}`}>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Edit
+                                    </Tooltip>
+                            )}>
                             <li className="action-list-item">
                                 <FaEdit />
                             </li>
+                            </OverlayTrigger>
                             </Link>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Delete
+                                    </Tooltip>
+                            )}>
                             <li 
                                 className="action-list-item" 
                                 onClick={() => {
@@ -173,6 +198,14 @@ const UserListPage = ({history}) => {
                                 }}
                                 ><FaTrashAlt style={{color: 'red'}} />
                             </li>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Change Status
+                                    </Tooltip>
+                            )}>
                             <li 
                                 className="action-list-item" 
                                 onClick={() => {
@@ -181,6 +214,7 @@ const UserListPage = ({history}) => {
                                     setStatus(user.status)
                                 }}>{user.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
                             </li>
+                            </OverlayTrigger>
                         </ul>
                     </td>
                 </tr>

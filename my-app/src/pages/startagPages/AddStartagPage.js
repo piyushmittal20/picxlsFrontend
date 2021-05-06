@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {Button, Spinner} from 'react-bootstrap';
 import {createStartag} from '../../actions/startagActions';
 import ErrorToast from '../../components/ErrorToast';
+import Meta from '../../components/Meta';
 
 const AddStartagPage = ({history}) => {
     const [name, setName] = useState('')
@@ -71,6 +72,7 @@ const AddStartagPage = ({history}) => {
 
     return (
         <div className="wrapper">
+            <Meta title="Add Startag - Picxls" />
             <div className="container-fluid mt-40">
             <container>
             {error && <ErrorToast message={error.message} />}

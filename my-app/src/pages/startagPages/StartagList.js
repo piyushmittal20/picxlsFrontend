@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllStartag} from '../../actions/startagActions';
 import {Link} from 'react-router-dom';
-import {Button, Badge} from 'react-bootstrap';
+import {Button, Badge, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import DeleteModal from '../../components/DeleteModal';
 import Modals from '../../components/Modal';
 import {FaTrashAlt, FaEdit} from 'react-icons/fa';
@@ -16,6 +16,7 @@ import $ from 'jquery';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { ADMIN_ADDSTARTAG_RESET, ADMIN_UPDATESTARTAG_RESET } from "../../constants/adminConstants";
+import Meta from "../../components/Meta";
 
 const StartagList = ({history}) => {
     const [show, setShow] = useState(false);
@@ -74,10 +75,12 @@ const StartagList = ({history}) => {
 
     useEffect(() => {
         if(startDate && lastDate) {
+            console.log("Hello");
             result = startags && startags.filter(startag => (
                 moment(startag.createdAt).isBetween(startDate, lastDate)
             ))
         } if(startDate && !lastDate) {
+            console.log("Hello2");
             result = startags && startags.filter(startag  => (
                 moment(startag.createdAt).isSame(startDate)
             ))
@@ -111,6 +114,7 @@ const StartagList = ({history}) => {
 
     return(
         <div className="wapper">
+        <Meta title="Startag Management - Picxls" />
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}
         {loading ? <Loader /> : error ? <ErrorToast message={error.message} /> : (
@@ -161,18 +165,41 @@ const StartagList = ({history}) => {
                 <tr key={startag._id}>
                     <td>{index+1}.</td>
                     <td>{startag.name}</td>
-                    <td>{startag.createdAt.substring(0, 10)}</td>
+                    <td>{moment(startag.createdAt.substring(0, 10)).format("MMMM Do YYYY")}</td>
                     <td>{startag.type}</td>
                     {/* <td>{startag.isActive ? "Active" : "InActive"}</td> */}
                     <td>{startag.isActive ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
                     <td style={{padding: '10px'}}>
                         <ul className="action-list">
                         <Link to={`viewstartag/${startag._id}`}>
+                        <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    View
+                                    </Tooltip>
+                            )}>
                         <li className="action-list-item"><RiEyeFill style={{color: "darkblue"}} /></li>
+                        </OverlayTrigger>
                         </Link>
                         <Link to={`/editstartag/${startag._id}`}>
+                        <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Edit
+                                    </Tooltip>
+                                )}>
                             <li className="action-list-item"><FaEdit /></li>
+                        </OverlayTrigger>
                         </Link>
+                        <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    View
+                                    </Tooltip>
+                                )}>
                             <li 
                                 className="action-list-item" 
                                 onClick={() => {
@@ -181,6 +208,14 @@ const StartagList = ({history}) => {
                                 }}
                                 ><FaTrashAlt style={{color: 'red'}} />
                             </li>
+                        </OverlayTrigger>
+                        <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Change Status
+                                    </Tooltip>
+                                )}>
                             <li 
                                 className="action-list-item" 
                                 onClick={() => {
@@ -189,6 +224,7 @@ const StartagList = ({history}) => {
                                     setStatus(startag.isActive)
                                 }}>{startag.isActive ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
                             </li>
+                            </OverlayTrigger>
                         </ul>
                     </td>
                 </tr>

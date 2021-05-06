@@ -5,31 +5,29 @@ import axios from 'axios';
 import Loader from '../../../components/Loader';
 import { detailCity, editCity } from '../../../service';
 import ErrorToast from '../../../components/ErrorToast';
+import Meta from '../../../components/Meta';
+import {useForm} from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const EditCityPage = ({history, match}) => {
     const cityId = match.params.id;
 
-    const [title, setTitle] = useState('');
     const [country, setCountry] = useState('')
     const [state, setState] = useState('');
-    const [titleErr, setTitleErr] = useState('');
     const [loading, setLoading] = useState(false);
     const [updateLoading, setUpdateLoading] = useState(false)
     const [updateErr, setUpdateErr] = useState('');
 
-    const validate = () => {
-        let titleErr = '';
-
-        if(!title) {
-            titleErr = "Only empty sapce isn't required"
-        }
-
-        if(titleErr) {
-            setTitleErr(titleErr)
-            return false
-        }
-        return true;
-    }
+    const schema = yup.object().shape({
+        title: yup
+            .string()
+            .required('This Field is Required').max(50).trim()
+    });
+    const { register, handleSubmit, formState:{errors}, watch, setValue } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(schema),
+    })
 
     const getDetails = async(id) => {
         setLoading(true)
@@ -38,7 +36,7 @@ const EditCityPage = ({history, match}) => {
 
             if(city) {
                 setLoading(false)
-                setTitle(city.title)
+                setValue('title', city.title)
                 setCountry(city.country.title)
                 setState(city.state.title)
             }
@@ -52,21 +50,10 @@ const EditCityPage = ({history, match}) => {
         getDetails(cityId)
     }, [cityId])
 
-    const submitForm = async(e) => {
-        e.preventDefault()
-
-        const newCity = {
-            title: title
-        }
-
-        const isValid = validate();
-        if(isValid) {
-            setTitle('')
-        }
-
+    const submitForm = async(data) => {
         setUpdateLoading(true)
         try {
-            const {data: {updatedCity}} = await axios.put(`${editCity}/city/${cityId}`, newCity)
+            const {data: {updatedCity}} = await axios.put(`${editCity}/city/${cityId}`, data)
 
             if(updatedCity) {
                 setUpdateLoading(false)
@@ -80,11 +67,13 @@ const EditCityPage = ({history, match}) => {
 
     return (
         <div className="wapper">
+            <Meta title="Edit City - Picxls" />
             <div class="container-fluid mt-40">
             <container>
             {updateErr && <ErrorToast message={updateErr.message} />}
+            {errors.title && <ErrorToast message={errors.title.message} />}
             {loading ? <Loader /> : (
-            <form className="m-3 p-2" onSubmit={submitForm}>
+            <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
@@ -103,11 +92,10 @@ const EditCityPage = ({history, match}) => {
                 placeholder="Enter State"/>
             <input 
                 type="text" 
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                {...register('title')}
                 className="form-control my-5" 
                 placeholder="Enter City"/>
-            <span className="error-msg">{titleErr}</span>
+            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
             <div className="text-right">
             <Link to="/citylist">
             <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>

@@ -108,15 +108,15 @@ export const createCountry = (newCountry) => async(dispatch, getState) => {
             payload: savedCountry
         })
     } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
         dispatch({
             type: ADMIN_ADDCOUNTRY_FAIL,
-            payload: error.response.data
+            payload: error.response ? error.response.data : null
         })
     }
 }
 
-export const updateCountry = (updatedCountry) => async(dispatch, getState) => {
+export const updateCountry = (updatedCountry, id) => async(dispatch, getState) => {
     try {
         dispatch({type: ADMIN_UPDATECOUNTRY_REQUEST})
 
@@ -126,7 +126,7 @@ export const updateCountry = (updatedCountry) => async(dispatch, getState) => {
             }
         }
 
-        const {data: {savedCountry}} = await axios.put(`${editCountry}/country/${updatedCountry._id}`, updatedCountry, config);
+        const {data: {savedCountry}} = await axios.put(`${editCountry}/country/${id}`, updatedCountry, config);
 
         dispatch({type: ADMIN_UPDATECOUNTRY_SUCCESS})
         dispatch({

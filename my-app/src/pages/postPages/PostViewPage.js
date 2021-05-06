@@ -3,15 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPost, reportList } from "../../actions/postActions";
 import Modals from '../../components/Modal';
 import {BsToggleOff, BsToggleOn} from 'react-icons/bs';
-import { Container, Row, Col, Card, ListGroup, Image, Badge } from "react-bootstrap";
+import { Row, Col, Image, Badge } from "react-bootstrap";
 import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
+import Meta from "../../components/Meta";
+import DeleteModal from "../../components/DeleteModal";
 
 const PostViewPage = ({ history, match }) => {
   const postId = match.params.id;
   const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
   const [status, setStatus] = useState('');
 
   const dispatch = useDispatch();
@@ -28,28 +31,44 @@ const PostViewPage = ({ history, match }) => {
   const statusUpdate = useSelector((state) => state.statusUpdate)
   const {success: updateSuccess} = statusUpdate
 
+  const postDelete = useSelector(state => state.postDelete)
+  const {success: deleteSuccess} = postDelete;
+
   const handleShow = () => setShow(true)
 
-  const deleteHandler = (id) => {
+  const showHandler = (id) => {
     localStorage.setItem('reportId', id);
-}
+  }
+
+  const handleShow2 = () => setShow2(true)
+
+  const deleteHandler = (id) => {
+    localStorage.setItem('delPostId', id);
+  }
 
   useEffect(() => {
     if (!adminInfo) {
       history.push("/admin-login");
-    } else {
+    }
+    if(deleteSuccess) {
+      history.push('/postlist')
+    } 
+    else {
       dispatch(getPost(postId));
       dispatch(reportList())
       setTimeout(() => {
         $('#datatable1').DataTable()
       }, 2000)
     }
-  }, [adminInfo, dispatch, history]);
+  }, [adminInfo, dispatch, history, deleteSuccess]);
 
   return (
     <>
+      <Meta title="View Post - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
-      <Container>
+      {show2 && <DeleteModal show={show2} setShow={setShow2} />}
+      <container>
+      <div className="container-fluid mt-10">
       <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px', marginTop: '25px'}}>
             <h2 className="head"> <Link to="/postlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -58,7 +77,56 @@ const PostViewPage = ({ history, match }) => {
       </div>
         {feed && feed[0] && feed.map((f) => (
         <Row className="box">
-          <Col md={6}>
+          <div class="card mb-5 mb-xxl-8">
+                <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
+                  <div
+                    class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
+                  >
+                      <Image
+                      className="image"
+                      src={f.thumbnail}
+                      alt="photo"
+                      fluid
+                    />
+                  </div>
+                  <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
+                    <div class="card-body bg-light px-12 py-10">
+                      <h3 class="fw-bolder fs-1 mb-9">
+                        <a href="#" class="text-gray-800">
+                        {f.user_details.username}
+                        </a>
+                      </h3>
+                      <table class="table table-borderless align-middle fw-bold">
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Name</td>
+                          <td class="tdpd text-dark pe-0">{f.user_details.firstname}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Date of birth</td>
+                          <td class="tdpd text-dark pe-0">{f.user_details.birthay}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Views</td>
+                          <td class="tdpd text-dark pe-0">{f.views.length > 0 ? f.views[0].view_count : 0}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Comments</td>
+                          <td class="tdpd text-dark pe-0">{f.comments.length > 0 ? f.comments[0].comment_count : 0}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Likes:</td>
+                          <td class="tdpd text-dark pe-0">{f.likes.length > 0 ? f.likes[0].like_count : 0}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Reports:</td>
+                          <td class="tdpd text-dark pe-0">{f.reports.length > 0 ? f.reports[0].report_count : 0}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          {/* <Col md={6}>
             <Image className="image" src={`https://picxls-testing.herokuapp.com/${f.post}`} alt="post" />
           </Col>
           <Col md={6}>
@@ -108,12 +176,13 @@ const PostViewPage = ({ history, match }) => {
                     </ListGroup.Item>
                 </ListGroup>
             </Card>
-          </Col>
+          </Col> */}
           <Col md={12} style={{padding: '10px', margin: '10px'}}>
-          <button type="button" id="kt_layout_builder_export" className="btn btn-light me-2">
+          <button type="button" id="kt_layout_builder_export" onClick={() => {
+                                    handleShow2()
+                                    deleteHandler(f._id)
+                                }} className="btn btn-light me-2">
 						<span class="indicator-label">Remove Post</span>
-						<span class="indicator-progress">Please wait... 
-						<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
 					</button>
           </Col>
           <Col style={{padding: '10px', margin: '10px'}}>
@@ -147,7 +216,7 @@ const PostViewPage = ({ history, match }) => {
                                 className="action-list-item" 
                                 onClick={() => {
                                     handleShow()
-                                    deleteHandler(report._id)
+                                    showHandler(report._id)
                                     setStatus(report.status)}}
                                   >{report.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}
                             </li>
@@ -160,7 +229,8 @@ const PostViewPage = ({ history, match }) => {
           </Col>
         </Row>
         ))}
-      </Container>
+        </div>
+      </container>
     </>
   );
 };

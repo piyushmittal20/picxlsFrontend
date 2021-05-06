@@ -11,13 +11,13 @@ import {
     ADMIN_PAGESTATUS_SUCCESS,
     ADMIN_PAGESTATUS_FAIL,
 } from '../constants/adminConstants';
-import { updatePageStatus } from '../service';
+import { updatePageStatus, getPages } from '../service';
 
 export const getAllPages = () => async(dispatch, getState) => {
     try {
         dispatch({type: ADMIN_PAGELIST_REQUEST})
 
-        const {data: {pages}} = await axios.get(`https://picxls-testing.herokuapp.com/api/admin/pages`);
+        const {data: {pages}} = await axios.get(`${getPages}/pages`);
 
         dispatch({
             type: ADMIN_PAGELIST_SUCCESS,
@@ -65,7 +65,7 @@ export const changeStatus = (page, id) => async(dispatch, getState) => {
             }
         }
 
-        const {data: {updatedPage}} = await axios.put(`${updatePageStatus}/page/${id}`, page, config)
+        const {data: {updatedPage}} = await axios.put(`${updatePageStatus}/pageStatus/${id}`, page, config)
 
         dispatch({
             type: ADMIN_PAGESTATUS_SUCCESS,

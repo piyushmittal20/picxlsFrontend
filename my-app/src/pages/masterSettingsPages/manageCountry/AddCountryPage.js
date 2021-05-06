@@ -1,77 +1,68 @@
-import {useState, useEffect} from 'react'
+import  React, {useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {createCountry} from '../../../actions/masterSettings';
 import {Button, Spinner} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import ErrorToast from '../../../components/ErrorToast';
+import Meta from '../../../components/Meta';
+import {useForm} from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
+
 
 const AddCountryPage = ({history}) => {
-    const [title, setTitle] = useState('')
-    const [titleError, setTitleError] = useState('')
-
-    const validate = () => {
-        let titleError = '';
-
-        if(!title) {
-            titleError = "Only empty sapce isn't required"
-        }
-
-        if(titleError) {
-            setTitleError(titleError)
-            return false
-        }
-        return true;
-    }
-
     const dispatch = useDispatch()
 
     const countryCreate = useSelector(state => state.countryCreate)
-    const {loading, error, success: createSuccess} = countryCreate
+    const {loading, success: createSuccess} = countryCreate
 
-    const submitForm = (e) => {
-        e.preventDefault()
+    const adminLogin = useSelector(state => state.adminLogin)
+	const {adminInfo} = adminLogin
 
-        const newCountry = {
-            title: title
-        }
-
-        const isValid = validate();
-        if(isValid) {
-            setTitle('')
-        }
-
-        dispatch(createCountry(newCountry))
-    }
+    const schema = yup.object().shape({
+        title: yup
+            .string()
+            .required('This Field is Required').max(50).trim().lowercase()
+    });
+    const { register, handleSubmit, formState:{errors}, watch } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(schema),
+    })
 
     useEffect(() => {
+        if(!adminInfo) {
+            history.push('/admin-login')
+        }
         if(createSuccess) {
             history.push('/countrylist')
         }
-    }, [history, createSuccess])
+    }, [history, createSuccess, adminInfo])
+
+    const handleS = (data) => {
+        dispatch(createCountry(data))
+    }
 
     return (
         <div className="wapper">
+            <Meta title="Add Country - Picxls" />
             <div className="container-fluid mt-40">
             <container>
-            {error && <ErrorToast message={error.message} />}
-            <form onSubmit={submitForm}>
+            {errors.title && <ErrorToast message={errors.title.message} />}
+            <form onSubmit={handleSubmit(handleS)}>
             <h2 className="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link>Add Country</h2>
-            <input 
-                type="text" 
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                className="form-control my-5" 
-                placeholder="Enter Country"/>
-                <span className="error-msg">{titleError}</span>
+            <div>
+                <input type="text" className="form-control my-5" {...register("title")}></input>
+            </div>
+                {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
                 <div className="text-right">
                     <Link to="/countrylist">
-                    <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                    <Button className="mx-3" variant="secondary">Cancel</Button>
                     </Link>
                     {loading ?
-                    <Button type="submit" variant="dark" disabled>
+                    <Button  variant="dark" disabled>
                         <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
                         Creating...
                     </Button>

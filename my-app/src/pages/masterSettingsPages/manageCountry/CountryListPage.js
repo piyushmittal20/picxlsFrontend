@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import {getAllCountries} from '../../../actions/masterSettings';
 import {Link} from 'react-router-dom';
-import {Button, Badge} from 'react-bootstrap';
+import {Button, Badge, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {ADMIN_ADDCOUNTRY_RESET, ADMIN_UPDATECOUNTRY_RESET} from '../../../constants/adminConstants';
 import Modals from '../../../components/Modal';
 import Loader from '../../../components/Loader';
@@ -12,6 +12,8 @@ import $ from 'jquery';
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import ErrorToast from '../../../components/ErrorToast';
+import Meta from '../../../components/Meta';
+import moment from 'moment';
 
 const CountryListcountry = ({history}) => {
     const [show, setShow] = useState(false);
@@ -52,6 +54,7 @@ const CountryListcountry = ({history}) => {
 
     return (
         <div className="wapper">
+            <Meta title="Country List - Picxls" />
             {show && <Modals show={show} setShow={setShow} status={status} />}
             {error && <ErrorToast message={error.message}/>}
             {loading ? <Loader /> : (
@@ -80,14 +83,29 @@ const CountryListcountry = ({history}) => {
                             <tr key={country._id}>
                                 <td>{index+1}.</td>
                                 <td>{country.title}</td>
-                                <td>{country.createdAt.substring(0, 10)}</td>
+                                <td>{moment(country.createdAt.substring(0, 10)).format("MMMM Do YYYY")}</td>
                                 <td>{country.status ? <Badge pill variant="success" style={{backgroundColor: 'green'}}>Active</Badge> : <Badge pill variant="danger" style={{backgroundColor: 'red', cursor: 'pointer'}}>Inactive</Badge>}</td>
                                 <td>
                                     <ul className="action-list">
                                         
                                         <Link to={`/editcountry/${country._id}`}>
+                                        <OverlayTrigger
+                                            placement="bottom"
+                                            overlay={(props) => (
+                                                <Tooltip {...props}>
+                                                Edit
+                                                </Tooltip>
+                                            )}>
                                         <li className="action-list-item"><FaEdit /></li>
+                                        </OverlayTrigger>
                                         </Link>
+                                        <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Change Status
+                                    </Tooltip>
+                                )}>
                                         <li 
                                             className="action-list-item" 
                                             onClick={() => {
@@ -96,6 +114,7 @@ const CountryListcountry = ({history}) => {
                                                 setStatus(country.status)
                                             }}
                                             >{country.status ? <BsToggleOn style={{color: 'green', fontSize: '25px'}} /> : <BsToggleOff style={{color: 'red', fontSize: '25px'}} />}</li>
+                                    </OverlayTrigger>
                                     </ul>
                                 </td>
                                 

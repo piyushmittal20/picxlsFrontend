@@ -5,39 +5,12 @@ import {Button, Spinner} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import ErrorToast from '../../../components/ErrorToast';
 import Loader from '../../../components/Loader';
+import Meta from '../../../components/Meta';
+import {useForm} from "react-hook-form";
+import * as yup from "yup";
+import {yupResolver} from "@hookform/resolvers/yup";
 
 const AddCityPage = ({history}) => {
-    const [title, setTitle] = useState('')
-    const [country, setCountry] = useState('')
-    const [state, setState] = useState('')
-    const [titleErr, setTitleErr] = useState('')
-    const [countryErr, setCountryerr] = useState('')
-    const [stateErr, setStateErr] = useState('');
-
-    const validate = () => {
-        let titleErr = ''
-        let countryErr = ''
-        let stateErr = ''
-
-        if(!title){
-            titleErr = "Only empty sapce isn't required"
-        }
-        if(!country){
-            countryErr = "Only empty space isn't required"
-        }
-        if(!state){
-            stateErr = "Only empty space isn't required"
-        }
-
-        if(titleErr && countryErr && stateErr) {
-            setTitleErr(titleErr)
-            setCountryerr(countryErr)
-            setStateErr(stateErr)
-            return false
-        }
-
-        return true
-    }
 
     const dispatch = useDispatch()
 
@@ -50,6 +23,18 @@ const AddCityPage = ({history}) => {
     const cityCreate = useSelector(state => state.cityCreate)
     const {loading: createLoading, error: createError, success: createSuccess} = cityCreate
 
+    const schema = yup.object().shape({
+        title: yup.string().required('This Field is Required').max(50).trim(),
+        country: yup.string().required('This Field is Required').max(50).trim(),
+        state: yup.string().required('This Field is required').max(50).trim()
+    });
+    const { register, handleSubmit, formState:{errors}, watch } = useForm({
+        mode: 'onTouched',
+        resolver: yupResolver(schema),
+    })
+
+    const country = watch('country')
+
     useEffect(() => {
         dispatch(getAllCountries())
         dispatch(getAllStates())
@@ -58,57 +43,43 @@ const AddCityPage = ({history}) => {
         }
     }, [dispatch, history, createSuccess])
 
-    const submitForm = (e) => {
-        e.preventDefault()
-
-        const newCity = {
-            title: title,
-            country: country,
-            state: state
-        }
-
-        const isValid = validate()
-        if(isValid){
-            setTitle('')
-            setCountry('')
-            setState('')
-        }
-
-        dispatch(createCity(newCity))
+    const submitForm = (data) => {
+        dispatch(createCity(data))
     }
+
+    console.log(errors);
 
     return (
         <div className="wapper">
+            <Meta title="Add Country - Picxls" />
             <div className="container-fluid mt-40">
+            {errors.title && <ErrorToast message={errors.title.message} />}
             <container>
             {createError && <ErrorToast message={createError.message} />}
             {loading ? <Loader /> : (
-            <form className="m-3 p-2" onSubmit={submitForm}>
+            <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> ADD CITY</h1>
-            <select className="form-select my-5" aria-label="Select example" value={country} onChange={e => setCountry(e.target.value)}>
-                <option>Select Country</option>
+            <select className="form-select my-5" aria-label="Select example" {...register('country')}>
+                <option disabled value>Select Country</option>
                 {countries && countries.map((country, index) => (
                     <option value={country._id}>{country.title}</option>
                 ))}
             </select>
-            <span className="error-msg">{countryErr}</span>
-            <select className="form-select my-5" aria-label="Select example" value={state} onChange={e => setState(e.target.value)}>
-                <option>Select State</option>
+            <select className="form-select my-5" aria-label="Select example" {...register('state')}>
+                <option disabled value>Select State</option>
                 {states && states.filter(i => i.country === country).map((state, index) => (
                     <option value={state._id}>{state.title}</option>
                 ))}
             </select>
-            <span className="error-msg">{stateErr}</span>
             <input 
             type="text" 
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            {...register('title')}
             className="form-control my-5" 
             placeholder="Enter City"/>
-            <span className="error-msg">{titleErr}</span>
+            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
             <div className="text-right">
             <Link to="/citylist">
             <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>

@@ -15,7 +15,7 @@ const Dashboard = ({history}) => {
 
   return (
     <>
-    <Meta title="Dashboard | Picxls" />
+    <Meta title="Dashboard - Picxls" />
       {/*begin::Main*/}
       {/*begin::Root*/}
       <div className="d-flex flex-column flex-root">
@@ -87,7 +87,6 @@ const Dashboard = ({history}) => {
                           </div>
                         </div>
                       </div>
-
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           CMS
@@ -171,6 +170,9 @@ const Dashboard = ({history}) => {
                 id="kt_content"
               >
                 {/*begin::Container*/}
+                <div style={{margin: '40px auto'}}>
+                  <h1>Under Construction</h1>
+                </div>
                 {/*end::Container*/}
               </div>
               {/*end::Content*/}

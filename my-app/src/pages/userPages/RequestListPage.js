@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {dropping, verifyRequestList, verifying} from '../../actions/userActions';
 import {Link} from 'react-router-dom';
-import {Badge} from 'react-bootstrap';
+import {Badge, OverlayTrigger, Tooltip} from 'react-bootstrap';
 import {FaCheck, FaTimes} from 'react-icons/fa';
 import {RiEyeFill} from 'react-icons/ri';
 import $ from 'jquery';
@@ -11,8 +11,13 @@ import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from '../../components/Loader';
 import ErrorToast from '../../components/ErrorToast';
 import {ADMIN_VERIFYING_RESET} from '../../constants/adminConstants';
+import VerifyBox from '../../components/VerifyBox';
+import DropModal from '../../components/DropModal';
 
 const RequestListPage = ({history}) => {
+    const [show, setShow] = useState(false)
+    const [show2, setShow2] = useState(false)
+
     const dispatch = useDispatch();
 
     const adminLogin = useSelector(state => state.adminLogin)
@@ -39,16 +44,22 @@ const RequestListPage = ({history}) => {
         }
     }, [adminInfo, dispatch, history, verifySuccess, dropSuccess])
 
-    const verifyHandle = (id) => {
-        dispatch(verifying(id))
+    const handleShow = () => setShow(true)
+
+    const showHandler = (id) => {
+        localStorage.setItem('userVerifyId', id)
     }
 
-    const dropHandle = (id) => {
-        dispatch(dropping(id))
+    const handleShow2 = () => setShow2(true)
+
+    const showHandler2 = (id) => {
+        localStorage.setItem('userDropId', id)
     }
 
     return (
         <div className="wrapper">
+        {show2 && <DropModal show={show2} setShow={setShow2} />}
+        {show && <VerifyBox show={show} setShow={setShow} />}
         {error && <ErrorToast message={error.message} />}
         {loading ? <Loader /> : (
         <div className="container-fluid mt-10">
@@ -91,14 +102,44 @@ const RequestListPage = ({history}) => {
                     <td style={{padding: '10px'}}>
                         <ul className="action-list">
                             <Link to={`/viewrequest/${request._id}`}>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    View
+                                    </Tooltip>
+                            )}>
                             <li className="action-list-item"><RiEyeFill style={{color: "darkblue"}} /></li>
+                            </OverlayTrigger>
                             </Link>
-                            <li className="action-list-item" onClick={() => verifyHandle(request._id)}>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Verify
+                                    </Tooltip>
+                            )}>
+                            <li className="action-list-item" onClick={() => {
+                                handleShow()
+                                showHandler(request._id)
+                            }}>
                                 <FaCheck style={{color: 'green'}} />
                             </li>
-                            <li className="action-list-item" onClick={() => dropHandle(request._id)}>
+                            </OverlayTrigger>
+                            <OverlayTrigger
+                                placement="bottom"
+                                overlay={(props) => (
+                                    <Tooltip {...props}>
+                                    Drop
+                                    </Tooltip>
+                            )}>
+                            <li className="action-list-item" onClick={() => {
+                                handleShow2()
+                                showHandler2(request._id)
+                            }}>
                                 <FaTimes style={{color: 'red'}} />
                             </li>
+                            </OverlayTrigger>
                         </ul>
                     </td>
                 </tr>
