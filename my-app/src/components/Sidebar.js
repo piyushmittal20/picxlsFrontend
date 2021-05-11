@@ -1,11 +1,11 @@
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-    return (
-        <>
-        <div className="d-flex flex-column flex-root">
-            <div className="page d-flex flex-row flex-column-fluid">
-            <div
+  return (
+    <div className="wrapper">
+      <div className="d-flex flex-column flex-root">
+        <div className="page d-flex flex-row flex-column-fluid">
+          <div
             id="kt_aside"
             className="aside bg-info"
             data-kt-offcanvas="true"
@@ -52,7 +52,6 @@ const Sidebar = () => {
                   >
                     <div className="menu-wrapper menu-column menu-fit">
                       <div className="menu-item here show">
-                      
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/">
@@ -63,7 +62,7 @@ const Sidebar = () => {
                       </div>
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                            Master Settings
+                          Master Settings
                         </h4>
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
@@ -115,7 +114,9 @@ const Sidebar = () => {
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/startaglist">
-                              <span className="menu-title">Manage Startags</span>
+                              <span className="menu-title">
+                                Manage Startags
+                              </span>
                             </Link>
                           </div>
                         </div>
@@ -127,7 +128,9 @@ const Sidebar = () => {
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/requestList">
-                              <span className="menu-title">Manage Verification Requests</span>
+                              <span className="menu-title">
+                                Manage Verification Requests
+                              </span>
                             </Link>
                           </div>
                         </div>
@@ -153,10 +156,10 @@ const Sidebar = () => {
             </div>
             {/*end::Secondary*/}
           </div>
-            </div>
         </div>
-        </>
-    )
-}
+      </div>
+    </div>
+  );
+};
 
-export default Sidebar
+export default Sidebar;

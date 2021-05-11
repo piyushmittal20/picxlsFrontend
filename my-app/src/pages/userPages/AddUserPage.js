@@ -68,7 +68,7 @@ const AddUserPage = ({history}) => {
                 placeholder="Enter Email"/>
             {errors.email && <p className="text-danger small p-1">{errors.email.message}</p>}
             <input 
-                type="number" 
+                type="text" 
                 {...register("phoneNumber")}
                 className="form-control my-5" 
                 placeholder="Enter Contact number"/>
