@@ -35,7 +35,7 @@ const Dashboard = ({history}) => {
             data-kt-offcanvas-close
           >
             {/*begin::Secondary*/}
-            <div className="aside-secondary d-flex flex-row-fluid bg-white">
+            <div className="aside-secondary d-flex flex-row-fluid bg-blue">
               {/*begin::Workspace*/}
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
@@ -158,10 +158,7 @@ const Dashboard = ({history}) => {
           </div>
           {/*end::Aside*/}
           {/*begin::Wrapper*/}
-          <div
-            className="wrapper d-flex flex-column flex-row-fluid"
-            id="kt_wrapper"
-          >
+          <div>
             {/*begin::Main*/}
             <div className="d-flex flex-column flex-column-fluid">
               {/*begin::Content*/}

@@ -18,22 +18,22 @@ const Sidebar = () => {
             data-kt-offcanvas-close
           >
             {/*begin::Secondary*/}
-            <div className="aside-secondary d-flex flex-row-fluid bg-white">
+            <div className="aside-secondary d-flex flex-row-fluid bg-blue">
               {/*begin::Workspace*/}
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
                 id="kt_aside_wordspace"
               >
                 {/*begin::Logo*/}
-                {/*<div className="aside-logo py-2 pb-7" id="kt_aside_logo">
-                  <a href="../index-2.html">
+                <div className="aside-logo py-2 pb-7" id="kt_aside_logo">
+                  <a href="#">
                     <img
                       alt="Logo"
-                      src="../assets/media/logos/logo-compact.svg"
+                      src="../assets/media/picxls-logo.png"
                       className="mh-50px"
                     />
                   </a>
-                </div>*/}
+                </div>
                 {/*end::Logo*/}
                 {/*begin::Aside Menu*/}
                 {/*begin::Menu*/}
@@ -55,7 +55,7 @@ const Sidebar = () => {
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/">
-                              <span className="menu-title">Dashboard</span>
+                              <span className="menu-title">Dashboardddd</span>
                             </Link>
                           </div>
                         </div>
