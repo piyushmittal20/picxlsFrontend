@@ -30,8 +30,6 @@ const AddUserPage = ({history}) => {
         dispatch(createUser(data))
     }
 
-    console.log(errors);
-
     useEffect(() => {
         if(createSuccess) {
             history.push('/userlist')
