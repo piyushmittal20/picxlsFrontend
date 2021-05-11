@@ -1,28 +1,28 @@
-import {useEffect} from "react";
-import {useSelector} from 'react-redux';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Meta from '../components/Meta';
+import Meta from "../components/Meta";
 
-const Dashboard = ({history}) => {
-  const adminLogin = useSelector(state => state.adminLogin)
-	const {adminInfo} = adminLogin
+const Dashboard = ({ history }) => {
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
 
   useEffect(() => {
-    if(!adminInfo) {
-      history.push('/admin-login')
+    if (!adminInfo) {
+      history.push("/admin-login");
     }
-  }, [history, adminInfo])
+  }, [history, adminInfo]);
 
   return (
     <>
-    <Meta title="Dashboard - Picxls" />
+      <Meta title="Dashboard - Picxls" />
       {/*begin::Main*/}
       {/*begin::Root*/}
       <div className="d-flex flex-column flex-root">
         {/*begin::Page*/}
         <div className="page d-flex flex-row flex-column-fluid">
           {/*begin::Aside*/}
-          <div
+          {/* <div
             id="kt_aside"
             className="aside bg-info"
             data-kt-offcanvas="true"
@@ -34,9 +34,7 @@ const Dashboard = ({history}) => {
             data-kt-offcanvas-toggle="#kt_aside_toggler"
             data-kt-offcanvas-close
           >
-            {/*begin::Secondary*/}
             <div className="aside-secondary d-flex flex-row-fluid bg-blue">
-              {/*begin::Workspace*/}
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
                 id="kt_aside_wordspace"
@@ -150,32 +148,21 @@ const Dashboard = ({history}) => {
                     </div>
                   </div>
                 </div>
-                {/*end::Menu*/}
               </div>
-              {/*end::Workspace*/}
             </div>
-            {/*end::Secondary*/}
           </div>
-          {/*end::Aside*/}
-          {/*begin::Wrapper*/}
           <div>
-            {/*begin::Main*/}
             <div className="d-flex flex-column flex-column-fluid">
-              {/*begin::Content*/}
               <div
                 className="content fs-6 d-flex flex-column-fluid"
                 id="kt_content"
               >
-                {/*begin::Container*/}
                 <div style={{margin: '40px auto'}}>
                   <h1>Under Construction</h1>
                 </div>
-                {/*end::Container*/}
               </div>
-              {/*end::Content*/}
             </div>
-            {/*end::Main*/}
-          </div>
+          </div> */}
           {/*end::Wrapper*/}
         </div>
         {/*end::Page*/}
