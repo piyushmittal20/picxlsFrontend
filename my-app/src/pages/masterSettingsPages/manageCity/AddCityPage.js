@@ -50,7 +50,7 @@ const AddCityPage = ({history}) => {
     console.log(errors);
 
     return (
-        <div className="wapper">
+        <div className="">
             <Meta title="Add Country - Picxls" />
             <div className="container-fluid mt-40">
             {errors.title && <ErrorToast message={errors.title.message} />}

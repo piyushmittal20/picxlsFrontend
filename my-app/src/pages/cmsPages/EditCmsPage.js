@@ -97,7 +97,7 @@ const EditCmsPage = ({history, match}) => {
     }
 
     return (
-        <div className="wapper">
+        <div className="">
             <Meta title="Edit Page - Picxls" />
             <div class="container-fluid mt-40">
             <container>

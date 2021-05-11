@@ -43,7 +43,7 @@ const AddCountryPage = ({history}) => {
     }
 
     return (
-        <div className="wapper">
+        <div className="">
             <Meta title="Add Country - Picxls" />
             <div className="container-fluid mt-40">
             <container>

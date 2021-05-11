@@ -57,7 +57,7 @@ const RequestListPage = ({history}) => {
     }
 
     return (
-        <div className="wrapper">
+        <div className="">
         {show2 && <DropModal show={show2} setShow={setShow2} />}
         {show && <VerifyBox show={show} setShow={setShow} />}
         {error && <ErrorToast message={error.message} />}

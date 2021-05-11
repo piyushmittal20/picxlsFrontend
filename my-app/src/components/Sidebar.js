@@ -7,7 +7,7 @@ const Sidebar = () => {
         <div className="page d-flex flex-row flex-column-fluid">
           <div
             id="kt_aside"
-            className="aside bg-info"
+            className="aside bg-blue"
             data-kt-offcanvas="true"
             data-kt-offcanvas-name="aside"
             data-kt-offcanvas-activate="{default: true, lg: false}"
@@ -18,7 +18,7 @@ const Sidebar = () => {
             data-kt-offcanvas-close
           >
             {/*begin::Secondary*/}
-            <div className="aside-secondary d-flex flex-row-fluid bg-blue">
+            <div className="aside-secondary d-flex flex-row-fluid">
               {/*begin::Workspace*/}
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"

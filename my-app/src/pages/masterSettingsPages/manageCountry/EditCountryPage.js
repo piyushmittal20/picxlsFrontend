@@ -69,7 +69,7 @@ const EditCountryPage = ({history, match}) => {
     }
 
     return (
-        <div class="wapper">
+        <div class="wrapper d-flex flex-column flex-row-fluid">
             <Meta title="Edit Country - Picxls" />
             <div class="container-fluid mt-40">
             <container>
