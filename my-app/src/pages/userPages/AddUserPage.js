@@ -46,42 +46,66 @@ const AddUserPage = ({history}) => {
             <h1> <Link to="/userlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
-            </svg></Link> ADD USER</h1>
-            <input 
-                type="text" 
-                {...register("firstname")}
-                className="form-control my-5" 
-                placeholder="Enter firstname"/>
-            {errors.firstname && <p className="text-danger small p-1">{errors.firstname.message}</p>}
-            <input 
-                type="text" 
-                {...register("lastname")}
-                className="form-control my-5" 
-                placeholder="Enter lastname"/>
-            {errors.lastname && <p className="text-danger small p-1">{errors.lastname.message}</p>}
-            <input 
-                type="text" 
-                {...register("email")}
-                className="form-control my-5" 
-                placeholder="Enter Email"/>
-            {errors.email && <p className="text-danger small p-1">{errors.email.message}</p>}
-            <input 
-                type="text" 
-                {...register("phoneNumber")}
-                className="form-control my-5" 
-                placeholder="Enter Contact number"/>
-            {errors.phoneNumber && <p className="text-danger small p-1">{errors.phoneNumber.message}</p>}
-            <div className="text-right">
-            <Link to="/userlist">
-                <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {loading ?
-            <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
-                Creating...
-            </Button>
-            :
-            <Button type="submit" variant="dark">Create</Button>}
+            </svg></Link> Add User</h1>
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>First Name</label>
+                        <input 
+                            type="text" 
+                            {...register("firstname")}
+                            className="form-control my-5" 
+                            placeholder="Enter firstname"/>
+                        {errors.firstname && <p className="text-danger small p-1">{errors.firstname.message}</p>}
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Last Name</label>
+                        <input 
+                            type="text" 
+                            {...register("lastname")}
+                            className="form-control my-5" 
+                            placeholder="Enter lastname"/>
+                        {errors.lastname && <p className="text-danger small p-1">{errors.lastname.message}</p>}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <label>Email</label>
+                        <input 
+                            type="text" 
+                            {...register("email")}
+                            className="form-control my-5" 
+                            placeholder="Enter Email"/>
+                        {errors.email && <p className="text-danger small p-1">{errors.email.message}</p>}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <label>Contact Number</label>
+                        <input 
+                            type="text" 
+                            {...register("phoneNumber")}
+                            className="form-control my-5" 
+                            placeholder="Enter Contact number"/>
+                        {errors.phoneNumber && <p className="text-danger small p-1">{errors.phoneNumber.message}</p>}
+                    </div>
+                </div>
+                
+                
+                
+                
+                <div className="text-right">
+                    <Link to="/userlist">
+                        <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                    </Link>
+                    {loading ?
+                    <Button type="submit" variant="dark" disabled>
+                        <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                        Creating...
+                    </Button>
+                    :
+                    <Button type="submit" variant="dark">Create</Button>}
+                </div>
             </div>
             </form>
             </container>

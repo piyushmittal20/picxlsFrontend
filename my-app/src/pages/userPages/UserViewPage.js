@@ -7,6 +7,7 @@ import ErrorToast from '../../components/ErrorToast';
 import DeleteModal from '../../components/DeleteModal';
 import Loader from '../../components/Loader';
 import Meta from '../../components/Meta';
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 const UserViewPage = ({history, match}) => {
     const userId = match.params.id;
@@ -56,78 +57,92 @@ const UserViewPage = ({history, match}) => {
             </svg></Link> User Details</h2>
             </div>
             {user && (
-                <div class="card mb-5 mb-xxl-8">
-                <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
-                  <div
-                    class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
-                  >
-                      <Image
-                      className="image"
-                      src={user.photo}
-                      alt="photo"
-                      fluid
-                    />
-                  </div>
-                  <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
-                    <div class="card-body bg-light px-12 py-10">
-                      <h3 class="fw-bolder fs-1 mb-9">
-                        <a href="#" class="text-gray-800">
-                        {user.username}
-                        </a>
-                      </h3>
-                      <table class="table table-borderless align-middle fw-bold">
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Name</td>
-                          <td class="tdpd text-dark pe-0">{user.firstname}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Added on</td>
-                          <td class="tdpd text-dark pe-0">{user.createdAt && user.createdAt.substring(0, 10)}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Email</td>
-                          <td class="tdpd text-dark pe-0">{user.email}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Date of birth</td>
-                          <td class="tdpd text-dark pe-0">{user.birthday}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Contact</td>
-                          <td class="tdpd text-dark pe-0">{user.phoneNumber}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Bio</td>
-                          <td class="tdpd text-dark pe-0">{user.about}</td>
-                        </tr>
-                      </table>
-                      <div className="btn-container">
-                        <Link
-                          className="mr-15"
-                          to={`/edituser/${user._id}`}
-                        >
-                          <Button
-                            className="btn"
-                            variant="dark"
-                            style={{ width: "100%" }}
+                <div class="card  shadow">
+                  <div class="card-header">
+                      <h3 class="card-title">{user.firstname}</h3>
+                      <div class="card-toolbar">
+                          <Link
+                            className="mr-15"
+                            to={`/edituser/${user._id}`}
                           >
-                            Edit
-                          </Button>
-                        </Link>
-                        <Button
-                          className="btn"
-                          variant="danger"
-                          style={{ background: "red", width: "170px" }}
-                          onClick={() => {
-                            handleShow();
-                            deleteHandler(user._id);
-                          }}
-                        >
-                          Delete
-                        </Button>
+                            <FaEdit />
+                          </Link>
+                          <span
+                                                    
+                                                   
+                                                    onClick={() => {
+                                                      handleShow();
+                                                      deleteHandler(user._id);
+                                                    }}
+                                                  >
+                                                    <FaTrashAlt style={{ color: "red" }} />
+                                                  </span>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                    {/*<div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
+                        <Image className="image" src={user.photo} alt="photo" fluid />
+                    </div>*/}
+                    <div class="">
+                      <div class="">
+                        {/*<h3 class="fw-bolder fs-1 mb-9">
+                                                  <a href="#" class="text-gray-800">
+                                                  {user.username}
+                                                  </a>
+                                                </h3>*/}
+                        <table class="table table-borderless align-middle fw-bold">
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Name</td>
+                            <td class="tdpd text-dark pe-0">{user.firstname}</td>
+                          </tr>
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Added on</td>
+                            <td class="tdpd text-dark pe-0">{user.createdAt && user.createdAt.substring(0, 10)}</td>
+                          </tr>
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Email</td>
+                            <td class="tdpd text-dark pe-0">{user.email}</td>
+                          </tr>
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Date of birth</td>
+                            <td class="tdpd text-dark pe-0">{user.birthday}</td>
+                          </tr>
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Contact</td>
+                            <td class="tdpd text-dark pe-0">{user.phoneNumber}</td>
+                          </tr>
+                          <tr>
+                            <td class="tdpd text-gray-600 ps-0">Bio</td>
+                            <td class="tdpd text-dark pe-0">{user.about}</td>
+                          </tr>
+                        </table>
+                        {/*<div className="btn-container">
+                                                  <Link
+                                                    className="mr-15"
+                                                    to={`/edituser/${user._id}`}
+                                                  >
+                                                    <Button
+                                                      className="btn"
+                                                      variant="dark"
+                                                      style={{ width: "100%" }}
+                                                    >
+                                                      Edit
+                                                    </Button>
+                                                  </Link>
+                                                  <Button
+                                                    className="btn"
+                                                    variant="danger"
+                                                    style={{ background: "red", width: "170px" }}
+                                                    onClick={() => {
+                                                      handleShow();
+                                                      deleteHandler(user._id);
+                                                    }}
+                                                  >
+                                                    Delete
+                                                  </Button>
+                                                </div>*/}
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
                 // <Row>

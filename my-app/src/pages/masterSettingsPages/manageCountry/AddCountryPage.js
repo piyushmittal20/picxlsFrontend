@@ -53,23 +53,30 @@ const AddCountryPage = ({history}) => {
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link>Add Country</h2>
-            <div>
-                <input type="text" className="form-control my-5" {...register("title")}></input>
-            </div>
-                {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
-                <div className="text-right">
-                    <Link to="/countrylist">
-                    <Button className="mx-3" variant="secondary">Cancel</Button>
-                    </Link>
-                    {loading ?
-                    <Button  variant="dark" disabled>
-                        <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
-                        Creating...
-                    </Button>
-                    :
-                    <Button type="submit" variant="dark">Create</Button>}
-                    
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Add Country</label>
+                        <div>
+                            <input type="text" className="form-control my-5" {...register("title")}></input>
+                        </div>
+                        {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
+                        <div className="text-right">
+                            <Link to="/countrylist">
+                            <Button className="mx-3" variant="secondary">Cancel</Button>
+                            </Link>
+                            {loading ?
+                            <Button  variant="dark" disabled>
+                                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
+                                Creating...
+                            </Button>
+                            :
+                            <Button type="submit" variant="dark">Create</Button>}
+                            
+                        </div>
+                    </div>
                 </div>
+            </div>
             </form>
             </container>
             </div>

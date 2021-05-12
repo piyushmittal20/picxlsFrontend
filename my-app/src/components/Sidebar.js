@@ -55,7 +55,34 @@ const Sidebar = () => {
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/">
-                              <span className="menu-title">Dashboardddd</span>
+                              <span className="menu-title">Dashboard</span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          User Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link className="menu-link py-2" to="/userlist">
+                              <span className="menu-title">Manage Users</span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          User Verification Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link className="menu-link py-2" to="/requestList">
+                              <span className="menu-title">
+                                Manage Verification Requests
+                              </span>
                             </Link>
                           </div>
                         </div>
@@ -82,7 +109,6 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           CMS
@@ -95,18 +121,9 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/userlist">
-                              <span className="menu-title">Manage Users</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+
+                      
+
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           Startag Management
@@ -121,20 +138,8 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Verification Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/requestList">
-                              <span className="menu-title">
-                                Manage Verification Requests
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+
+                      
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           Post Management

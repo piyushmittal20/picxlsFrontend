@@ -69,6 +69,7 @@ const Navbar = () => {
                 class="h-50px"
               />
             </a>*/}
+            <h2>Picxls - Admin </h2>
           </div>
           <div class="d-flex align-items-center">
             <div class="ms-1 ms-lg-6"

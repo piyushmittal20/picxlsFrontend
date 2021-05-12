@@ -33,7 +33,7 @@ const Dashboard = ({ history }) => {
             data-kt-offcanvas-direction="left"
             data-kt-offcanvas-toggle="#kt_aside_toggler"
             data-kt-offcanvas-close
-          >
+            >
             <div className="aside-secondary d-flex flex-row-fluid bg-blue">
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
@@ -150,7 +150,7 @@ const Dashboard = ({ history }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>*/}
           <div>
             <div className="d-flex flex-column flex-column-fluid">
               <div
@@ -162,7 +162,7 @@ const Dashboard = ({ history }) => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div> 
           {/*end::Wrapper*/}
         </div>
         {/*end::Page*/}
