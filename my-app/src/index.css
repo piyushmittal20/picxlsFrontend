@@ -184,3 +184,8 @@ div.dataTables_wrapper div.dataTables_filter{
 .startag .filter-container input{
         width: 150px;
 }
+
+.text-center{
+    text-align: center;
+    margin: 0 auto;
+}

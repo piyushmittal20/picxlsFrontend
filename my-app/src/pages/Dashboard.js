@@ -20,7 +20,7 @@ const Dashboard = ({ history }) => {
       {/*begin::Root*/}
       <div className="d-flex flex-column flex-root">
         {/*begin::Page*/}
-        <div className="page d-flex flex-row flex-column-fluid">
+        <div className="page d-flex flex-row flex-column-fluid text-center">
           {/*begin::Aside*/}
           {/* <div
             id="kt_aside"
@@ -152,11 +152,8 @@ const Dashboard = ({ history }) => {
             </div>
           </div>*/}
           <div>
-            <div className="d-flex flex-column flex-column-fluid">
-              <div
-                className="content fs-6 d-flex flex-column-fluid"
-                id="kt_content"
-              >
+            <div className="">
+              <div className="content" id="kt_content">
                 <div style={{margin: '40px auto'}}>
                   <h1>Under Construction</h1>
                 </div>
