@@ -100,7 +100,7 @@ const AddStartagPage = ({history}) => {
     }, [history, createSuccess])
 
     return (
-        <div className="wrapper">
+        <div className="">
             <Meta title="Add Startag - Picxls" />
             <div className="container-fluid mt-40">
             <container>
@@ -109,42 +109,56 @@ const AddStartagPage = ({history}) => {
             <h1> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
-            </svg></Link> ADD STARTAG</h1>
-            <input 
-                type="text" 
-                {...register('name')}
-                className="form-control my-5" 
-                placeholder="Enter Name"/>
-            <select className="form-select my-5" aria-label="Select example" {...register('type')} >
-                <option value="" >Select Role</option>
-                <option value="General">General</option>
-                <option value="Bussiness">Bussiness</option>
-            </select>
-            {type === 'Bussiness' ? (
-            <div>
-                <input 
-                type="text" 
-                {...register('cost')}
-                className="form-control my-5" 
-                placeholder="Enter Cost"/>
-            </div>
-            ) : "" }
-            <input 
-                type="file" 
-                {...register('image')}
-                className="form-control my-5" 
-                placeholder="Enter Image"/>
-            <div className="text-right">
-            <Link to="/startaglist">
-            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {loading ?
-            <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
-                Creating...
-            </Button>
-            :
-            <Button type="submit" variant="dark">Create</Button>}
+            </svg></Link> Add Startag</h1>
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Startag Name</label>
+                        <input 
+                            type="text" 
+                            {...register('name')}
+                            className="form-control my-5" 
+                            placeholder="Enter Name"/>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Startag Type</label>
+                        <select className="form-select my-5" aria-label="Select example" {...register('type')} >
+                            <option value="" >Select Role</option>
+                            <option value="General">General</option>
+                            <option value="Bussiness">Bussiness</option>
+                        </select>
+                        {type === 'Bussiness' ? (
+                        <div>
+                        <label>Startag Cost</label>
+                            <input 
+                            type="text" 
+                            {...register('cost')}
+                            className="form-control my-5" 
+                            placeholder="Enter Cost"/>
+                        </div>
+                        ) : "" }
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Select Image</label>
+                        <input 
+                            type="file" 
+                            {...register('image')}
+                            className="form-control my-5" 
+                            placeholder="Enter Image"/>
+                    </div>
+                    <div className="text-right col-sm-12">
+                        <Link to="/startaglist">
+                        <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                        </Link>
+                        {loading ?
+                        <Button type="submit" variant="dark" disabled>
+                            <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
+                            Creating...
+                        </Button>
+                        :
+                        <Button type="submit" variant="dark">Create</Button>}
+                    </div>
+                </div>
             </div>
             </form>
             </container>

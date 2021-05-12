@@ -47,29 +47,39 @@ const AddStatePage = ({history}) => {
             <container>
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
-            <h1> <Link to="/statelist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <h1 class="py-5"> <Link to="/statelist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
-            </svg></Link> ADD STATE</h1>
-            <select className="form-select my-5" aria-label="Select example" {...register("country")} >
-                <option disabled value>Select Country</option>
-                {countries && countries.map((country) => (
-                    <option value={country._id}>{country.title}</option>
-                ))}
-            </select>
-            <input type="text" className="form-control my-5" placeholder="Enter State" {...register("title")} />
-            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
-            <div className="text-right">
-            <Link to="/statelist">
-            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {createLoading ? 
-                <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
-                Creating...
-                </Button> :
-                <Button type="submit" variant="dark">Create</Button>
-            }
+            </svg></Link> Add State</h1>
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Select Country</label>
+                        <select className="form-select my-5" aria-label="Select example" {...register("country")} >
+                            <option disabled value>Select Country</option>
+                            {countries && countries.map((country) => (
+                                <option value={country._id}>{country.title}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Add State Name</label>
+                        <input type="text" className="form-control my-5" placeholder="Enter State" {...register("title")} />
+                        {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
+                    </div>
+                    <div className="text-right col-sm-12">
+                        <Link to="/statelist">
+                        <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                        </Link>
+                        {createLoading ? 
+                            <Button type="submit" variant="dark" disabled>
+                            <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
+                            Creating...
+                            </Button> :
+                            <Button type="submit" variant="dark">Create</Button>
+                        }
+                    </div>
+                </div>
             </div>
             </form>
             )}

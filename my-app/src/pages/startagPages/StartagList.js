@@ -113,7 +113,7 @@ const StartagList = ({history}) => {
     }
 
     return(
-        <div className="wapper">
+        <div className="startag">
         <Meta title="Startag Management - Picxls" />
         {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
         {show && <DeleteModal show={show} setShow={setShow} />}

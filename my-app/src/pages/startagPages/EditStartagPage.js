@@ -89,7 +89,7 @@ const EditStartagPage = ({history, match}) => {
     }
 
     return (
-        <div className="wrapper">
+        <div className="">
             <Meta title="Edit Startag - Picxls" />
             <div className="container-fluid mt-40">
             <container>
@@ -97,53 +97,71 @@ const EditStartagPage = ({history, match}) => {
             {updateError && <ErrorToast message={updateError.message} />}
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={submitForm}>
-            <h1> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <h1 className="py-5"> <Link to="/startaglist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
-            </svg></Link> EDIT STARTAG</h1>
-            <input 
-                type="text" 
-                value={name}
-                disabled={true}
-                onChange={(e) => setName(e.target.value)}
-                className="form-control my-5" 
-                placeholder="Enter Name"/>
-            <span className="error-msg">{nameErr}</span>
-            <input 
-                type="text" 
-                value={type}
-                onChange={(e) => setType(e.target.value)}
-                className="form-control my-5" 
-                placeholder="Enter Type"/>
-            <span className="error-msg">{typeErr}</span>
-            {type === "Bussiness" ? (
-            <div>
-                <input 
-                type="text" 
-                value={cost}
-                onChange={(e) => setCost(e.target.value)}
-                className="form-control my-5" 
-                placeholder="Enter Cost"/>
-                <span className="error-msg">{costErr}</span>
-            </div>
-            ) : "" }
-            <input 
-                type="file" 
-                name="image"
-                onChange={(e) => setImage(e.target.files[0])}
-                className="form-control my-5" 
-                placeholder="Enter Image"/>
-            <div className="text-right">
-            <Link to="/startaglist">
-            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {updateLoading ?
-            <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
-                Updating...
-            </Button>
-            :
-            <Button type="submit" variant="dark">Update</Button>}
+            </svg></Link>Edit Startag</h1>
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Startag Name</label>
+                        <input 
+                            type="text" 
+                            value={name}
+                            disabled={true}
+                            onChange={(e) => setName(e.target.value)}
+                            className="form-control my-5" 
+                            placeholder="Enter Name"/>
+                        <span className="error-msg">{nameErr}</span>
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Startag Type</label>
+                        <input 
+                            type="text" 
+                            value={type}
+                            onChange={(e) => setType(e.target.value)}
+                            className="form-control my-5" 
+                            placeholder="Enter Type"/>
+                            <span className="error-msg">{typeErr}</span>
+                    
+                    
+                        
+                        
+                        {type === "Bussiness" ? (
+                        <div>
+                            <label>Startag Cost</label>
+                            <input 
+                            type="text" 
+                            value={cost}
+                            onChange={(e) => setCost(e.target.value)}
+                            className="form-control my-5" 
+                            placeholder="Enter Cost"/>
+                            <span className="error-msg">{costErr}</span>
+                        </div>
+                        ) : "" }
+                    </div>
+                    <div class="col-sm-12">
+                        <label>Startag Image</label>
+                        <input 
+                            type="file" 
+                            name="image"
+                            onChange={(e) => setImage(e.target.files[0])}
+                            className="form-control my-5" 
+                            placeholder="Enter Image"/>
+                    </div>
+                    <div className="text-right col-sm-12">
+                        <Link to="/startaglist">
+                        <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                        </Link>
+                        {updateLoading ?
+                        <Button type="submit" variant="dark" disabled>
+                            <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                            Updating...
+                        </Button>
+                        :
+                        <Button type="submit" variant="dark">Update</Button>}
+                    </div>
+                </div>
             </div>
             </form>
             )}

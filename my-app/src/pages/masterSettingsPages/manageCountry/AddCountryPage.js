@@ -49,14 +49,14 @@ const AddCountryPage = ({history}) => {
             <container>
             {errors.title && <ErrorToast message={errors.title.message} />}
             <form onSubmit={handleSubmit(handleS)}>
-            <h2 className="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <h2 className="head py-5"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link>Add Country</h2>
             <div class="form rounded border p-10">
                 <div class="row">
                     <div class="col-sm-12">
-                        <label>Add Country</label>
+                        <label>Add Country Name</label>
                         <div>
                             <input type="text" className="form-control my-5" {...register("title")}></input>
                         </div>
