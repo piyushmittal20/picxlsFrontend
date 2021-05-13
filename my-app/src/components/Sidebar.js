@@ -55,7 +55,7 @@ const Sidebar = () => {
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/">
-                              <span className="menu-title">Dashboardddd</span>
+                              <span className="menu-title">Dashboard</span>
                             </Link>
                           </div>
                         </div>

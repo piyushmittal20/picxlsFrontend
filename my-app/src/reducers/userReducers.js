@@ -34,14 +34,19 @@ import {
   ADMIN_VERIFYREQUESTLIST_SUCCESS,
 } from "../constants/adminConstants";
 
-export const userListReducer = (state = {}, action) => {
+export const userListReducer = (state = { users: [] }, action) => {
   switch (action.type) {
     case ADMIN_USERLIST_REQUEST:
-      return { loading: true };
+      return {
+        loading: true,
+        users: [],
+      };
     case ADMIN_USERLIST_SUCCESS:
       return {
         loading: false,
-        users: action.payload,
+        users: action.payload.users,
+        pages: action.payload.pages,
+        page: action.payload.page,
       };
     case ADMIN_USERLIST_FAIL:
       return {

@@ -21,7 +21,9 @@ import {
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
 
-const UserListPage = ({ history }) => {
+const UserListPage = ({ history, match }) => {
+  const pageNumber = match.params.pageNumber || 1;
+
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
   const [status, setStatus] = useState("");
@@ -36,7 +38,7 @@ const UserListPage = ({ history }) => {
   const { adminInfo } = adminLogin;
 
   const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  const { loading, error, users, pages, page } = userList;
 
   const userDelete = useSelector((state) => state.userDelete);
   const { success: successDelete } = userDelete;
@@ -60,14 +62,14 @@ const UserListPage = ({ history }) => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDUSER_RESET });
       dispatch({ type: ADMIN_UPDATEUSER_RESET });
-      dispatch(listUsers());
-      setTimeout(() => {
-        $("#datatable1").DataTable({});
-      }, 2000);
+      dispatch(listUsers("", pageNumber));
+      // setTimeout(() => {
+      //   $("#datatable1").DataTable({});
+      // }, 2000);
     } else {
       history.push("/admin-login");
     }
-  }, [adminInfo, dispatch, history, successDelete, statusSuccess]);
+  }, [adminInfo, dispatch, history, successDelete, statusSuccess, pageNumber]);
 
   var result = [];
 
@@ -82,11 +84,6 @@ const UserListPage = ({ history }) => {
         users.filter((user) =>
           moment(user.createdAt).isBetween(startDate, lastDate)
         );
-    }
-    if (startDate && !lastDate) {
-      result =
-        users &&
-        users.filter((user) => moment(user.createdAt).isSame(startDate));
     }
     if (status2 !== "every") {
       result =
