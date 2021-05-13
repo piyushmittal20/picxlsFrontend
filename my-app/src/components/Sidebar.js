@@ -7,7 +7,7 @@ const Sidebar = () => {
         <div className="page d-flex flex-row flex-column-fluid">
           <div
             id="kt_aside"
-            className="aside bg-info"
+            className="aside bg-blue"
             data-kt-offcanvas="true"
             data-kt-offcanvas-name="aside"
             data-kt-offcanvas-activate="{default: true, lg: false}"
@@ -18,7 +18,7 @@ const Sidebar = () => {
             data-kt-offcanvas-close
           >
             {/*begin::Secondary*/}
-            <div className="aside-secondary d-flex flex-row-fluid bg-blue">
+            <div className="aside-secondary d-flex flex-row-fluid">
               {/*begin::Workspace*/}
               <div
                 className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
@@ -82,7 +82,6 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           CMS
@@ -95,18 +94,7 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/userlist">
-                              <span className="menu-title">Manage Users</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           Startag Management
@@ -121,20 +109,7 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Verification Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/requestList">
-                              <span className="menu-title">
-                                Manage Verification Requests
-                              </span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           Post Management

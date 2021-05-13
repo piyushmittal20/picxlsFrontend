@@ -54,7 +54,7 @@ const AddStatePage = ({ history }) => {
             <Loader />
           ) : (
             <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
-              <h1>
+              <h1 class="py-5">
                 {" "}
                 <Link to="/statelist">
                   <svg
@@ -73,48 +73,64 @@ const AddStatePage = ({ history }) => {
                     <polyline points="15 6 9 12 15 18" />
                   </svg>
                 </Link>{" "}
-                ADD STATE
+                Add State
               </h1>
-              <select
-                className="form-select my-5"
-                aria-label="Select example"
-                {...register("country")}
-              >
-                <option value="">Select Country</option>
-                {countries &&
-                  countries.map((country) => (
-                    <option value={country._id}>{country.title}</option>
-                  ))}
-              </select>
-              <input
-                type="text"
-                className="form-control my-5"
-                placeholder="Enter State"
-                {...register("title")}
-              />
-              {errors.title && (
-                <p className="text-danger small p-1">{errors.title.message}</p>
-              )}
-              <div className="text-right">
-                <Link to="/statelist">
-                  <Button type="submit" className="mx-3" variant="secondary">
-                    Cancel
-                  </Button>
-                </Link>
-                {createLoading ? (
-                  <Button type="submit" variant="dark" disabled>
-                    <Spinner
-                      animation="border"
-                      size="sm"
-                      style={{ marginRight: "5px", marginBottom: "3px" }}
+              <div class="form rounded border p-10">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <label>Select Country</label>
+                    <select
+                      className="form-select my-5"
+                      aria-label="Select example"
+                      {...register("country")}
+                    >
+                      <option value="">Select Country</option>
+                      {countries &&
+                        countries.map((country) => (
+                          <option value={country._id}>{country.title}</option>
+                        ))}
+                    </select>
+                  </div>
+                  <div class="col-sm-12">
+                    <label>Add State Name</label>
+                    <input
+                      type="text"
+                      className="form-control my-5"
+                      placeholder="Enter State"
+                      {...register("title")}
                     />
-                    Creating...
-                  </Button>
-                ) : (
-                  <Button type="submit" variant="dark">
-                    Create
-                  </Button>
-                )}
+                    {errors.title && (
+                      <p className="text-danger small p-1">
+                        {errors.title.message}
+                      </p>
+                    )}
+                  </div>
+                  <div className="text-right col-sm-12">
+                    <Link to="/statelist">
+                      <Button
+                        type="submit"
+                        className="mx-3"
+                        variant="secondary"
+                      >
+                        Cancel
+                      </Button>
+                    </Link>
+                    {createLoading ? (
+                      <Button type="submit" variant="dark" disabled>
+                        <Spinner
+                          animation="border"
+                          size="sm"
+                          style={{ marginRight: "5px", marginBottom: "3px" }}
+                        />
+                        Creating...
+                      </Button>
+                    ) : (
+                      <Button type="submit" variant="dark">
+                        Create
+                      </Button>
+                    )}
+                  </div>
+                </div>
               </div>
             </form>
           )}

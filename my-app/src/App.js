@@ -35,8 +35,10 @@ function App() {
 
   return (
     <div className="App">
-      {adminInfo && <Navbar />}
+      
       {adminInfo && <Sidebar />}
+      <div className="wrapper d-flex flex-column flex-row-fluid">
+      {adminInfo && <Navbar />}
       <Switch>
         <Route path="/" exact component={Dashboard} />
         <Route path="/admin-login" exact component={Login} />
@@ -66,6 +68,7 @@ function App() {
         <Route path="/viewuser/:id" exact component={UserViewPage} />
       </Switch>
       <Footer />
+      </div>
     </div>
   );
 }

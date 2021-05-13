@@ -69,7 +69,7 @@ const EditCountryPage = ({history, match}) => {
     }
 
     return (
-        <div class="wapper">
+        <div class="">
             <Meta title="Edit Country - Picxls" />
             <div class="container-fluid mt-40">
             <container>
@@ -77,27 +77,34 @@ const EditCountryPage = ({history, match}) => {
             {errors.title && <ErrorToast message={errors.title.message} />}
             {loading ? <Loader /> : (
             <form onSubmit={handleSubmit(submitHandler)}>
-            <h2 class="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <h2 class="head py-5"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link>Edit Country</h2>
-            <input 
-                type="text" 
-                className="form-control my-5"
-                {...register("title")}
-                placeholder="Enter Country"/>
-            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
-            <div className="text-right">
-            <Link to="/countrylist">
-            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {updateLoading ? 
-            <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
-                Updating...
-            </Button>
-            :
-            <Button type="submit" variant="dark">Update</Button>}
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Edit Country Name</label>
+                        <input 
+                            type="text" 
+                            className="form-control my-5"
+                            {...register("title")}
+                            placeholder="Enter Country"/>
+                        {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
+                        <div className="text-right">
+                            <Link to="/countrylist">
+                            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                            </Link>
+                            {updateLoading ? 
+                            <Button type="submit" variant="dark" disabled>
+                                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
+                                Updating...
+                            </Button>
+                            :
+                            <Button type="submit" variant="dark">Update</Button>}
+                        </div>
+                    </div>
+                </div>
             </div>
             </form>
             )}

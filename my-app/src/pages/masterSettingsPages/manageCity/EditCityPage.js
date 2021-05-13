@@ -74,40 +74,54 @@ const EditCityPage = ({history, match}) => {
             {errors.title && <ErrorToast message={errors.title.message} />}
             {loading ? <Loader /> : (
             <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
-            <h1> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                <polyline points="15 6 9 12 15 18" />
-            </svg></Link> EDIT CITY</h1>
-            <input 
-                type="text" 
-                value={country}
-                className="form-control my-5" 
-                disabled 
-                placeholder="Enter Country"/>
-            <input 
-                type="text" 
-                value = {state}
-                className="form-control my-5" 
-                disabled 
-                placeholder="Enter State"/>
-            <input 
-                type="text" 
-                {...register('title')}
-                className="form-control my-5" 
-                placeholder="Enter City"/>
-            {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
-            <div className="text-right">
-            <Link to="/citylist">
-            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
-            </Link>
-            {updateLoading ? 
-            <Button type="submit" variant="dark" disabled>
-                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
-                Updating...
-            </Button>
-            :
-            <Button type="submit" variant="dark">Update</Button>}
-            </div>
+                <h1 className="py-5"> <Link to="/citylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                    <polyline points="15 6 9 12 15 18" />
+                </svg></Link>Edit City</h1>
+                <div class="form rounded border p-10">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Country Name</label>
+                            <input 
+                                type="text" 
+                                value={country}
+                                className="form-control my-5" 
+                                disabled 
+                                placeholder="Enter Country"/>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>State Name</label>
+                            <input 
+                                type="text" 
+                                value = {state}
+                                className="form-control my-5" 
+                                disabled 
+                                placeholder="Enter State"/>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>City Name</label>
+                            <input 
+                                type="text" 
+                                {...register('title')}
+                                className="form-control my-5" 
+                                placeholder="Enter City"/>
+                                {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
+                        </div>
+            
+                        <div className="text-right col-sm-12">
+                            <Link to="/citylist">
+                            <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
+                            </Link>
+                            {updateLoading ? 
+                            <Button type="submit" variant="dark" disabled>
+                                <Spinner animation="border" size="sm" style={{marginRight: '5px'}} />
+                                Updating...
+                            </Button>
+                            :
+                            <Button type="submit" variant="dark">Update</Button>}
+                        </div>
+                    </div>
+                </div>
             </form>
             )}
             </container>

@@ -5,6 +5,8 @@ import {Image, Button} from 'react-bootstrap';
 import {verifyRequestDetail} from '../../actions/userActions';
 import VerifyBox from '../../components/VerifyBox';
 import DropModal from '../../components/DropModal';
+import {FaCheck, FaTimes} from 'react-icons/fa';
+
 
 const RequestViewPage = ({history, match}) => {
     const [show, setShow] = useState(false)
@@ -60,71 +62,92 @@ const RequestViewPage = ({history, match}) => {
             </svg></Link> Request Detail</h2>
             </div>
             {request && request.userId && (
-                <div class="card mb-5 mb-xxl-8">
-                <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
-                  <div
-                    class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
-                  >
-                      <Image
-                      className="image"
-                      src={request.photo}
-                      alt="photo"
-                      fluid
-                    />
-                  </div>
-                  <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
-                    <div class="card-body bg-light px-12 py-10">
-                      <h3 class="fw-bolder fs-1 mb-9">
-                        <a href="#" class="text-gray-800">
-                        {request.username}
-                        </a>
-                      </h3>
-                      <table class="table table-borderless align-middle fw-bold">
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Name</td>
-                          <td class="tdpd text-dark pe-0">{request.name}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Category</td>
-                          <td class="tdpd text-dark pe-0">{request.category}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">DOB:</td>
-                          <td class="tdpd text-dark pe-0">{request.userId.birthday}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Email:</td>
-                          <td class="tdpd text-dark pe-0">{request.userId.email}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Contact No:</td>
-                          <td class="tdpd text-dark pe-0">{request.userId.phoneNumber}</td>
-                        </tr>
-                      </table>
-                      <div className="btn-container">
-                      <Button 
-                        className="btn" 
-                        variant="success" 
-                        style={{background: 'green'}}
-                        onClick={() => {
-                            handleShow()
-                            showHandler(request._id)
-                        }}
-                        >Verify</Button>
-                        <Button 
-                        className="btn" 
-                        variant="danger" 
-                        style={{background: 'red'}}
-                        onClick={() => {
-                            handleShow2()
-                            showHandler2(request._id)
-                        }}
-                        >Dropped</Button>
+                <div class="card shadow">
+                    <div class="card-header">
+                      <h3 class="card-title">{request.username}</h3>
+                      <div class="card-toolbar">
+                          <span
+                                className="btn" 
+                                variant="success" 
+                                
+                                onClick={() => {
+                                    handleShow()
+                                    showHandler(request._id)
+                                }}
+                                ><FaCheck style={{color: 'green'}} /></span>
+                                <span
+                                className="btn" 
+                                variant="danger" 
+                               
+                                onClick={() => {
+                                    handleShow2()
+                                    showHandler2(request._id)
+                                }}
+                                ><FaTimes style={{color: 'red'}} /></span>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                    <div class="card-body">
+                        {/*<div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
+                              <Image
+                              className="image"
+                              src={request.photo}
+                              alt="photo"
+                              fluid
+                            />
+                          </div>*/}
+                          <div class="">
+                            <div class="">
+                              {/*<h3 class="fw-bolder fs-1 mb-9">
+                                <a href="#" class="text-gray-800">
+                                {request.username}
+                                </a>
+                              </h3>*/}
+                              <table class="table table-borderless align-middle fw-bold">
+                                <tr>
+                                  <td class="tdpd text-gray-600 ps-0">Name</td>
+                                  <td class="tdpd text-dark pe-0">{request.name}</td>
+                                </tr>
+                                <tr>
+                                  <td class="tdpd text-gray-600 ps-0">Category</td>
+                                  <td class="tdpd text-dark pe-0">{request.category}</td>
+                                </tr>
+                                <tr>
+                                  <td class="tdpd text-gray-600 ps-0">DOB:</td>
+                                  <td class="tdpd text-dark pe-0">{request.userId.birthday}</td>
+                                </tr>
+                                <tr>
+                                  <td class="tdpd text-gray-600 ps-0">Email:</td>
+                                  <td class="tdpd text-dark pe-0">{request.userId.email}</td>
+                                </tr>
+                                <tr>
+                                  <td class="tdpd text-gray-600 ps-0">Contact No:</td>
+                                  <td class="tdpd text-dark pe-0">{request.userId.phoneNumber}</td>
+                                </tr>
+                              </table>
+                              {/*<div className="btn-container">
+                              <Button 
+                                className="btn" 
+                                variant="success" 
+                                style={{background: 'green'}}
+                                onClick={() => {
+                                    handleShow()
+                                    showHandler(request._id)
+                                }}
+                                >Verify</Button>
+                                <Button 
+                                className="btn" 
+                                variant="danger" 
+                                style={{background: 'red'}}
+                                onClick={() => {
+                                    handleShow2()
+                                    showHandler2(request._id)
+                                }}
+                                >Dropped</Button>
+                              </div>*/}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 // <Row>
                 //     <Col md={6} style={{padding: '15px'}}>
                 //         <Image className="image" src={`https://picxls-testing.herokuapp.com/${request.photo}`} alt="Id Proof" fluid />

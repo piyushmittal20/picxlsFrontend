@@ -43,33 +43,40 @@ const AddCountryPage = ({history}) => {
     }
 
     return (
-        <div className="wapper">
+        <div className="">
             <Meta title="Add Country - Picxls" />
             <div className="container-fluid mt-40">
             <container>
             {errors.title && <ErrorToast message={errors.title.message} />}
             <form onSubmit={handleSubmit(handleS)}>
-            <h2 className="head"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <h2 className="head py-5"> <Link to="/countrylist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link>Add Country</h2>
-            <div>
-                <input type="text" className="form-control my-5" {...register("title")}></input>
-            </div>
-                {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
-                <div className="text-right">
-                    <Link to="/countrylist">
-                    <Button className="mx-3" variant="secondary">Cancel</Button>
-                    </Link>
-                    {loading ?
-                    <Button  variant="dark" disabled>
-                        <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
-                        Creating...
-                    </Button>
-                    :
-                    <Button type="submit" variant="dark">Create</Button>}
-                    
+            <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Add Country Name</label>
+                        <div>
+                            <input type="text" className="form-control my-5" {...register("title")}></input>
+                        </div>
+                        {errors.title && <p className="text-danger small p-1">{errors.title.message}</p>}
+                        <div className="text-right">
+                            <Link to="/countrylist">
+                            <Button className="mx-3" variant="secondary">Cancel</Button>
+                            </Link>
+                            {loading ?
+                            <Button  variant="dark" disabled>
+                                <Spinner animation="border" size="sm" style={{marginRight: '5px', marginBottom: '3px'}} />
+                                Creating...
+                            </Button>
+                            :
+                            <Button type="submit" variant="dark">Create</Button>}
+                            
+                        </div>
+                    </div>
                 </div>
+            </div>
             </form>
             </container>
             </div>

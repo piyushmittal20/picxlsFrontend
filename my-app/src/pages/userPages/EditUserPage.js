@@ -61,7 +61,7 @@ const EditUserPage = ({history, match}) => {
     console.log(errors)
 
     return (
-        <div className="wapper">
+        <div className="">
             <Meta title="Edit User - Picxls" />
             <div className="container-fluid mt-40">
             <container>
@@ -73,31 +73,54 @@ const EditUserPage = ({history, match}) => {
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                 <polyline points="15 6 9 12 15 18" />
             </svg></Link> EDIT USER</h1>
-            <input 
+             <div class="form rounded border p-10">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>First Name</label>
+                        <input 
                 type="text" 
                 {...register("firstname")}
                 className="form-control my-5" 
                 placeholder="Enter firstname"/>
             {errors.firstname && <p className="text-danger small p-1">{errors.firstname.message}</p>}
-            <input 
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Last Name</label>
+                        <input 
                 type="text" 
                 {...register("lastname")}
                 className="form-control my-5" 
                 placeholder="Enter lastname"/>
             {errors.lastname && <p className="text-danger small p-1">{errors.lastname.message}</p>}
-            <input 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <label>Email</label>
+                        <input 
                 type="text" 
                 {...register("email")}
                 className="form-control my-5" 
                 placeholder="Enter Email"/>
             {errors.email && <p className="text-danger small p-1">{errors.email.message}</p>}
-            <input 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                    <label>Contact Number</label>
+                        <input 
                 type="text" 
                 {...register("phoneNumber")}
                 className="form-control my-5" 
                 placeholder="Enter Contact number"/>
             {errors.phoneNumber && <p className="text-danger small p-1">{errors.phoneNumber.message}</p>}
-            <div className="text-right">
+                    </div>
+                </div>
+                
+                
+                
+                
+                <div className="text-right">
             <Link to="/userlist">
                 <Button type="submit" className="mx-3" variant="secondary">Cancel</Button>
             </Link>
@@ -109,6 +132,12 @@ const EditUserPage = ({history, match}) => {
             :
             <Button type="submit" variant="dark">Update</Button>}
             </div>
+            </div>
+            
+            
+            
+            
+            
             </form>
             )}
             </container>

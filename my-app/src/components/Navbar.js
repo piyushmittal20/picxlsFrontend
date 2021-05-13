@@ -62,13 +62,14 @@ const Navbar = () => {
                 </svg>
               </span>
             </button> */}
-            <a href="/">
+            {/*<a href="/">
               <img
                 alt="Logo"
                 src="../assets/media/picxls-logo.png"
                 class="h-50px"
               />
-            </a>
+            </a>*/}
+            <h2>Picxls - Admin </h2>
           </div>
           <div class="d-flex align-items-center">
             <div class="ms-1 ms-lg-6"
@@ -82,7 +83,7 @@ const Navbar = () => {
                     </Tooltip>
                   )}
                 >
-                <IoIosLogOut style={{color: 'white', fontSize: '25px', cursor: 'pointer'}} />
+                <IoIosLogOut style={{color: '#09204e', fontSize: '25px', cursor: 'pointer'}} />
                 </OverlayTrigger>
             </div>
             <div

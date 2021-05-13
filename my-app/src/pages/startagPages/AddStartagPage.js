@@ -73,13 +73,101 @@ const AddStartagPage = ({ history }) => {
     }
   }, [history, createSuccess, dispatch, error]);
 
+  // return (
+  //   <div className="wrapper">
+  //     <Meta title="Add Startag - Picxls" />
+  //     <div className="container-fluid mt-40">
+  //       <container>
+  //         {error && <ErrorToast message={error.message} />}
+  //         <form className="m-3 p-2" onSubmit={submitForm}>
+  //           <h1>
+  //             {" "}
+  //             <Link to="/startaglist">
+  //               <svg
+  //                 xmlns="http://www.w3.org/2000/svg"
+  //                 class="icon icon-tabler icon-tabler-chevron-left"
+  //                 width="24"
+  //                 height="24"
+  //                 viewBox="0 0 24 24"
+  //                 stroke-width="1.5"
+  //                 stroke="#09204e"
+  //                 fill="none"
+  //                 stroke-linecap="round"
+  //                 stroke-linejoin="round"
+  //               >
+  //                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  //                 <polyline points="15 6 9 12 15 18" />
+  //               </svg>
+  //             </Link>{" "}
+  //             ADD STARTAG
+  //           </h1>
+  //           <input
+  //             type="text"
+  //             value={name}
+  //             onChange={(e) => setName(e.target.value)}
+  //             className="form-control my-5"
+  //             placeholder="Enter Name"
+  //           />
+  //           <span className="error-msg">{nameErr}</span>
+  //           <select
+  //             className="form-select my-5"
+  //             aria-label="Select example"
+  //             value={type}
+  //             onChange={(e) => setType(e.target.value)}
+  //           >
+  //             <option>Select Role</option>
+  //             <option value="General">General</option>
+  //             <option value="Bussiness">Bussiness</option>
+  //           </select>
+  //           <span className="error-msg">{typeErr}</span>
+  //           {type === "Bussiness" ? (
+  //             <div>
+  //               <input
+  //                 type="text"
+  //                 value={cost}
+  //                 onChange={(e) => setCost(e.target.value)}
+  //                 className="form-control my-5"
+  //                 placeholder="Enter Cost"
+  //               />
+  //               <span className="error-msg">{costErr}</span>
+  //             </div>
+  //           ) : (
+  //             ""
+  //           )}
+  //           <input
+  //             type="file"
+  //             onChange={(e) => setImage(e.target.files[0])}
+  //             className="form-control my-5"
+  //             placeholder="Enter Image"
+  //           />
+  //           <div className="text-right">
+  //             <Link to="/startaglist">
+  //               <Button type="submit" className="mx-3" variant="secondary">
+  //                 Cancel
+  //               </Button>
+  //             </Link>
+  //             {loading ? (
+  //               <Button type="submit" variant="dark" disabled>
+  //                 <Spinner
+  //                   animation="border"
+  //                   size="sm"
+  //                   style={{ marginRight: "5px", marginBottom: "3px" }}
+  //                 />
+  //                 Creating...
+  //               </Button>
+  //             ) : (
+  //               <Button type="submit" variant="dark">
+  //                 Create
+  //               </Button>
+  //             )}
+
   return (
-    <div className="wrapper">
+    <div className="">
       <Meta title="Add Startag - Picxls" />
       <div className="container-fluid mt-40">
         <container>
           {error && <ErrorToast message={error.message} />}
-          <form className="m-3 p-2" onSubmit={submitForm}>
+          <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1>
               {" "}
               <Link to="/startaglist">
@@ -99,67 +187,81 @@ const AddStartagPage = ({ history }) => {
                   <polyline points="15 6 9 12 15 18" />
                 </svg>
               </Link>{" "}
-              ADD STARTAG
+              Add Startag
             </h1>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="form-control my-5"
-              placeholder="Enter Name"
-            />
-            <span className="error-msg">{nameErr}</span>
-            <select
-              className="form-select my-5"
-              aria-label="Select example"
-              value={type}
-              onChange={(e) => setType(e.target.value)}
-            >
-              <option>Select Role</option>
-              <option value="General">General</option>
-              <option value="Bussiness">Bussiness</option>
-            </select>
-            <span className="error-msg">{typeErr}</span>
-            {type === "Bussiness" ? (
-              <div>
-                <input
-                  type="text"
-                  value={cost}
-                  onChange={(e) => setCost(e.target.value)}
-                  className="form-control my-5"
-                  placeholder="Enter Cost"
-                />
-                <span className="error-msg">{costErr}</span>
-              </div>
-            ) : (
-              ""
-            )}
-            <input
-              type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-              className="form-control my-5"
-              placeholder="Enter Image"
-            />
-            <div className="text-right">
-              <Link to="/startaglist">
-                <Button type="submit" className="mx-3" variant="secondary">
-                  Cancel
-                </Button>
-              </Link>
-              {loading ? (
-                <Button type="submit" variant="dark" disabled>
-                  <Spinner
-                    animation="border"
-                    size="sm"
-                    style={{ marginRight: "5px", marginBottom: "3px" }}
+            <div class="form rounded border p-10">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label>Startag Name</label>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="form-control my-5"
+                    placeholder="Enter Name"
                   />
-                  Creating...
-                </Button>
-              ) : (
-                <Button type="submit" variant="dark">
-                  Create
-                </Button>
-              )}
+                  <span className="error-msg">{nameErr}</span>
+                </div>
+                <div class="col-sm-12">
+                  <label>Startag Type</label>
+                  <select
+                    className="form-select my-5"
+                    aria-label="Select example"
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                  >
+                    <option>Select Role</option>
+                    <option value="General">General</option>
+                    <option value="Bussiness">Bussiness</option>
+                  </select>
+                  <span className="error-msg">{typeErr}</span>
+                  {type === "Bussiness" ? (
+                    <div>
+                      <label>Startag Cost</label>
+                      <input
+                        type="text"
+                        value={cost}
+                        onChange={(e) => setCost(e.target.value)}
+                        className="form-control my-5"
+                        placeholder="Enter Cost"
+                      />
+                      <span className="error-msg">{costErr}</span>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div class="col-sm-12">
+                  <label>Select Image</label>
+                  <input
+                    type="file"
+                    onChange={(e) => setImage(e.target.files[0])}
+                    className="form-control my-5"
+                    placeholder="Enter Image"
+                  />
+                </div>
+                <div className="text-right col-sm-12">
+                  <Link to="/startaglist">
+                    <Button type="submit" className="mx-3" variant="secondary">
+                      Cancel
+                    </Button>
+                  </Link>
+                  {loading ? (
+                    <Button type="submit" variant="dark" disabled>
+                      <Spinner
+                        animation="border"
+                        size="sm"
+                        style={{ marginRight: "5px", marginBottom: "3px" }}
+                      />
+                      Creating...
+                    </Button>
+                  ) : (
+                    <Button type="submit" variant="dark">
+                      Create
+                    </Button>
+                  )}
+                </div>
+              </div>
             </div>
           </form>
         </container>
