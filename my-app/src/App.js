@@ -36,11 +36,12 @@ function App() {
   return (
     <div className="App">
       {adminInfo && <Sidebar />}
+      <Route path="/admin-login" exact component={Login} />
       <div className="wrapper d-flex flex-column flex-row-fluid">
         {adminInfo && <Navbar />}
         <Switch>
           <Route path="/" exact component={Dashboard} />
-          <Route path="/admin-login" exact component={Login} />
+          
           <Route path="/CMS" exact component={CmsPageList} />
           <Route path="/editpage/:id" exact component={EditCmsPage} />
           <Route path="/countrylist" exact component={CountryListPage} />
@@ -81,8 +82,9 @@ function App() {
           <Route path="/viewstartag/:id" exact component={StartagViewPage} />
           <Route path="/viewuser/:id" exact component={UserViewPage} />
         </Switch>
-        <Footer />
+       
       </div>
+       <Footer />
     </div>
   );
 }

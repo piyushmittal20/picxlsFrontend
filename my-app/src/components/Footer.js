@@ -2,9 +2,9 @@ const Footer = () => {
   return (
     <>
       <div class="footer py-4 d-flex flex-lg-column" id="kt_footer">
-        <div class="container d-flex flex-column flex-md-row align-items-center justify-content-between">
+        <div class="container ">
           <div class="text-dark order-2 order-md-1">
-            <span class="text-muted fw-bold me-2">© 2021 | Engineered by</span>
+            <span class="text-muted fw-bold me-2">© 2021 Picxls | Engineered by</span>
             <a
               href="https://www.vayuz.com"
               target="_blank"

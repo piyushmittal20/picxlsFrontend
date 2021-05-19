@@ -87,14 +87,7 @@ const RequestViewPage = ({history, match}) => {
                       </div>
                     </div>
                     <div class="card-body">
-                        {/*<div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
-                              <Image
-                              className="image"
-                              src={request.photo}
-                              alt="photo"
-                              fluid
-                            />
-                          </div>*/}
+                        
                           <div class="">
                             <div class="">
                               {/*<h3 class="fw-bolder fs-1 mb-9">
@@ -124,6 +117,14 @@ const RequestViewPage = ({history, match}) => {
                                   <td class="tdpd text-dark pe-0">{request.userId.phoneNumber}</td>
                                 </tr>
                               </table>
+                              <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
+                                  <Image
+                                  className="image"
+                                  src={request.photo}
+                                  alt="photo"
+                                  fluid
+                                />
+                              </div>
                               {/*<div className="btn-container">
                               <Button 
                                 className="btn" 

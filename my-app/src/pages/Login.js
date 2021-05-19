@@ -60,9 +60,9 @@ const Login = ({ history }) => {
 
     dispatch(login(email, password));
   };
-
+  
   return (
-    <>
+    <div class="p-0">
       <Meta title="Sign In - Picxls" />
       {error && <ErrorToast message={error.message} />}
       <div className="d-flex flex-column flex-root">
@@ -78,9 +78,7 @@ const Login = ({ history }) => {
               />
               <br />
               <h3 className="fw-bolder fs-2x text-white lh-lg">
-                Discover Start
-                <br />
-                with great build tools
+                Discover PICXLS
               </h3>
             </div>
             <div
@@ -139,7 +137,7 @@ const Login = ({ history }) => {
                     <button
                       type="submit"
                       disabled="true"
-                      className="btn btn-primary fw-bolder fs-6 px-8 py-4 my-3 me-3 login-btn"
+                      className="btn btn-dark  fw-bolder fs-6 px-8 py-4 my-3 me-3 login-btn"
                     >
                       <p>Processing...</p>{" "}
                       <Spinner
@@ -150,7 +148,7 @@ const Login = ({ history }) => {
                   ) : (
                     <button
                       type="submit"
-                      className="btn btn-primary fw-bolder fs-6 px-8 py-4 my-3 me-3 login-btn"
+                      className="btn btn-dark login-btn"
                     >
                       Sign In
                     </button>
@@ -161,7 +159,7 @@ const Login = ({ history }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

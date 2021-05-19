@@ -226,3 +226,11 @@ div.dataTables_wrapper div.dataTables_filter {
   width: 160px;
   margin: 5px 10px;
 }
+.footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    left: 0;
+    background-color: #fff;
+    text-align: center;
+}
