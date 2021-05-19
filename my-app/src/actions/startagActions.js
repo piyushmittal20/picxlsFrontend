@@ -30,25 +30,27 @@ import {
   startagStatus,
 } from "../service";
 
-export const getAllStartag = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ADMIN_STARTAGLIST_REQUEST });
+export const getAllStartag =
+  (search = "", pageNumber = "", status = "", startDate = "", lastDate = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_STARTAGLIST_REQUEST });
 
-    const {
-      data: { startags },
-    } = await axios.get(`${startagList}/startags`);
+      const { data } = await axios.get(
+        `${startagList}/startags?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`
+      );
 
-    dispatch({
-      type: ADMIN_STARTAGLIST_SUCCESS,
-      payload: startags,
-    });
-  } catch (error) {
-    dispatch({
-      type: ADMIN_STARTAGLIST_FAIL,
-      payload: error.response.data,
-    });
-  }
-};
+      dispatch({
+        type: ADMIN_STARTAGLIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_STARTAGLIST_FAIL,
+        payload: error.response.data,
+      });
+    }
+  };
 
 export const createStartag = (startag) => async (dispatch, getState) => {
   console.log(startag);

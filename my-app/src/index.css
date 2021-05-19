@@ -1,191 +1,228 @@
 .action-list {
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    font-size: 20px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  font-size: 20px;
 }
 
 .action-list-item {
-    margin: 0px 6px;
-    cursor: pointer;
-    padding: 0;
+  margin: 0px 6px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .fas {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .add-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .head {
-    align-self: center;
-    margin: 0 !important;
+  align-self: center;
+  margin: 0 !important;
 }
 
 .error-msg {
-    color: red;
+  color: red;
 }
 .footer {
-    /*min-height: calc(100vh - 150px)*/
-    /*position: absolute;*/
-    /*bottom: 0px;*/
-    /*width: 100%*/
+  /*min-height: calc(100vh - 150px)*/
+  /*position: absolute;*/
+  /*bottom: 0px;*/
+  /*width: 100%*/
 }
-.text-right{
-    text-align: right
+.text-right {
+  text-align: right;
 }
-.wapper{
-    min-height: calc(100vh - 150px)
+.wapper {
+  min-height: calc(100vh - 150px);
 }
-.close{
-        background-color: #fff;
-    box-shadow: none;
-    border: none;
-    font-size: 20px;
+.close {
+  background-color: #fff;
+  box-shadow: none;
+  border: none;
+  font-size: 20px;
 }
 
 .login-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 20px !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px 20px !important;
 }
 
 .login-btn p {
-    margin: 0 !important;
+  margin: 0 !important;
 }
 
 .box {
-    margin: 10px 0;
-    padding: 15px 0;
+  margin: 10px 0;
+  padding: 15px 0;
 }
 
 .btn-container {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .btn-container .btn {
-    margin: 15px;
-    padding: 10px 30px !important;
-    border-radius: 5px;
-    width: 100%;
+  margin: 15px;
+  padding: 10px 30px !important;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .card {
-    font-size: 17px;
-    margin: 10px;
-    border-radius: 3px;
+  font-size: 17px;
+  margin: 10px;
+  border-radius: 3px;
 }
 
 .list {
-    color: darkblue;
-    margin: 10px;
-    padding: 10px;
+  color: darkblue;
+  margin: 10px;
+  padding: 10px;
 }
 
 .list-item {
-    margin: 10px;
+  margin: 10px;
 }
 
 .image {
-    width: 100%;
-    height: 470px;
+  width: 100%;
+  height: 470px;
 }
 
 .table {
-    padding: 10px;
+  padding: 10px;
 }
 
 .filter-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    margin: 15px 0;
-    padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  margin: 15px 0;
+  padding: 10px 0;
 }
 
 .filter-container input {
-    height: 30px;
-    width: 200px;
+  height: 30px;
+  width: 200px;
 }
 
 .filter-container select {
-    height: 30px;
-    width: 200px;
+  height: 30px;
+  width: 200px;
 }
 
 .reset-icon {
-    font-size: 26px;
-    cursor: pointer;
+  font-size: 26px;
+  cursor: pointer;
 }
 
 .modal-body {
-    padding: 10px 20px;
-    font-size:20px;
+  padding: 10px 20px;
+  font-size: 20px;
 }
 
 .modal-input {
-    width: 100%;
-    height: 40px;
-    padding: 5px;
-    border: 1px solid darkblue;
-    border-radius: 3px;
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+  border: 1px solid darkblue;
+  border-radius: 3px;
 }
 
 #kt_layout_builder_export {
-    background: red;
-    color: white;
+  background: red;
+  color: white;
 }
-div.dataTables_wrapper div.dataTables_length{
-    padding: 0 15px;
-}
-
-div.dataTables_wrapper div.dataTables_filter{
-    padding: 0 15px;
+div.dataTables_wrapper div.dataTables_length {
+  padding: 0 15px;
 }
 
-.card > .card-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-}
-.card-title{
-    padding: 10px 0
+div.dataTables_wrapper div.dataTables_filter {
+  padding: 0 15px;
 }
 
-.tox-tinymce{
-    margin-top: 1.25rem!important;
-    margin-bottom: 1.25rem!important;
+.card > .card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
 }
-.modal-open .modal{
-    background: #00000091;
-    position: absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height: 100%;
+.card-title {
+  padding: 10px 0;
+}
+
+.tox-tinymce {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+.modal-open .modal {
+  background: #00000091;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 .footer {
-    /*position: absolute;*/
-    /*bottom: 0*/
+  /*position: absolute;*/
+  /*bottom: 0*/
 }
 
-.startag .filter-container input{
-        width: 150px;
+.startag .filter-container input {
+  width: 150px;
 }
 
-.text-center{
-    text-align: center;
-    margin: 0 auto;
+.text-center {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.pagination-div {
+  float: right;
+  margin: 15px;
+  padding: 10px;
+  font-size: large;
+  font-weight: 700;
+}
+
+.pagination-btn:hover {
+  background-color: #09204e;
+  color: #fff !important;
+}
+
+.pagination-btn {
+  color: #09204e !important;
+  text-decoration: none !important;
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.active {
+  background-color: #09204e;
+  color: #fff !important;
+}
+
+.search-input {
+  float: right;
+  margin: 10px 15px;
+}
+
+.search-input input {
+  height: 30px;
+  width: 160px;
+  margin: 5px 10px;
 }

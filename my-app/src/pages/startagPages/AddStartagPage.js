@@ -167,7 +167,7 @@ const AddStartagPage = ({ history }) => {
       <div className="container-fluid mt-40">
         <container>
           {error && <ErrorToast message={error.message} />}
-          <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
+          <form className="m-3 p-2" onSubmit={submitForm}>
             <h1>
               {" "}
               <Link to="/startaglist">

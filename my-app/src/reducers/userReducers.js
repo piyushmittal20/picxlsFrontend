@@ -47,6 +47,7 @@ export const userListReducer = (state = { users: [] }, action) => {
         users: action.payload.users,
         pages: action.payload.pages,
         page: action.payload.page,
+        total: action.payload.total,
       };
     case ADMIN_USERLIST_FAIL:
       return {

@@ -116,7 +116,7 @@ const StateListPage = ({ history }) => {
                     <td>{state.country.title}</td>
                     <td>
                       {moment(state.createdAt.substring(0, 10)).format(
-                        "MMMM Do YYYY"
+                        "MMMM DD YYYY"
                       )}
                     </td>
                     <td>

@@ -35,39 +35,53 @@ function App() {
 
   return (
     <div className="App">
-      
       {adminInfo && <Sidebar />}
       <div className="wrapper d-flex flex-column flex-row-fluid">
-      {adminInfo && <Navbar />}
-      <Switch>
-        <Route path="/" exact component={Dashboard} />
-        <Route path="/admin-login" exact component={Login} />
-        <Route path="/CMS" exact component={CmsPageList} />
-        <Route path="/editpage/:id" exact component={EditCmsPage} />
-        <Route path="/countrylist" exact component={CountryListPage} />
-        <Route path="/addcountry" exact component={AddCountryPage} />
-        <Route path="/editcountry/:id" exact component={EditCountryPage} />
-        <Route path="/citylist" exact component={CityListPage} />
-        <Route path="/addcity" exact component={AddCityPage} />
-        <Route path="/editcity/:id" exact component={EditCityPage} />
-        <Route path="/statelist" exact component={StateListPage} />
-        <Route path="/addstate" exact component={AddStatePage} />
-        <Route path="/editstate/:id" exact component={EditStatePage} />
-        <Route path="/userlist" exact component={UserListPage} />
-        <Route path="/addUser" exact component={AddUserPage} />
-        <Route path="/edituser/:id" exact component={EditUserPage} />
-        <Route path="/startaglist" exact component={StartagList} />
-        <Route path="/addstartag" exact component={AddStartagPage} />
-        <Route path="/editstartag/:id" exact component={EditStartagPage} />
-        <Route path="/userlist" exact component={UserListPage} />
-        <Route path="/requestList" exact component={verifyRequestList} />
-        <Route path="/viewrequest/:id" exact component={RequestViewPage} />
-        <Route path="/postlist" exact component={PostListPage} />
-        <Route path="/viewpost/:id" exact component={PostViewPage} />
-        <Route path="/viewstartag/:id" exact component={StartagViewPage} />
-        <Route path="/viewuser/:id" exact component={UserViewPage} />
-      </Switch>
-      <Footer />
+        {adminInfo && <Navbar />}
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/admin-login" exact component={Login} />
+          <Route path="/CMS" exact component={CmsPageList} />
+          <Route path="/editpage/:id" exact component={EditCmsPage} />
+          <Route path="/countrylist" exact component={CountryListPage} />
+          <Route path="/addcountry" exact component={AddCountryPage} />
+          <Route path="/editcountry/:id" exact component={EditCountryPage} />
+          <Route path="/citylist" exact component={CityListPage} />
+          <Route path="/addcity" exact component={AddCityPage} />
+          <Route path="/editcity/:id" exact component={EditCityPage} />
+          <Route path="/statelist" exact component={StateListPage} />
+          <Route path="/addstate" exact component={AddStatePage} />
+          <Route path="/editstate/:id" exact component={EditStatePage} />
+          <Route path="/userlist" exact component={UserListPage} />
+          <Route path="/addUser" exact component={AddUserPage} />
+          <Route path="/edituser/:id" exact component={EditUserPage} />
+          <Route path="/startaglist" exact component={StartagList} />
+          <Route
+            path="/startaglist/page/:pageNumber"
+            exact
+            component={StartagList}
+          />
+          <Route path="/addstartag" exact component={AddStartagPage} />
+          <Route path="/editstartag/:id" exact component={EditStartagPage} />
+          <Route path="/userlist" exact component={UserListPage} />
+          <Route
+            path="/userlist/page/:pageNumber"
+            exact
+            component={UserListPage}
+          />
+          <Route path="/requestList" exact component={verifyRequestList} />
+          <Route path="/viewrequest/:id" exact component={RequestViewPage} />
+          <Route path="/postlist" exact component={PostListPage} />
+          <Route
+            path="/postlist/page/:pageNumber"
+            exact
+            component={PostListPage}
+          />
+          <Route path="/viewpost/:id" exact component={PostViewPage} />
+          <Route path="/viewstartag/:id" exact component={StartagViewPage} />
+          <Route path="/viewuser/:id" exact component={UserViewPage} />
+        </Switch>
+        <Footer />
       </div>
     </div>
   );

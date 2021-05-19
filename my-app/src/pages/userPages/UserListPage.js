@@ -8,11 +8,8 @@ import Modals from "../../components/Modal";
 import { RiEyeFill } from "react-icons/ri";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
-import $ from "jquery";
 import { GrPowerReset } from "react-icons/gr";
 import moment from "moment";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from "../../components/Loader";
 import {
   ADMIN_ADDUSER_RESET,
@@ -20,6 +17,8 @@ import {
 } from "../../constants/adminConstants";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const UserListPage = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
@@ -29,8 +28,10 @@ const UserListPage = ({ history, match }) => {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [lastDate, setLastDate] = useState("");
-  var [data, setData] = useState([]);
-  const [status2, setStatus2] = useState("every");
+  // var [data, setData] = useState([]);
+  const [status2, setStatus2] = useState("");
+  const [search, setSearch] = useState("");
+  // const [q, setQ] = useState("");
 
   const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ const UserListPage = ({ history, match }) => {
   const { adminInfo } = adminLogin;
 
   const userList = useSelector((state) => state.userList);
-  const { loading, error, users, pages, page } = userList;
+  const { loading, error, users, pages, page, total } = userList;
 
   const userDelete = useSelector((state) => state.userDelete);
   const { success: successDelete } = userDelete;
@@ -58,119 +59,180 @@ const UserListPage = ({ history, match }) => {
     localStorage.setItem("userId", id);
   };
 
+  let newStart = "";
+
+  if (startDate !== "") {
+    newStart = moment(startDate).toISOString();
+  }
+
+  let newLast = "";
+
+  if (lastDate !== "") {
+    newLast = moment(lastDate).toISOString();
+  }
+
   useEffect(() => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDUSER_RESET });
       dispatch({ type: ADMIN_UPDATEUSER_RESET });
-      dispatch(listUsers("", pageNumber));
-      // setTimeout(() => {
-      //   $("#datatable1").DataTable({});
-      // }, 2000);
+      dispatch(listUsers(search, pageNumber, status2, newStart, newLast));
     } else {
       history.push("/admin-login");
     }
-  }, [adminInfo, dispatch, history, successDelete, statusSuccess, pageNumber]);
+  }, [
+    adminInfo,
+    dispatch,
+    history,
+    successDelete,
+    statusSuccess,
+    pageNumber,
+    search,
+    status2,
+    newStart,
+    newLast,
+  ]);
 
-  var result = [];
+  // var result = [];
 
-  if (!startDate && !lastDate && status2 === "every") {
-    data = users;
-  }
+  // if (!startDate && !lastDate && status2 === "every") {
+  //   data = users;
+  // }
 
-  useEffect(() => {
-    if (startDate && lastDate) {
-      result =
-        users &&
-        users.filter((user) =>
-          moment(user.createdAt).isBetween(startDate, lastDate)
-        );
-    }
-    if (status2 !== "every") {
-      result =
-        users && users.filter((user) => user.status.toString() === status2);
-    }
-    setData(result);
-  }, [startDate, lastDate, status2]);
-
-  const handleClick1 = (e) => {
-    setStartDate(e.target.value);
-  };
-
-  const handleClick2 = (e) => {
-    setLastDate(e.target.value);
-  };
+  // useEffect(() => {
+  //   if (startDate && lastDate) {
+  //     result =
+  //       users &&
+  //       users.filter((user) =>
+  //         moment(user.createdAt).isBetween(startDate, lastDate)
+  //       );
+  //   }
+  //   if (status2 !== "every") {
+  //     result =
+  //       users && users.filter((user) => user.status.toString() === status2);
+  //   }
+  //   setData(result);
+  // }, [startDate, lastDate, status2, pageNumber]);
 
   const resetFilter = () => {
     setLastDate("");
     setStartDate("");
-    setStatus2("every");
+    setStatus2("");
   };
+
+  let renderPageNumbers;
+
+  const pageNumbers = [];
+  if (total !== null) {
+    for (let i = 1; i <= pages; i++) {
+      pageNumbers.push(i);
+    }
+  }
+
+  renderPageNumbers = pageNumbers.map((number) => {
+    let classes = page === number ? "pagination-btn active" : "pagination-btn";
+
+    if (
+      number == 1 ||
+      number == total ||
+      (number >= page - 2 && number <= page + 2)
+    ) {
+      return (
+        <span key={number}>
+          <Link to={`/userlist/page/${number}`} className={classes}>
+            {number}
+          </Link>
+        </span>
+      );
+    }
+  });
+
+  // const search = (rows) => {
+  //   return rows.filter(
+  //     (row) =>
+  //       (row.email && row.email.toLowerCase().indexOf(q) > -1) ||
+  //       (row.username && row.username.toLowerCase().indexOf(q) > -1) ||
+  //       (row.firstname && row.firstname.toLowerCase().indexOf(q) > -1) ||
+  //       (row.phoneNumber && row.phoneNumber.toLowerCase().indexOf(q) > -1) ||
+  //       row.createdAt.toString().toLowerCase().indexOf(q) > -1
+  //   );
+  // };
 
   return (
     <div className="">
       <Meta title="User Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <ErrorToast message={error.message} />
-      ) : (
-        <div className="container-fluid mt-10">
-          <div
-            className="d-flex align-items-stretch justify-content-between"
-            style={{ marginBottom: "20px" }}
-          >
-            <h2 className="head">
-              {" "}
-              <Link to="/">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="icon icon-tabler icon-tabler-chevron-left"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="#09204e"
-                  fill="none"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                  <polyline points="15 6 9 12 15 18" />
-                </svg>
-              </Link>{" "}
-              Users Listing
-            </h2>
-            <Link to="/adduser">
-              <Button variant="dark" className="add-btn">
-                <i className="fas fa-plus"></i>Add User
-              </Button>
-            </Link>
+      <div className="container-fluid mt-10">
+        <div
+          className="d-flex align-items-stretch justify-content-between"
+          style={{ marginBottom: "20px" }}
+        >
+          <h2 className="head">
+            {" "}
+            <Link to="/">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-chevron-left"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#09204e"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <polyline points="15 6 9 12 15 18" />
+              </svg>
+            </Link>{" "}
+            Users Listing
+          </h2>
+          <Link to="/adduser">
+            <Button variant="dark" className="add-btn">
+              <i className="fas fa-plus"></i>Add User
+            </Button>
+          </Link>
+        </div>
+        <div className="filter-container">
+          <label>Start Date: </label>
+          <DatePicker
+            selected={startDate}
+            onChange={(date) => setStartDate(date)}
+            dateFormat="MMMM d, yyyy"
+          />
+          <label>End Date: </label>
+          <DatePicker
+            selected={lastDate}
+            onChange={(date) => setLastDate(date)}
+            dateFormat="MMMM d, yyyy"
+          />
+          <label>Status:</label>
+          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+            <option disabled>Select option</option>
+            <option value="">All</option>
+            <option value="true">Active</option>
+            <option value="false">InActive</option>
+          </select>
+          <div className="reset-icon" onClick={resetFilter}>
+            <GrPowerReset />
           </div>
-          <div className="filter-container">
-            <label>Start Date: </label>
-            <input type="date" value={startDate} onChange={handleClick1} />
-            <label>End Date: </label>
-            <input type="date" value={lastDate} onChange={handleClick2} />
-            <label>Status:</label>
-            <select
-              value={status2}
-              onChange={(e) => setStatus2(e.target.value)}
-            >
-              <option disabled selected value>
-                Select option
-              </option>
-              <option value="every">All</option>
-              <option value="true">Active</option>
-              <option value="false">InActive</option>
-            </select>
-            <div className="reset-icon" onClick={resetFilter}>
-              <GrPowerReset />
-            </div>
-          </div>
+        </div>
+        <div className="search-input">
+          <label>Search:</label>
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <ErrorToast message={error.message} />
+        ) : (
           <table id="datatable1" className="table table-row-bordered gy-5">
-            <thead>
+            <thead style={{ borderBottom: "1px solid black" }}>
               <tr className="fw-bold fs-6 text-muted">
                 <th className="colorblack">
                   <bold>#</bold>
@@ -184,9 +246,9 @@ const UserListPage = ({ history, match }) => {
                 <th className="colorblack">Action</th>
               </tr>
             </thead>
-            <tbody>
-              {data &&
-                data.map((user, index) => (
+            <tbody style={{ borderBottom: "1px solid black" }}>
+              {users &&
+                users.map((user, index) => (
                   <tr key={user._id}>
                     <td>{index + 1}.</td>
                     <td>{user.firstname}</td>
@@ -197,10 +259,9 @@ const UserListPage = ({ history, match }) => {
                     </td>
                     <td>
                       {moment(user.createdAt.substring(0, 10)).format(
-                        "MMMM Do YYYY"
+                        "MMMM DD YYYY"
                       )}
                     </td>
-                    {/* <td>{user.status ? "Active" : "InActive"}</td> */}
                     <td>
                       {user.status ? (
                         <Badge
@@ -293,8 +354,9 @@ const UserListPage = ({ history, match }) => {
                 ))}
             </tbody>
           </table>
-        </div>
-      )}
+        )}
+        <div className="pagination-div">{renderPageNumbers}</div>
+      </div>
     </div>
   );
 };

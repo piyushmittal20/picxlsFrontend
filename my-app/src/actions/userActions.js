@@ -47,13 +47,13 @@ import {
 } from "../service";
 
 export const listUsers =
-  (keyword = "", pageNumber = "") =>
+  (search = "", pageNumber = "", status = "", startDate = "", lastDate = "") =>
   async (dispatch, getState) => {
     try {
       dispatch({ type: ADMIN_USERLIST_REQUEST });
 
       const { data } = await axios.get(
-        `${userList}/user?keyword=${keyword}&pageNumber=${pageNumber}`
+        `${userList}/user?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`
       );
 
       dispatch({
