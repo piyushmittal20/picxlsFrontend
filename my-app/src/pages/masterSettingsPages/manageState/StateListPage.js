@@ -54,7 +54,7 @@ const StateListPage = ({ history }) => {
   console.log(states);
 
   return (
-    <div class="wapper">
+    <div className="wapper">
       <Meta title="State List - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
       {loading ? (

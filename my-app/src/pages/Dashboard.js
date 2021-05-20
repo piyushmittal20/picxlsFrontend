@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Meta from "../components/Meta";
 
 const Dashboard = ({ history }) => {
@@ -14,7 +13,7 @@ const Dashboard = ({ history }) => {
   }, [history, adminInfo]);
 
   return (
-    <>
+    <div className="">
       <Meta title="Dashboard - Picxls" />
       {/*begin::Main*/}
       {/*begin::Root*/}
@@ -154,18 +153,18 @@ const Dashboard = ({ history }) => {
           <div>
             <div className="">
               <div className="content" id="kt_content">
-                <div style={{margin: '40px auto'}}>
+                <div style={{ margin: "40px auto" }}>
                   <h1>Under Construction</h1>
                 </div>
               </div>
             </div>
-          </div> 
+          </div>
           {/*end::Wrapper*/}
         </div>
         {/*end::Page*/}
       </div>
       {/*end::Root*/}
-    </>
+    </div>
   );
 };
 

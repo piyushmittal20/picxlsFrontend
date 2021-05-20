@@ -41,7 +41,7 @@ function App() {
         {adminInfo && <Navbar />}
         <Switch>
           <Route path="/" exact component={Dashboard} />
-          
+
           <Route path="/CMS" exact component={CmsPageList} />
           <Route path="/editpage/:id" exact component={EditCmsPage} />
           <Route path="/countrylist" exact component={CountryListPage} />
@@ -82,9 +82,8 @@ function App() {
           <Route path="/viewstartag/:id" exact component={StartagViewPage} />
           <Route path="/viewuser/:id" exact component={UserViewPage} />
         </Switch>
-       
       </div>
-       <Footer />
+      <Footer />
     </div>
   );
 }
