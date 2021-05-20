@@ -54,7 +54,7 @@ const RequestViewPage = ({history, match}) => {
             {show2 && <DropModal show={show2} setShow={setShow2} />}
             {show && <VerifyBox show={show} setShow={setShow} />}
             <container>
-            <div className="container-fluid mt-10">
+            <div className="container-fluid mt-10 pb-18">
             <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px', marginTop: '25px'}}>
             <h2 className="head"> <Link to="/requestlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -117,10 +117,10 @@ const RequestViewPage = ({history, match}) => {
                                   <td class="tdpd text-dark pe-0">{request.userId.phoneNumber}</td>
                                 </tr>
                               </table>
-                              <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
+                              <div class=" bgi-position-center bgi-size-cover mw-100  ">
                                   <Image
                                   className="image"
-                                  src={request.photo}
+                                  src="https://images.unsplash.com/photo-1593642634367-d91a135587b5?ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
                                   alt="photo"
                                   fluid
                                 />

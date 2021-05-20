@@ -54,7 +54,7 @@ const CmsPageList = ({ history }) => {
       {loading ? (
         <Loader />
       ) : (
-        <div className="container-fluid mt-10">
+        <div className="container-fluid mt-10 pb-18">
           <div
             className="d-flex align-items-stretch justify-content-between"
             style={{ marginBottom: "20px" }}
