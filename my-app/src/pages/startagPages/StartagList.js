@@ -180,7 +180,7 @@ const StartagList = ({ history, match }) => {
       <Meta title="Startag Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}
-      <div className="container-fluid mt-10">
+      <div className="container-fluid mt-10 pb-18">
         <div
           className="d-flex align-items-stretch justify-content-between"
           style={{ marginBottom: "20px" }}

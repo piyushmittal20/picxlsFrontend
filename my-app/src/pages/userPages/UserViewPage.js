@@ -52,7 +52,7 @@ const UserViewPage = ({ history, match }) => {
         <ErrorToast message={error.message} />
       ) : (
         <container>
-          <div className="container-fluid mt-10">
+          <div className="container-fluid mt-10 pb-18">
             <div
               className="d-flex align-items-stretch justify-content-between"
               style={{ marginBottom: "20px", marginTop: "25px" }}

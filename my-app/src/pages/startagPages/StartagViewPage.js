@@ -6,6 +6,8 @@ import { getStartag } from "../../actions/startagActions";
 import DeleteModal from "../../components/DeleteModal";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
+
 
 const StartagViewPage = ({ history, match }) => {
   const startagId = match.params.id;
@@ -48,14 +50,14 @@ const StartagViewPage = ({ history, match }) => {
         <ErrorToast message={error.message} />
       ) : (
         <container>
-          <div className="container-fluid mt-10">
+          <div className="container-fluid mt-10 pb-18">
             <div
               className="d-flex align-items-stretch justify-content-between"
               style={{ marginBottom: "20px" }}
             >
               <h2 className="head">
                 {" "}
-                <Link to="/startaglist">
+                <Link to="/startaglist"> 
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon icon-tabler icon-tabler-chevron-left"
@@ -76,10 +78,26 @@ const StartagViewPage = ({ history, match }) => {
               </h2>
             </div>
             {startag && (
-            <div class="card mb-5 mb-xxl-8">
-              <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
+            <div class="card  shadow">
+             <div class="card-header">
+                  <h3 class="card-title">{startag.name}</h3>
+                  <div class="card-toolbar">
+                    <Link className="mr-15" to={`/editstartag/${startag._id}`}>
+                      <FaEdit />
+                    </Link>
+                    <span
+                      onClick={() => {
+                          handleShow();
+                          deleteHandler(startag._id);
+                        }}
+                    >
+                      <FaTrashAlt style={{ color: "red" }} />
+                    </span>
+                  </div>
+                </div>
+              <div class="card-body bg-white p-12 ">
                 <div
-                  class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
+                  class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto "
                 >
                     <Image
                     className="image"
@@ -88,7 +106,7 @@ const StartagViewPage = ({ history, match }) => {
                     fluid
                   />
                 </div>
-                <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
+                <div class="">
                   <div class="card-body bg-light px-12 py-10">
                     <h3 class="fw-bolder fs-1 mb-9">
                       <a href="#" class="text-gray-800">
@@ -109,31 +127,31 @@ const StartagViewPage = ({ history, match }) => {
                         <td class="tdpd text-dark pe-0">{startag.cost ? startag.cost : "NA"}</td>
                       </tr>
                     </table>
-                    <div className="btn-container">
-                      <Link
-                        className="mr-15"
-                        to={`/editstartag/${startag._id}`}
-                      >
-                        <Button
-                          className="btn"
-                          variant="dark"
-                          style={{ width: "100%" }}
-                        >
-                          Edit
-                        </Button>
-                      </Link>
-                      <Button
-                        className="btn"
-                        variant="danger"
-                        style={{ background: "red", width: "170px" }}
-                        onClick={() => {
-                          handleShow();
-                          deleteHandler(startag._id);
-                        }}
-                      >
-                        Delete
-                      </Button>
-                    </div>
+                    {/*<div className="btn-container">
+                                          <Link
+                                            className="mr-15"
+                                            to={`/editstartag/${startag._id}`}
+                                          >
+                                            <Button
+                                              className="btn"
+                                              variant="dark"
+                                              style={{ width: "100%" }}
+                                            >
+                                              Edit
+                                            </Button>
+                                          </Link>
+                                          <Button
+                                            className="btn"
+                                            variant="danger"
+                                            style={{ background: "red", width: "170px" }}
+                                            onClick={() => {
+                                              handleShow();
+                                              deleteHandler(startag._id);
+                                            }}
+                                          >
+                                            Delete
+                                          </Button>
+                                        </div>*/}
                   </div>
                 </div>
               </div>

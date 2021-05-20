@@ -10,6 +10,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Meta from "../../components/Meta";
 import DeleteModal from "../../components/DeleteModal";
+import {FaCheck, FaTimes} from 'react-icons/fa';
 
 const PostViewPage = ({ history, match }) => {
   const postId = match.params.id;
@@ -68,7 +69,7 @@ const PostViewPage = ({ history, match }) => {
       {show && <Modals show={show} setShow={setShow} status={status} />}
       {show2 && <DeleteModal show={show2} setShow={setShow2} />}
       <container>
-      <div className="container-fluid mt-10">
+      <div className="container-fluid mt-10 pb-18">
       <div className="d-flex align-items-stretch justify-content-between" style={{marginBottom: '20px', marginTop: '25px'}}>
             <h2 className="head"> <Link to="/postlist"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="#09204e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -77,55 +78,65 @@ const PostViewPage = ({ history, match }) => {
       </div>
         {feed && feed[0] && feed.map((f) => (
         <Row className="box">
-          <div class="card mb-5 mb-xxl-8">
-                <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
-                  <div
-                    class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto"
-                  >
-                      <Image
-                      className="image"
-                      src={f.thumbnail}
-                      alt="photo"
-                      fluid
-                    />
-                  </div>
-                  <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
-                    <div class="card-body bg-light px-12 py-10">
-                      <h3 class="fw-bolder fs-1 mb-9">
-                        <a href="#" class="text-gray-800">
-                        {f.user_details.username}
-                        </a>
-                      </h3>
-                      <table class="table table-borderless align-middle fw-bold">
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Name</td>
-                          <td class="tdpd text-dark pe-0">{f.user_details.firstname}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Date of birth</td>
-                          <td class="tdpd text-dark pe-0">{f.user_details.birthay}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Views</td>
-                          <td class="tdpd text-dark pe-0">{f.views.length > 0 ? f.views[0].view_count : 0}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Comments</td>
-                          <td class="tdpd text-dark pe-0">{f.comments.length > 0 ? f.comments[0].comment_count : 0}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Likes:</td>
-                          <td class="tdpd text-dark pe-0">{f.likes.length > 0 ? f.likes[0].like_count : 0}</td>
-                        </tr>
-                        <tr>
-                          <td class="tdpd text-gray-600 ps-0">Reports:</td>
-                          <td class="tdpd text-dark pe-0">{f.reports.length > 0 ? f.reports[0].report_count : 0}</td>
-                        </tr>
-                      </table>
-                    </div>
+          <div class="card shadow">
+            <div class="card-header">
+              <h3 class="card-title">{f.user_details.username}</h3>
+                <div class="card-toolbar">
+                  <span className="btn" variant="danger" onClick={() => {
+                                    handleShow2()
+                                    deleteHandler(f._id)
+                                }}
+                          ><FaTimes style={{color: 'red'}} /></span>
+                </div>
+              </div>
+              <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
+                <div
+                  class=" "
+                >
+                    <Image
+                    className="image-post h-200px  h-lg-300px"
+                    src={f.thumbnail}
+                    alt="photo"
+                    fluid
+                  />
+                </div>
+                <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
+                  <div class="card-body bg-light px-12 py-10">
+                    <h3 class="fw-bolder fs-1 mb-9">
+                      <a href="#" class="text-gray-800">
+                      {f.user_details.username}
+                      </a>
+                    </h3>
+                    <table class="table table-borderless align-middle fw-bold">
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Name</td>
+                        <td class="tdpd text-dark pe-0">{f.user_details.firstname}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Date of birth</td>
+                        <td class="tdpd text-dark pe-0">{f.user_details.birthay}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Views</td>
+                        <td class="tdpd text-dark pe-0">{f.views.length > 0 ? f.views[0].view_count : 0}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Comments</td>
+                        <td class="tdpd text-dark pe-0">{f.comments.length > 0 ? f.comments[0].comment_count : 0}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Likes:</td>
+                        <td class="tdpd text-dark pe-0">{f.likes.length > 0 ? f.likes[0].like_count : 0}</td>
+                      </tr>
+                      <tr>
+                        <td class="tdpd text-gray-600 ps-0">Reports:</td>
+                        <td class="tdpd text-dark pe-0">{f.reports.length > 0 ? f.reports[0].report_count : 0}</td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
               </div>
+            </div>
           {/* <Col md={6}>
             <Image className="image" src={`https://picxls-testing.herokuapp.com/${f.post}`} alt="post" />
           </Col>
