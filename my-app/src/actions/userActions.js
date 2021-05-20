@@ -63,7 +63,10 @@ export const listUsers =
     } catch (error) {
       dispatch({
         type: ADMIN_USERLIST_FAIL,
-        payload: error.response.data,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };
@@ -89,7 +92,10 @@ export const createUser = (newUser) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_ADDUSER_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -107,7 +113,10 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_DELETEUSER_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -127,7 +136,10 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_USERDETAIL_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -157,7 +169,10 @@ export const userUpdate = (user, id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_UPDATEUSER_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -177,7 +192,10 @@ export const verifyRequestList = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_VERIFYREQUESTLIST_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -197,7 +215,10 @@ export const verifyRequestDetail = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_VERIFYREQUESTDETAIL_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -217,7 +238,10 @@ export const verifying = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_VERIFYING_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -245,7 +269,10 @@ export const dropping = (reason, id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_DROPPING_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -271,7 +298,10 @@ export const updateUserStatus = (user, id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_USERSTATUS_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

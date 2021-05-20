@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  dropping,
-  verifyRequestList,
-  verifying,
-} from "../../actions/userActions";
+import { verifyRequestList } from "../../actions/userActions";
 import { Link } from "react-router-dom";
 import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FaCheck, FaTimes } from "react-icons/fa";
@@ -63,7 +59,7 @@ const RequestListPage = ({ history }) => {
   };
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       {<Meta title="Request Verification - Picxls" />}
       {show2 && <DropModal show={show2} setShow={setShow2} />}
       {show && <VerifyBox show={show} setShow={setShow} />}

@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Image, Button } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { getStartag } from "../../actions/startagActions";
 import DeleteModal from "../../components/DeleteModal";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
-
 
 const StartagViewPage = ({ history, match }) => {
   const startagId = match.params.id;
@@ -42,7 +41,7 @@ const StartagViewPage = ({ history, match }) => {
   };
 
   return (
-    <>
+    <div style={{ paddingBottom: "50px" }}>
       {show && <DeleteModal show={show} setShow={setShow} />}
       {loading ? (
         <Loader />
@@ -57,7 +56,7 @@ const StartagViewPage = ({ history, match }) => {
             >
               <h2 className="head">
                 {" "}
-                <Link to="/startaglist"> 
+                <Link to="/startaglist">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon icon-tabler icon-tabler-chevron-left"
@@ -78,8 +77,8 @@ const StartagViewPage = ({ history, match }) => {
               </h2>
             </div>
             {startag && (
-            <div class="card  shadow">
-             <div class="card-header">
+              <div class="card  shadow">
+                <div class="card-header">
                   <h3 class="card-title">{startag.name}</h3>
                   <div class="card-toolbar">
                     <Link className="mr-15" to={`/editstartag/${startag._id}`}>
@@ -87,47 +86,50 @@ const StartagViewPage = ({ history, match }) => {
                     </Link>
                     <span
                       onClick={() => {
-                          handleShow();
-                          deleteHandler(startag._id);
-                        }}
+                        handleShow();
+                        deleteHandler(startag._id);
+                      }}
                     >
                       <FaTrashAlt style={{ color: "red" }} />
                     </span>
                   </div>
                 </div>
-              <div class="card-body bg-white p-12 ">
-                <div
-                  class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto "
-                >
+                <div class="card-body bg-white p-12 ">
+                  <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
                     <Image
-                    className="image"
-                    src={startag.image}
-                    alt="photo"
-                    fluid
-                  />
-                </div>
-                <div class="">
-                  <div class="card-body bg-light px-12 py-10">
-                    <h3 class="fw-bolder fs-1 mb-9">
-                      <a href="#" class="text-gray-800">
-                      {startag.name}
-                      </a>
-                    </h3>
-                    <table class="table table-borderless align-middle fw-bold">
-                      <tr>
-                        <td class="tdpd text-gray-600 ps-0">Type</td>
-                        <td class="tdpd text-dark pe-0">{startag.type}</td>
-                      </tr>
-                      <tr>
-                        <td class="tdpd text-gray-600 ps-0">Added on</td>
-                        <td class="tdpd text-dark pe-0">{startag.createdAt && startag.createdAt.substring(0, 10)}</td>
-                      </tr>
-                      <tr>
-                        <td class="tdpd text-gray-600 ps-0">Cost</td>
-                        <td class="tdpd text-dark pe-0">{startag.cost ? startag.cost : "NA"}</td>
-                      </tr>
-                    </table>
-                    {/*<div className="btn-container">
+                      className="image"
+                      src={startag.image}
+                      alt="photo"
+                      fluid
+                    />
+                  </div>
+                  <div class="">
+                    <div class="card-body bg-light px-12 py-10">
+                      <h3 class="fw-bolder fs-1 mb-9">
+                        <a href="#" class="text-gray-800">
+                          {startag.name}
+                        </a>
+                      </h3>
+                      <table class="table table-borderless align-middle fw-bold">
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Type</td>
+                          <td class="tdpd text-dark pe-0">{startag.type}</td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Added on</td>
+                          <td class="tdpd text-dark pe-0">
+                            {startag.createdAt &&
+                              startag.createdAt.substring(0, 10)}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="tdpd text-gray-600 ps-0">Cost</td>
+                          <td class="tdpd text-dark pe-0">
+                            {startag.cost ? startag.cost : "NA"}
+                          </td>
+                        </tr>
+                      </table>
+                      {/*<div className="btn-container">
                                           <Link
                                             className="mr-15"
                                             to={`/editstartag/${startag._id}`}
@@ -152,10 +154,10 @@ const StartagViewPage = ({ history, match }) => {
                                             Delete
                                           </Button>
                                         </div>*/}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
             )}
             {/* {startag && (
               <Row className="box bg-white">
@@ -234,7 +236,7 @@ const StartagViewPage = ({ history, match }) => {
           </div>
         </container>
       )}
-    </>
+    </div>
   );
 };
 

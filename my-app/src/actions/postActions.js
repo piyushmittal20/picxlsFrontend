@@ -46,7 +46,10 @@ export const getAllPosts =
     } catch (error) {
       dispatch({
         type: ADMIN_POSTLIST_FAIL,
-        payload: error.response.data,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };
@@ -84,7 +87,10 @@ export const deletePost = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_POSTDELETE_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -110,7 +116,10 @@ export const updatePostStatus = (post, id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_POSTSTATUS_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -130,7 +139,10 @@ export const reportList = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_REPORTLIST_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -151,7 +163,10 @@ export const reportStatusUpdate =
     } catch (error) {
       dispatch({
         type: ADMIN_REPORTSTATUS_FAIL,
-        payload: error.response.data,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

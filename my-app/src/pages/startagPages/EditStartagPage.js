@@ -92,7 +92,7 @@ const EditStartagPage = ({ history, match }) => {
   };
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Edit Startag - Picxls" />
       <div className="container-fluid mt-40">
         <container>

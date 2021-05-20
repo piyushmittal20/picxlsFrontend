@@ -47,7 +47,10 @@ export const getAllStartag =
     } catch (error) {
       dispatch({
         type: ADMIN_STARTAGLIST_FAIL,
-        payload: error.response.data,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };
@@ -68,7 +71,10 @@ export const createStartag = (startag) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_ADDSTARTAG_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -86,7 +92,10 @@ export const removeStartag = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_DELETESTARTAG_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -108,7 +117,10 @@ export const getStartag = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_STARTAGDETAIL_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -141,7 +153,10 @@ export const updateStartag = (startag) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_UPDATESTARTAG_FAIL,
-      payload: error.response.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -172,7 +187,10 @@ export const updateStartagStatus =
     } catch (error) {
       dispatch({
         type: ADMIN_STARTAGSTATUS_FAIL,
-        payload: error.response.data,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
       });
     }
   };

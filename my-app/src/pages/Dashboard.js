@@ -13,7 +13,7 @@ const Dashboard = ({ history }) => {
   }, [history, adminInfo]);
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Dashboard - Picxls" />
       {/*begin::Main*/}
       {/*begin::Root*/}

@@ -102,7 +102,7 @@ const EditCmsPage = ({ history, match }) => {
   };
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       {error && <ErrorToast message={error.message} />}
       <Meta title="Edit Page - Picxls" />
       <div class="container-fluid mt-40">

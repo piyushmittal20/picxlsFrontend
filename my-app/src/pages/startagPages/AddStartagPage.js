@@ -162,7 +162,7 @@ const AddStartagPage = ({ history }) => {
   //             )}
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Startag - Picxls" />
       <div className="container-fluid mt-40">
         <container>

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Image, Button } from "react-bootstrap";
 import { getUserDetails } from "../../actions/userActions";
 import ErrorToast from "../../components/ErrorToast";
 import DeleteModal from "../../components/DeleteModal";
@@ -43,7 +42,7 @@ const UserViewPage = ({ history, match }) => {
   };
 
   return (
-    <>
+    <div style={{ paddingBottom: "50px" }}>
       <Meta title={user && user.username} />
       {show && <DeleteModal show={show} setShow={setShow} />}
       {loading ? (
@@ -229,7 +228,7 @@ const UserViewPage = ({ history, match }) => {
           </div>
         </container>
       )}
-    </>
+    </div>
   );
 };
 

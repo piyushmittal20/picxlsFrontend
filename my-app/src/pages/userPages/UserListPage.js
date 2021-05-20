@@ -158,7 +158,7 @@ const UserListPage = ({ history, match }) => {
   // };
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="User Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}

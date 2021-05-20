@@ -40,7 +40,6 @@ import {
   ADMIN_DELETESTATE_SUCCESS,
   ADMIN_STATEDETAIL_FAIL,
   ADMIN_STATEDETAIL_REQUEST,
-  ADMIN_STATEDETAIL_RESET,
   ADMIN_STATEDETAIL_SUCCESS,
   ADMIN_STATELIST_FAIL,
   ADMIN_STATELIST_REQUEST,
@@ -59,7 +58,7 @@ import {
   ADMIN_UPDATESTATE_FAIL,
   ADMIN_UPDATESTATE_REQUEST,
   ADMIN_UPDATESTATE_RESET,
-  ADMIN_UPDATESTATE_SUCCESS
+  ADMIN_UPDATESTATE_SUCCESS,
 } from "../constants/adminConstants.js";
 
 export const cityListReducer = (state = {}, action) => {
@@ -140,24 +139,24 @@ export const cityDetailReducer = (state = { city: {} }, action) => {
   }
 };
 
-export const cityStatusUpdateReducer = (state = {city: {}}, action) => {
-  switch(action.type) {
+export const cityStatusUpdateReducer = (state = { city: {} }, action) => {
+  switch (action.type) {
     case ADMIN_CITYSTATUS_REQUEST:
-      return {loading: true}
+      return { loading: true };
     case ADMIN_CITYSTATUS_SUCCESS:
       return {
         loading: false,
-        success: true
-      }
+        success: true,
+      };
     case ADMIN_CITYSTATUS_FAIL:
       return {
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
     default:
       return state;
   }
-}
+};
 
 export const cityUpdateReducer = (state = { city: {} }, action) => {
   switch (action.type) {
@@ -259,24 +258,24 @@ export const countryDetailReducer = (state = { country: {} }, action) => {
   }
 };
 
-export const countryStatusUpdateReducer = (state = {country: {}}, action) => {
-  switch(action.type) {
+export const countryStatusUpdateReducer = (state = { country: {} }, action) => {
+  switch (action.type) {
     case ADMIN_COUNTRYSTATUS_REQUEST:
-      return {loading: true}
+      return { loading: true };
     case ADMIN_COUNTRYSTATUS_SUCCESS:
       return {
         loading: false,
-        success: true
-      }
+        success: true,
+      };
     case ADMIN_COUNTRYSTATUS_FAIL:
       return {
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
     default:
       return state;
   }
-}
+};
 
 export const countryUpdateReducer = (state = { country: {} }, action) => {
   switch (action.type) {
@@ -299,121 +298,120 @@ export const countryUpdateReducer = (state = { country: {} }, action) => {
   }
 };
 
-
-export const stateListReducer = (state={}, action) => {
-    switch(action.type) {
-        case ADMIN_STATELIST_REQUEST:
-            return {loading: true}
-        case ADMIN_STATELIST_SUCCESS:
-            return {
-                loading: false,
-                states: action.payload
-            }
-        case ADMIN_STATELIST_FAIL:
-            return {
-                loading: false,
-                error: action.payload
-            }
-        default:
-            return state
-    }
-}
-
-export const stateCreateReducer = (state={}, action) => {
-    switch(action.type) {
-        case ADMIN_ADDSTATE_REQUEST:
-            return {loading: true}
-        case ADMIN_ADDSTATE_SUCCESS:
-            return {
-                loading: false,
-                success: true
-            }
-        case ADMIN_ADDSTATE_FAIL:
-            return {
-                loading: false,
-                error: action.payload
-            }
-        case ADMIN_ADDSTATE_RESET:
-            return {}
-        default:
-            return state
-    }
-}
-
-export const stateDeleteReducer = (state={}, action) => {
-    switch(action.type) {
-        case ADMIN_DELETESTATE_REQUEST:
-            return {loading: true}
-        case ADMIN_DELETESTATE_SUCCESS:
-            return {
-                loading: false,
-                success: true
-            }
-        case ADMIN_DELETESTATE_FAIL:
-            return {
-                loading: false,
-                error: action.payload
-            }
-        default:
-            return state;
-    }
-}
-
-export const stateDetailReducer = (state= {state: {}}, action) => {
-    switch(action.type) {
-        case ADMIN_STATEDETAIL_REQUEST:
-            return {loading: true}
-        case ADMIN_STATEDETAIL_SUCCESS:
-            return {
-                loading: false,
-                state: action.payload
-            }
-        case ADMIN_STATEDETAIL_FAIL:
-            return {
-                loading: false,
-                error: action.payload
-            }
-        default:
-            return state
-    }
-}
-
-export const stateStatusUpdateReducer = (state= {state: {}}, action) => {
-  switch(action.type) {
-    case ADMIN_STATESTATUS_REQUEST:
-      return {loading: true}
-    case ADMIN_STATESTATUS_SUCCESS:
+export const stateListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_STATELIST_REQUEST:
+      return { loading: true };
+    case ADMIN_STATELIST_SUCCESS:
       return {
         loading: false,
-        success: true
-      }
-    case ADMIN_STATESTATUS_FAIL:
+        states: action.payload,
+      };
+    case ADMIN_STATELIST_FAIL:
       return {
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
     default:
       return state;
   }
-}
+};
 
-export const stateUpdateReducer = (state= {state: {}}, action) => {
-    switch(action.type) {
-        case ADMIN_UPDATESTATE_REQUEST:
-            return {loading: true}
-        case ADMIN_UPDATESTATE_SUCCESS:
-            return {
-                loading: false,
-                success: true
-            }
-        case ADMIN_UPDATESTATE_FAIL:
-            return {
-                loading: false,
-                error: action.payload
-            }
-        case ADMIN_UPDATESTATE_RESET:
-            return {state : {}}
-        default:
-            return state
-    }
-}
+export const stateCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_ADDSTATE_REQUEST:
+      return { loading: true };
+    case ADMIN_ADDSTATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_ADDSTATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ADMIN_ADDSTATE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const stateDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_DELETESTATE_REQUEST:
+      return { loading: true };
+    case ADMIN_DELETESTATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_DELETESTATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const stateDetailReducer = (state = { state: {} }, action) => {
+  switch (action.type) {
+    case ADMIN_STATEDETAIL_REQUEST:
+      return { loading: true };
+    case ADMIN_STATEDETAIL_SUCCESS:
+      return {
+        loading: false,
+        state: action.payload,
+      };
+    case ADMIN_STATEDETAIL_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const stateStatusUpdateReducer = (state = { state: {} }, action) => {
+  switch (action.type) {
+    case ADMIN_STATESTATUS_REQUEST:
+      return { loading: true };
+    case ADMIN_STATESTATUS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_STATESTATUS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const stateUpdateReducer = (state = { state: {} }, action) => {
+  switch (action.type) {
+    case ADMIN_UPDATESTATE_REQUEST:
+      return { loading: true };
+    case ADMIN_UPDATESTATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_UPDATESTATE_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ADMIN_UPDATESTATE_RESET:
+      return { state: {} };
+    default:
+      return state;
+  }
+};

@@ -56,7 +56,7 @@ const CityListPage = ({ history }) => {
   }, [dispatch, successDelete, statusSuccess, history, adminInfo]);
 
   return (
-    <div className="wapper">
+    <div className="wapper" style={{ paddingBottom: "50px" }}>
       <Meta title="City List - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
       {loading ? (

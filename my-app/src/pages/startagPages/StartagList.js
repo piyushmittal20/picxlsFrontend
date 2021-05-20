@@ -136,7 +136,6 @@ const StartagList = ({ history, match }) => {
     setLastDate("");
     setStartDate("");
     setStatus2("");
-    setRole("");
   };
 
   let renderPageNumbers;
@@ -176,7 +175,7 @@ const StartagList = ({ history, match }) => {
   // };
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Startag Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}
@@ -225,7 +224,7 @@ const StartagList = ({ history, match }) => {
             onChange={(date) => setLastDate(date)}
             dateFormat="MMMM d, yyyy"
           />
-          <label>Type:</label>
+          {/* <label>Type:</label> */}
           {/* <select value={role} onChange={(e) => setRole(e.target.value)}>
             <option disabled>Select option</option>
             <option value="">All</option>

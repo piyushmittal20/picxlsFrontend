@@ -52,7 +52,7 @@ const AddCityPage = ({ history }) => {
   };
   console.log(errors);
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Country - Picxls" />
       <div className="container-fluid mt-40">
         {errors.title && <ErrorToast message={errors.title.message} />}

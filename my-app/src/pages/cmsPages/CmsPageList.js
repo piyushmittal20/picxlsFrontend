@@ -47,7 +47,7 @@ const CmsPageList = ({ history }) => {
   }, [dispatch, history, adminInfo, updateSuccess]);
 
   return (
-    <div className="">
+    <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="CMS - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
       {error && <ErrorToast message={error.message} />}
