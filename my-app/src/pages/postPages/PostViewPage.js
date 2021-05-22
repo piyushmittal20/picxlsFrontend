@@ -143,7 +143,7 @@ const PostViewPage = ({ history, match }) => {
                               Date of birth
                             </td>
                             <td class="tdpd text-dark pe-0">
-                              {f.user_details.birthay}
+                              {f.user_details.birthday}
                             </td>
                           </tr>
                           <tr>

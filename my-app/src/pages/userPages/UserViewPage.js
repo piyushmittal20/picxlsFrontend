@@ -33,7 +33,7 @@ const UserViewPage = ({ history, match }) => {
     } else {
       dispatch(getUserDetails(userId));
     }
-  }, [adminInfo, dispatch, history, userId]);
+  }, [adminInfo, dispatch, history, userId, successDelete]);
 
   const handleShow = () => setShow(true);
 

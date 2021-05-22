@@ -151,10 +151,7 @@ const RequestViewPage = ({ history, match }) => {
                           </td>
                         </tr>
                       </table>
-                      <div
-                        className=" bgi-position-center bgi-size-cover mw-100 "
-                        style={{ padding: "50px 150px" }}
-                      >
+                      <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
                         <Image
                           className="image"
                           src={request.photo}
