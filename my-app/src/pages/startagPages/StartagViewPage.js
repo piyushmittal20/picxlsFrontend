@@ -108,14 +108,13 @@ const StartagViewPage = ({ history, match }) => {
                   </div>
                 </div>
                 <div class="card-body bg-white p-12 ">
-                  <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
-                    <Image
-                      className="image"
-                      src={startag.image}
-                      alt="photo"
-                      fluid
-                    />
-                  </div>
+                  {startag.image !== null ? (
+                    <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
+                      <Image className="image" src={startag.image} fluid />
+                    </div>
+                  ) : (
+                    <span></span>
+                  )}
                   <div class="">
                     <div class="card-body bg-light px-12 py-10">
                       <h3 class="fw-bolder fs-1 mb-9">
