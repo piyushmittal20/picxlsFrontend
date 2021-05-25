@@ -6,6 +6,7 @@ import ErrorToast from "../../components/ErrorToast";
 import DeleteModal from "../../components/DeleteModal";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
+import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 const UserViewPage = ({ history, match }) => {
@@ -83,17 +84,27 @@ const UserViewPage = ({ history, match }) => {
                 <div class="card-header">
                   <h3 class="card-title">{user.firstname}</h3>
                   <div class="card-toolbar">
-                    <Link className="mr-15" to={`/edituser/${user._id}`}>
-                      <FaEdit />
-                    </Link>
-                    <span
-                      onClick={() => {
-                        handleShow();
-                        deleteHandler(user._id);
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Edit</Tooltip>}
                     >
-                      <FaTrashAlt style={{ color: "red" }} />
-                    </span>
+                      <Link className="mr-15" to={`/edituser/${user._id}`}>
+                        <FaEdit />
+                      </Link>
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Delete</Tooltip>}
+                    >
+                      <span
+                        onClick={() => {
+                          handleShow();
+                          deleteHandler(user._id);
+                        }}
+                      >
+                        <FaTrashAlt style={{ color: "red" }} />
+                      </span>
+                    </OverlayTrigger>
                   </div>
                 </div>
                 <div class="card-body">

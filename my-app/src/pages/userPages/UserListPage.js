@@ -215,7 +215,12 @@ const UserListPage = ({ history, match }) => {
             <option value="false">InActive</option>
           </select>
           <div className="reset-icon" onClick={resetFilter}>
-            <GrPowerReset />
+            <OverlayTrigger
+              placement="bottom"
+              overlay={(props) => <Tooltip {...props}>Reset</Tooltip>}
+            >
+              <GrPowerReset />
+            </OverlayTrigger>
           </div>
         </div>
         <div className="search-input">

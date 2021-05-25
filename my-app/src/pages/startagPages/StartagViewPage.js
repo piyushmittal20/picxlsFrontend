@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { getStartag } from "../../actions/startagActions";
 import DeleteModal from "../../components/DeleteModal";
 import Loader from "../../components/Loader";
@@ -81,17 +81,30 @@ const StartagViewPage = ({ history, match }) => {
                 <div class="card-header">
                   <h3 class="card-title">{startag.name}</h3>
                   <div class="card-toolbar">
-                    <Link className="mr-15" to={`/editstartag/${startag._id}`}>
-                      <FaEdit />
-                    </Link>
-                    <span
-                      onClick={() => {
-                        handleShow();
-                        deleteHandler(startag._id);
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Edit</Tooltip>}
                     >
-                      <FaTrashAlt style={{ color: "red" }} />
-                    </span>
+                      <Link
+                        className="mr-15"
+                        to={`/editstartag/${startag._id}`}
+                      >
+                        <FaEdit />
+                      </Link>
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Delete</Tooltip>}
+                    >
+                      <span
+                        onClick={() => {
+                          handleShow();
+                          deleteHandler(startag._id);
+                        }}
+                      >
+                        <FaTrashAlt style={{ color: "red" }} />
+                      </span>
+                    </OverlayTrigger>
                   </div>
                 </div>
                 <div class="card-body bg-white p-12 ">

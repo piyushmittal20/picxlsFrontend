@@ -239,7 +239,12 @@ const StartagList = ({ history, match }) => {
             <option value="false">InActive</option>
           </select>
           <div className="reset-icon" onClick={resetFilter}>
-            <GrPowerReset />
+            <OverlayTrigger
+              placement="bottom"
+              overlay={(props) => <Tooltip {...props}>Reset</Tooltip>}
+            >
+              <GrPowerReset />
+            </OverlayTrigger>
           </div>
         </div>
         <div className="search-input">
@@ -293,7 +298,10 @@ const StartagList = ({ history, match }) => {
                         <Badge
                           pill
                           variant="danger"
-                          style={{ backgroundColor: "red", cursor: "pointer" }}
+                          style={{
+                            backgroundColor: "red",
+                            cursor: "pointer",
+                          }}
                         >
                           Inactive
                         </Badge>

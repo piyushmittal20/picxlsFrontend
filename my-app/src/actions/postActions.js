@@ -69,7 +69,10 @@ export const getPost = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_POSTDETAIL_FAIL,
-      payload: error.resposne.data,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

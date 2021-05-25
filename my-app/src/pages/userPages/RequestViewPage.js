@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Image, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { verifyRequestDetail } from "../../actions/userActions";
 import VerifyBox from "../../components/VerifyBox";
 import DropModal from "../../components/DropModal";
@@ -91,26 +91,36 @@ const RequestViewPage = ({ history, match }) => {
                 <div class="card-header">
                   <h3 class="card-title">{request.username}</h3>
                   <div class="card-toolbar">
-                    <span
-                      className="btn"
-                      variant="success"
-                      onClick={() => {
-                        handleShow();
-                        showHandler(request._id);
-                      }}
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Verify</Tooltip>}
                     >
-                      <FaCheck style={{ color: "green" }} />
-                    </span>
-                    <span
-                      className="btn"
-                      variant="danger"
-                      onClick={() => {
-                        handleShow2();
-                        showHandler2(request._id);
-                      }}
+                      <span
+                        className="btn"
+                        variant="success"
+                        onClick={() => {
+                          handleShow();
+                          showHandler(request._id);
+                        }}
+                      >
+                        <FaCheck style={{ color: "green" }} />
+                      </span>
+                    </OverlayTrigger>
+                    <OverlayTrigger
+                      placement="bottom"
+                      overlay={(props) => <Tooltip {...props}>Drop</Tooltip>}
                     >
-                      <FaTimes style={{ color: "red" }} />
-                    </span>
+                      <span
+                        className="btn"
+                        variant="danger"
+                        onClick={() => {
+                          handleShow2();
+                          showHandler2(request._id);
+                        }}
+                      >
+                        <FaTimes style={{ color: "red" }} />
+                      </span>
+                    </OverlayTrigger>
                   </div>
                 </div>
                 <div class="card-body">

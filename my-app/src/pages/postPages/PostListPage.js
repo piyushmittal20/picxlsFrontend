@@ -214,7 +214,12 @@ const PostListPage = ({ history, match }) => {
             <option value="false">InActive</option>
           </select>
           <div className="reset-icon" onClick={resetFilter}>
-            <GrPowerReset />
+            <OverlayTrigger
+              placement="bottom"
+              overlay={(props) => <Tooltip {...props}>Reset</Tooltip>}
+            >
+              <GrPowerReset />
+            </OverlayTrigger>
           </div>
         </div>
         <div className="search-input">
@@ -226,129 +231,134 @@ const PostListPage = ({ history, match }) => {
         ) : error ? (
           <ErrorToast message={error.message} />
         ) : (
-          <table id="datatable1" className="table table-row-bordered gy-5">
-            <thead>
-              <tr className="fw-bold fs-6 text-muted">
-                <th className="colorblack">
-                  <bold>#</bold>
-                </th>
-                <th className="colorblack">Name</th>
-                <th className="colorblack">Username</th>
-                <th className="colorblack">Email</th>
-                <th className="colorblack">Contact Number</th>
-                <th className="colorblack">Post</th>
-                <th className="colorblack">Added on</th>
-                <th className="colorblack">Status</th>
-                <th className="colorblack">Action</th>
-              </tr>
-            </thead>
-            <tbody style={{ borderBottom: "1px solid black" }}>
-              {posts &&
-                search(posts).map((post, index) => (
-                  <tr key={post._id}>
-                    <td>{index + 1}.</td>
-                    <td>{post.creator.firstname}</td>
-                    <td>{post.creator.username}</td>
-                    <td>
-                      {post.creator.email ? (
-                        post.creator.email
-                      ) : (
-                        <span>NA</span>
-                      )}
-                    </td>
-                    <td>
-                      {post.creator.phoneNumber ? (
-                        post.creator.phoneNumber
-                      ) : (
-                        <span>NA</span>
-                      )}
-                    </td>
-                    <td>Feed</td>
-                    <td>
-                      {moment(post.createdAt.substring(0, 10)).format(
-                        "MMMM DD YYYY"
-                      )}
-                    </td>
-                    <td>
-                      {post.status ? (
-                        <Badge
-                          pill
-                          variant="success"
-                          style={{ backgroundColor: "green" }}
-                        >
-                          Active
-                        </Badge>
-                      ) : (
-                        <Badge
-                          pill
-                          variant="danger"
-                          style={{ backgroundColor: "red", cursor: "pointer" }}
-                        >
-                          Inactive
-                        </Badge>
-                      )}
-                    </td>
-                    <td style={{ padding: "10px" }}>
-                      <ul className="action-list">
-                        <Link to={`/viewpost/${post._id}`}>
+          <div>
+            <table id="datatable1" className="table table-row-bordered gy-5">
+              <thead>
+                <tr className="fw-bold fs-6 text-muted">
+                  <th className="colorblack">
+                    <bold>#</bold>
+                  </th>
+                  <th className="colorblack">Name</th>
+                  <th className="colorblack">Username</th>
+                  <th className="colorblack">Email</th>
+                  <th className="colorblack">Contact Number</th>
+                  <th className="colorblack">Post</th>
+                  <th className="colorblack">Added on</th>
+                  <th className="colorblack">Status</th>
+                  <th className="colorblack">Action</th>
+                </tr>
+              </thead>
+              <tbody style={{ borderBottom: "1px solid black" }}>
+                {posts &&
+                  search(posts).map((post, index) => (
+                    <tr key={post._id}>
+                      <td>{index + 1}.</td>
+                      <td>{post.creator.firstname}</td>
+                      <td>{post.creator.username}</td>
+                      <td>
+                        {post.creator.email ? (
+                          post.creator.email
+                        ) : (
+                          <span>NA</span>
+                        )}
+                      </td>
+                      <td>
+                        {post.creator.phoneNumber ? (
+                          post.creator.phoneNumber
+                        ) : (
+                          <span>NA</span>
+                        )}
+                      </td>
+                      <td>Feed</td>
+                      <td>
+                        {moment(post.createdAt.substring(0, 10)).format(
+                          "MMMM DD YYYY"
+                        )}
+                      </td>
+                      <td>
+                        {post.status ? (
+                          <Badge
+                            pill
+                            variant="success"
+                            style={{ backgroundColor: "green" }}
+                          >
+                            Active
+                          </Badge>
+                        ) : (
+                          <Badge
+                            pill
+                            variant="danger"
+                            style={{
+                              backgroundColor: "red",
+                              cursor: "pointer",
+                            }}
+                          >
+                            Inactive
+                          </Badge>
+                        )}
+                      </td>
+                      <td style={{ padding: "10px" }}>
+                        <ul className="action-list">
+                          <Link to={`/viewpost/${post._id}`}>
+                            <OverlayTrigger
+                              placement="bottom"
+                              overlay={(props) => (
+                                <Tooltip {...props}>View</Tooltip>
+                              )}
+                            >
+                              <li className="action-list-item">
+                                <RiEyeFill style={{ color: "darkblue" }} />
+                              </li>
+                            </OverlayTrigger>
+                          </Link>
                           <OverlayTrigger
                             placement="bottom"
                             overlay={(props) => (
-                              <Tooltip {...props}>View</Tooltip>
+                              <Tooltip {...props}>Delete</Tooltip>
                             )}
                           >
-                            <li className="action-list-item">
-                              <RiEyeFill style={{ color: "darkblue" }} />
+                            <li
+                              className="action-list-item"
+                              onClick={() => {
+                                handleShow();
+                                deleteHandler(post._id);
+                              }}
+                            >
+                              <FaTrashAlt style={{ color: "red" }} />
                             </li>
                           </OverlayTrigger>
-                        </Link>
-                        <OverlayTrigger
-                          placement="bottom"
-                          overlay={(props) => (
-                            <Tooltip {...props}>Delete</Tooltip>
-                          )}
-                        >
-                          <li
-                            className="action-list-item"
-                            onClick={() => {
-                              handleShow();
-                              deleteHandler(post._id);
-                            }}
-                          >
-                            <FaTrashAlt style={{ color: "red" }} />
-                          </li>
-                        </OverlayTrigger>
-                        <OverlayTrigger
-                          placement="bottom"
-                          overlay={(props) => (
-                            <Tooltip {...props}>Change Status</Tooltip>
-                          )}
-                        >
-                          <li
-                            className="action-list-item"
-                            onClick={() => {
-                              handleShow2();
-                              statusHandler(post._id);
-                              setStatus(post.status);
-                            }}
-                          >
-                            {post.status ? (
-                              <BsToggleOn
-                                style={{ color: "green", fontSize: "25px" }}
-                              />
-                            ) : (
-                              <BsToggleOff
-                                style={{ color: "red", fontSize: "25px" }}
-                              />
+                          <OverlayTrigger
+                            placement="bottom"
+                            overlay={(props) => (
+                              <Tooltip {...props}>Change Status</Tooltip>
                             )}
-                          </li>
-                        </OverlayTrigger>
-                      </ul>
-                    </td>
-                  </tr>
-                ))}
-            </tbody>
-          </table>
+                          >
+                            <li
+                              className="action-list-item"
+                              onClick={() => {
+                                handleShow2();
+                                statusHandler(post._id);
+                                setStatus(post.status);
+                              }}
+                            >
+                              {post.status ? (
+                                <BsToggleOn
+                                  style={{ color: "green", fontSize: "25px" }}
+                                />
+                              ) : (
+                                <BsToggleOff
+                                  style={{ color: "red", fontSize: "25px" }}
+                                />
+                              )}
+                            </li>
+                          </OverlayTrigger>
+                        </ul>
+                      </td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
         )}
         <div className="pagination-div">{renderPageNumbers}</div>
       </div>
