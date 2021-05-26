@@ -66,20 +66,20 @@ const PostViewPage = ({ history, match }) => {
       history.push("/postlist");
     } else {
       dispatch(getPost(postId));
-      dispatch(reportList());
+      dispatch(reportList(postId));
       setTimeout(() => {
         $("#datatable1").DataTable();
       }, 2000);
     }
-  }, [adminInfo, dispatch, history, deleteSuccess]);
-
-  console.log(feed);
+  }, [adminInfo, dispatch, history, deleteSuccess, updateSuccess]);
 
   return (
     <div style={{ paddingBottom: "50px" }}>
       <Meta title="View Post - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
       {show2 && <DeleteModal show={show2} setShow={setShow2} />}
+      {listLoading && <Loader />}
+      {listError && <ErrorToast message={listError.message} />}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -186,29 +186,25 @@ const PostViewPage = ({ history, match }) => {
                             <tr>
                               <td class="tdpd text-gray-600 ps-0">Views</td>
                               <td class="tdpd text-dark pe-0">
-                                {f.views.length > 0 ? f.views[0].view_count : 0}
+                                {f.view_count}
                               </td>
                             </tr>
                             <tr>
                               <td class="tdpd text-gray-600 ps-0">Comments</td>
                               <td class="tdpd text-dark pe-0">
-                                {f.comments.length > 0
-                                  ? f.comments[0].comment_count
-                                  : 0}
+                                {f.comment_count}
                               </td>
                             </tr>
                             <tr>
                               <td class="tdpd text-gray-600 ps-0">Likes:</td>
                               <td class="tdpd text-dark pe-0">
-                                {f.likes.length > 0 ? f.likes[0].like_count : 0}
+                                {f.like_count}
                               </td>
                             </tr>
                             <tr>
                               <td class="tdpd text-gray-600 ps-0">Reports:</td>
                               <td class="tdpd text-dark pe-0">
-                                {f.reports.length > 0
-                                  ? f.reports[0].report_count
-                                  : 0}
+                                {f.report_count}
                               </td>
                             </tr>
                           </table>
@@ -216,57 +212,6 @@ const PostViewPage = ({ history, match }) => {
                       </div>
                     </div>
                   </div>
-                  {/* <Col md={6}>
-            <Image className="image" src={`https://picxls-testing.herokuapp.com/${f.post}`} alt="post" />
-          </Col>
-          <Col md={6}>
-            <Card className="card">
-                <ListGroup variant="flush" className="list">
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Name</Col>
-                            <Col>{f.user_details.firstname}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Username</Col>
-                            <Col>{f.user_details.username}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Date of Birth</Col>
-                            <Col>{f.user_details.birthday}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Views</Col>
-                            <Col>{f.views.length > 0 ? f.views[0].view_count : 0}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Comments</Col>
-                            <Col>{f.comments.length > 0 ? f.comments[0].comment_count : 0}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Likes</Col>
-                            <Col>{f.likes.length > 0 ? f.likes[0].like_count : 0}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item className="list-item">
-                        <Row>
-                            <Col>Reports</Col>
-                            <Col>{f.reports.length > 0 ? f.reports[0].report_count : 0}</Col>
-                        </Row>
-                    </ListGroup.Item>
-                </ListGroup>
-            </Card>
-          </Col> */}
                   <Col md={12} style={{ padding: "10px", margin: "10px" }}>
                     <button
                       type="button"

@@ -26,6 +26,9 @@ const RequestViewPage = ({ history, match }) => {
   const userVerifying = useSelector((state) => state.userVerifying);
   const { success: verifySuccess } = userVerifying;
 
+  const userDropping = useSelector((state) => state.userDropping);
+  const { success: dropSuccess } = userDropping;
+
   const handleShow = () => setShow(true);
 
   const showHandler = (id) => {
@@ -43,6 +46,9 @@ const RequestViewPage = ({ history, match }) => {
       history.push("/admin-login");
     }
     if (verifySuccess) {
+      history.push("/requestlist");
+    }
+    if (dropSuccess) {
       history.push("/requestlist");
     } else {
       dispatch(verifyRequestDetail(requestId));

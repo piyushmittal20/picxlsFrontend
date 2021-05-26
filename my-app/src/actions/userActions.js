@@ -19,6 +19,12 @@ import {
   ADMIN_USERLIST_FAIL,
   ADMIN_USERLIST_REQUEST,
   ADMIN_USERLIST_SUCCESS,
+  ADMIN_USERREPORTSTATUS_FAIL,
+  ADMIN_USERREPORTSTATUS_REQUEST,
+  ADMIN_USERREPORTSTATUS_SUCCESS,
+  ADMIN_USERREPORTS_FAIL,
+  ADMIN_USERREPORTS_REQUEST,
+  ADMIN_USERREPORTS_SUCCESS,
   ADMIN_USERSTATUS_FAIL,
   ADMIN_USERSTATUS_REQUEST,
   ADMIN_USERSTATUS_SUCCESS,
@@ -44,6 +50,7 @@ import {
   droppingUser,
   requestDetail,
   userStatus,
+  userReportStatus,
 } from "../service";
 
 export const listUsers =
@@ -305,3 +312,50 @@ export const updateUserStatus = (user, id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const userReportList = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ADMIN_USERREPORTS_REQUEST });
+
+    const {
+      data: { reports },
+    } = await axios.get(`${userReportStatus}/userReports/${id}`);
+
+    dispatch({
+      type: ADMIN_USERREPORTS_SUCCESS,
+      payload: reports,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_USERREPORTS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const userReportUpdateStatus =
+  (status, id) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_USERREPORTSTATUS_REQUEST });
+
+      const {
+        data: { updatedReport },
+      } = await axios.put(`${userReportStatus}/userReport/${id}`, status);
+
+      dispatch({
+        type: ADMIN_USERREPORTSTATUS_SUCCESS,
+        payload: updatedReport,
+      });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_USERREPORTSTATUS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

@@ -127,13 +127,13 @@ export const updatePostStatus = (post, id) => async (dispatch, getState) => {
   }
 };
 
-export const reportList = () => async (dispatch, getState) => {
+export const reportList = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_REPORTLIST_REQUEST });
 
     const {
       data: { reports },
-    } = await axios.get(`${reportsList}/reports`);
+    } = await axios.get(`${reportsList}/reports/${id}`);
 
     dispatch({
       type: ADMIN_REPORTLIST_SUCCESS,
@@ -157,7 +157,7 @@ export const reportStatusUpdate =
 
       const {
         data: { updatedReport },
-      } = await axios.put(`${reportStatus}/report/${id}`, report);
+      } = await axios.put(`${reportStatus}/postReport/${id}`, report);
 
       dispatch({
         type: ADMIN_REPORTSTATUS_SUCCESS,

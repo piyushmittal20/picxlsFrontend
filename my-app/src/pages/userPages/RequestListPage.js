@@ -10,7 +10,10 @@ import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
-import { ADMIN_VERIFYING_RESET } from "../../constants/adminConstants";
+import {
+  ADMIN_DROPPING_RESET,
+  ADMIN_VERIFYING_RESET,
+} from "../../constants/adminConstants";
 import VerifyBox from "../../components/VerifyBox";
 import DropModal from "../../components/DropModal";
 import moment from "moment";
@@ -36,6 +39,7 @@ const RequestListPage = ({ history }) => {
 
   useEffect(() => {
     dispatch({ type: ADMIN_VERIFYING_RESET });
+    dispatch({ type: ADMIN_DROPPING_RESET });
     if (adminInfo) {
       dispatch(verifyRequestList());
       setTimeout(() => {

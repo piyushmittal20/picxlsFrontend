@@ -7,6 +7,7 @@ import DeleteModal from "../../components/DeleteModal";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import Meta from "../../components/Meta";
 
 const StartagViewPage = ({ history, match }) => {
   const startagId = match.params.id;
@@ -42,6 +43,7 @@ const StartagViewPage = ({ history, match }) => {
 
   return (
     <div style={{ paddingBottom: "50px" }}>
+      <Meta title={`${startag && startag.name} - Picxls`} />
       {show && <DeleteModal show={show} setShow={setShow} />}
       {loading ? (
         <Loader />

@@ -20,6 +20,12 @@ import {
   ADMIN_USERLIST_FAIL,
   ADMIN_USERLIST_REQUEST,
   ADMIN_USERLIST_SUCCESS,
+  ADMIN_USERREPORTSTATUS_FAIL,
+  ADMIN_USERREPORTSTATUS_REQUEST,
+  ADMIN_USERREPORTSTATUS_SUCCESS,
+  ADMIN_USERREPORTS_FAIL,
+  ADMIN_USERREPORTS_REQUEST,
+  ADMIN_USERREPORTS_SUCCESS,
   ADMIN_USERSTATUS_FAIL,
   ADMIN_USERSTATUS_REQUEST,
   ADMIN_USERSTATUS_SUCCESS,
@@ -231,6 +237,44 @@ export const userStatusReducer = (state = {}, action) => {
         success: true,
       };
     case ADMIN_USERSTATUS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const reportListReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_USERREPORTS_REQUEST:
+      return { loading: true };
+    case ADMIN_USERREPORTS_SUCCESS:
+      return {
+        loading: false,
+        reports: action.payload,
+      };
+    case ADMIN_USERREPORTS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const reportStatusReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_USERREPORTSTATUS_REQUEST:
+      return { loading: true };
+    case ADMIN_USERREPORTSTATUS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_USERREPORTSTATUS_FAIL:
       return {
         loading: false,
         error: action.payload,
