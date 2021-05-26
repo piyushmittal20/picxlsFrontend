@@ -12,6 +12,7 @@ import { RiEyeFill } from "react-icons/ri";
 import { FaTrashAlt } from "react-icons/fa";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import { getAllPosts } from "../../actions/postActions";
+import { ADMIN_POSTDELETE_RESET } from "../../constants/adminConstants";
 import Meta from "../../components/Meta";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -68,6 +69,7 @@ const PostListPage = ({ history, match }) => {
 
   useEffect(() => {
     if (adminInfo) {
+      dispatch({ type: ADMIN_POSTDELETE_RESET });
       dispatch(getAllPosts(pageNumber, status2, newStart, newLast));
     } else {
       history.push("/admin-login");

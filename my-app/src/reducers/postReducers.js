@@ -17,6 +17,7 @@ import {
   ADMIN_REPORTSTATUS_REQUEST,
   ADMIN_REPORTSTATUS_SUCCESS,
   ADMIN_REPORTSTATUS_FAIL,
+  ADMIN_POSTDELETE_RESET,
 } from "../constants/adminConstants";
 
 export const listPostReducer = (state = { posts: [] }, action) => {
@@ -77,6 +78,8 @@ export const postDeleteReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case ADMIN_POSTDELETE_RESET:
+      return {};
     default:
       return state;
   }

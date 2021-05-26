@@ -110,7 +110,12 @@ const StartagViewPage = ({ history, match }) => {
                 <div class="card-body bg-white p-12 ">
                   {startag.image !== null ? (
                     <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
-                      <Image className="image" src={startag.image} fluid />
+                      <Image
+                        className="image"
+                        src={startag.image}
+                        alt="photo"
+                        fluid
+                      />
                     </div>
                   ) : (
                     <span></span>
