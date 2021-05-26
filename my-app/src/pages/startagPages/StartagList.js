@@ -14,6 +14,7 @@ import { GrPowerReset } from "react-icons/gr";
 import moment from "moment";
 import {
   ADMIN_ADDSTARTAG_RESET,
+  ADMIN_DELETESTARTAG_RESET,
   ADMIN_UPDATESTARTAG_RESET,
 } from "../../constants/adminConstants";
 import Meta from "../../components/Meta";
@@ -80,6 +81,7 @@ const StartagList = ({ history, match }) => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDSTARTAG_RESET });
       dispatch({ type: ADMIN_UPDATESTARTAG_RESET });
+      dispatch({ type: ADMIN_DELETESTARTAG_RESET });
       dispatch(getAllStartag(search, pageNumber, status2, newStart, newLast));
     } else {
       history.push("/admin-login");

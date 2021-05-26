@@ -19,6 +19,7 @@ import {
   ADMIN_STARTAGSTATUS_REQUEST,
   ADMIN_STARTAGSTATUS_SUCCESS,
   ADMIN_STARTAGSTATUS_FAIL,
+  ADMIN_DELETESTARTAG_RESET,
 } from "../constants/adminConstants";
 
 export const startagListReducer = (state = { startags: [] }, action) => {
@@ -81,6 +82,8 @@ export const startagDeleteReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case ADMIN_DELETESTARTAG_RESET:
+      return {};
     default:
       return state;
   }

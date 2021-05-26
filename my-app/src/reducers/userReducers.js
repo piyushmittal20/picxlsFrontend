@@ -5,6 +5,7 @@ import {
   ADMIN_ADDUSER_SUCCESS,
   ADMIN_DELETEUSER_FAIL,
   ADMIN_DELETEUSER_REQUEST,
+  ADMIN_DELETEUSER_RESET,
   ADMIN_DELETEUSER_SUCCESS,
   ADMIN_DROPPING_FAIL,
   ADMIN_DROPPING_REQUEST,
@@ -94,6 +95,8 @@ export const userDeleteReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case ADMIN_DELETEUSER_RESET:
+      return {};
     default:
       return state;
   }

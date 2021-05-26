@@ -13,6 +13,7 @@ import moment from "moment";
 import Loader from "../../components/Loader";
 import {
   ADMIN_ADDUSER_RESET,
+  ADMIN_DELETEUSER_RESET,
   ADMIN_UPDATEUSER_RESET,
 } from "../../constants/adminConstants";
 import ErrorToast from "../../components/ErrorToast";
@@ -75,6 +76,7 @@ const UserListPage = ({ history, match }) => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDUSER_RESET });
       dispatch({ type: ADMIN_UPDATEUSER_RESET });
+      dispatch({ type: ADMIN_DELETEUSER_RESET });
       dispatch(listUsers(search, pageNumber, status2, newStart, newLast));
     } else {
       history.push("/admin-login");
