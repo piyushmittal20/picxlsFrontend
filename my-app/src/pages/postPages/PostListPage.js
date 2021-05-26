@@ -25,7 +25,6 @@ const PostListPage = ({ history, match }) => {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [lastDate, setLastDate] = useState("");
-  // var [data, setData] = useState([]);
   const [status2, setStatus2] = useState("");
   const [q, setQ] = useState("");
 
@@ -178,7 +177,7 @@ const PostListPage = ({ history, match }) => {
             <Link to="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-chevron-left"
+                className="icon icon-tabler icon-tabler-chevron-left"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

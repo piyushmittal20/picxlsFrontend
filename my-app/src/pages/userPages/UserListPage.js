@@ -174,7 +174,7 @@ const UserListPage = ({ history, match }) => {
             <Link to="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="icon icon-tabler icon-tabler-chevron-left"
+                className="icon icon-tabler icon-tabler-chevron-left"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
