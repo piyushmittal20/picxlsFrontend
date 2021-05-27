@@ -169,6 +169,7 @@ const RequestViewPage = ({ history, match }) => {
                       </table>
                       <div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto ">
                         <Image
+                          style={{ padding: "10px 100px" }}
                           className="image"
                           src={request.photo}
                           alt="photo"
@@ -199,73 +200,6 @@ const RequestViewPage = ({ history, match }) => {
                   </div>
                 </div>
               </div>
-              // <Row>
-              //     <Col md={6} style={{padding: '15px'}}>
-              //         <Image className="image" src={`https://picxls-testing.herokuapp.com/${request.photo}`} alt="Id Proof" fluid />
-              //     </Col>
-              //     <Col md={6}>
-              //         <Card className="card">
-              //         <ListGroup variant="flush" className="list">
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>Name:</Col>
-              //                 <Col>{request.name}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>Username:</Col>
-              //                 <Col>{request.username}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>Category:</Col>
-              //                 <Col>{request.category}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>DOB:</Col>
-              //                 <Col>{request.userId.birthday}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>Email:</Col>
-              //                 <Col>{request.userId.email}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //             <ListGroup.Item className="list-item">
-              //             <Row>
-              //                 <Col>Contact no:</Col>
-              //                 <Col>{request.userId.phoneNumber ? request.userId.phoneNumber: <span>NA</span>}</Col>
-              //             </Row>
-              //             </ListGroup.Item>
-              //         </ListGroup>
-              //         </Card>
-              //         <div className="btn-container">
-              // <Button
-              // className="btn"
-              // variant="success"
-              // style={{background: 'green'}}
-              // onClick={() => {
-              //     handleShow()
-              //     showHandler(request._id)
-              // }}
-              // >Verify</Button>
-              // <Button
-              // className="btn"
-              // variant="danger"
-              // style={{background: 'red'}}
-              // onClick={() => {
-              //     handleShow2()
-              //     showHandler2(request._id)
-              // }}
-              // >Dropped</Button>
-              //         </div>
-              //     </Col>
-              // </Row>
             )}
           </div>
         </container>
