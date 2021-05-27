@@ -140,7 +140,7 @@ const PostViewPage = ({ history, match }) => {
                         </OverlayTrigger>
                       </div>
                     </div>
-                    <div class="card-body d-flex bg-white p-12 flex-column flex-md-row flex-xxl-row">
+                    <div class="card-body ">
                       <div class=" ">
                         {f.is_video ? (
                           f.post.map((p) => (
@@ -152,22 +152,23 @@ const PostViewPage = ({ history, match }) => {
                               <Carousel.Item>
                                 <Image
                                   src={p}
-                                  style={{ width: "600px", height: "420px" }}
+                                  style={{ width: "auto", height: "420px" }}
                                   alt="post"
                                   fluid
+                                  className="text-center"
                                 />
                               </Carousel.Item>
                             ))}
                           </Carousel>
                         )}
                       </div>
-                      <div class="card shadow-none w-auto w-md-300px w-lg-auto w-xxl-300px ml-auto">
-                        <div class="card-body bg-light px-12 py-10">
-                          <h3 class="fw-bolder fs-1 mb-9">
-                            <a href="#" class="text-gray-800">
-                              {f.user_details.username}
-                            </a>
-                          </h3>
+                      <div class=" ">
+                        <div class="py-10">
+                          {/*<h3 class="fw-bolder fs-1 mb-9">
+                                                      <a href="#" class="text-gray-800">
+                                                        {f.user_details.username}
+                                                      </a>
+                                                    </h3>*/}
                           <table class="table table-borderless align-middle fw-bold">
                             <tr>
                               <td class="tdpd text-gray-600 ps-0">Name</td>
@@ -212,19 +213,19 @@ const PostViewPage = ({ history, match }) => {
                       </div>
                     </div>
                   </div>
-                  <Col md={12} style={{ padding: "10px", margin: "10px" }}>
-                    <button
-                      type="button"
-                      id="kt_layout_builder_export"
-                      onClick={() => {
-                        handleShow2();
-                        deleteHandler(f._id);
-                      }}
-                      className="btn btn-light me-2"
-                    >
-                      <span class="indicator-label">Remove Post</span>
-                    </button>
-                  </Col>
+                  {/*<Col md={12} style={{ padding: "10px", margin: "10px" }}>
+                                      <button
+                                        type="button"
+                                        id="kt_layout_builder_export"
+                                        onClick={() => {
+                                          handleShow2();
+                                          deleteHandler(f._id);
+                                        }}
+                                        className="btn btn-light me-2"
+                                      >
+                                        <span class="indicator-label">Remove Post</span>
+                                      </button>
+                                    </Col>*/}
                   <Col style={{ padding: "10px", margin: "10px" }}>
                     <h1>Report List</h1>
                     <table
