@@ -67,7 +67,7 @@ const RequestListPage = ({ history }) => {
       {<Meta title="Request Verification - Picxls" />}
       {show2 && <DropModal show={show2} setShow={setShow2} />}
       {show && <VerifyBox show={show} setShow={setShow} />}
-      {error && <ErrorToast message={error.message} />}
+      {error && <ErrorToast message={error} />}
       {loading ? (
         <Loader />
       ) : (

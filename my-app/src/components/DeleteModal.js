@@ -1,30 +1,30 @@
 import { Button, Modal } from "react-bootstrap";
-import {useDispatch } from "react-redux";
-import {removeStartag} from '../actions/startagActions';
-import {deleteUser} from '../actions/userActions';
-import {deletePost} from '../actions/postActions';
+import { useDispatch } from "react-redux";
+import { removeStartag } from "../actions/startagActions";
+import { deleteUser } from "../actions/userActions";
+import { deletePost } from "../actions/postActions";
 
-const DeleteModal = ({show, setShow}) => {
-  const dispatch = useDispatch()
+const DeleteModal = ({ show, setShow }) => {
+  const dispatch = useDispatch();
 
-  const delStarId = localStorage.getItem('delStarId');
-  const delUserId = localStorage.getItem('delUserId');
-  const delPostId = localStorage.getItem('delPostId');
+  const delStarId = localStorage.getItem("delStarId");
+  const delUserId = localStorage.getItem("delUserId");
+  const delPostId = localStorage.getItem("delPostId");
 
   const deleteHandler = () => {
-    if(delStarId) {
-      dispatch(removeStartag(delStarId))
-      localStorage.removeItem('delStarId')
+    if (delStarId) {
+      dispatch(removeStartag(delStarId));
+      localStorage.removeItem("delStarId");
     }
-    if(delUserId) {
-      dispatch(deleteUser(delUserId))
-      localStorage.removeItem('delUserId')
+    if (delUserId) {
+      dispatch(deleteUser(delUserId));
+      localStorage.removeItem("delUserId");
     }
-    if(delPostId) {
-      dispatch(deletePost(delPostId))
-      localStorage.removeItem('delPostId')
+    if (delPostId) {
+      dispatch(deletePost(delPostId));
+      localStorage.removeItem("delPostId");
     }
-  }
+  };
 
   return (
     <>

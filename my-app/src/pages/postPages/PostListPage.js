@@ -230,7 +230,7 @@ const PostListPage = ({ history, match }) => {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrorToast message={error.message} />
+          <ErrorToast message={error} />
         ) : (
           <div>
             <table id="datatable1" className="table table-row-bordered gy-5">

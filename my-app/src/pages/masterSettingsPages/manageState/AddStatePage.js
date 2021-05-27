@@ -27,7 +27,6 @@ const AddStatePage = ({ history }) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),

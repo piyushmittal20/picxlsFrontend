@@ -13,7 +13,7 @@ const AddCountryPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const countryCreate = useSelector((state) => state.countryCreate);
-  const { loading, success: createSuccess } = countryCreate;
+  const { loading, success: createSuccess, error } = countryCreate;
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
@@ -30,7 +30,6 @@ const AddCountryPage = ({ history }) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -54,6 +53,7 @@ const AddCountryPage = ({ history }) => {
       <Meta title="Add Country - Picxls" />
       <div className="container-fluid mt-40">
         <container>
+          {error && <ErrorToast error={error} />}
           {errors.title && <ErrorToast message={errors.title.message} />}
           <form onSubmit={handleSubmit(handleS)}>
             <h2 className="head py-5">

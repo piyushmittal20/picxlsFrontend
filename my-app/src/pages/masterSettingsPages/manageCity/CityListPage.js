@@ -62,7 +62,7 @@ const CityListPage = ({ history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorToast message={error.message} />
+        <ErrorToast message={error} />
       ) : (
         <div className="container-fluid mt-10 pb-18">
           <div

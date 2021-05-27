@@ -49,9 +49,7 @@ const StateListPage = ({ history }) => {
     } else {
       history.push("/admin-login");
     }
-  }, [dispatch, deleteSuccess, statusSuccess]);
-
-  console.log(states);
+  }, [dispatch, deleteSuccess, statusSuccess, history, adminInfo]);
 
   return (
     <div className="wapper" style={{ paddingBottom: "50px" }}>
@@ -60,7 +58,7 @@ const StateListPage = ({ history }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorToast message={error.message} />
+        <ErrorToast message={error} />
       ) : (
         <div className="container-fluid mt-10 pb-18">
           <div

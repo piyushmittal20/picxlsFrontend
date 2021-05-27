@@ -8,7 +8,7 @@ import {
 } from "../constants/adminConstants";
 import { adminLogin } from "../service";
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, token) => async (dispatch) => {
   try {
     dispatch({ type: ADMIN_LOGIN_REQUEST });
 
@@ -20,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       `${adminLogin}/login`,
-      { email, password },
+      { email, password, token },
       config
     );
 

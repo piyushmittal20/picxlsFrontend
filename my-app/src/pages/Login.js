@@ -1,22 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { login } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
-import { FiEye, FiEyeOff } from "react-icons/fi";
 import ErrorToast from "../components/ErrorToast";
 import { ADMIN_LOGIN_RESET } from "../constants/adminConstants";
 import Meta from "../components/Meta";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Login = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPass, setShowPass] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
+  const [token, setToken] = useState("");
+  const [tokenErr, setTokenErr] = useState("");
+  const reCapatcha = useRef();
 
   const validate = () => {
     let emailErr = "";
     let passwordErr = "";
+    let tokenErr = "";
 
     if (!email) {
       emailErr = "Email cannot be empty";
@@ -24,10 +27,14 @@ const Login = ({ history }) => {
     if (!password) {
       passwordErr = "Password cannot be empty";
     }
+    if (!token) {
+      tokenErr = "Please verify the captcha";
+    }
 
-    if (emailErr && passwordErr) {
+    if (emailErr && passwordErr && tokenErr) {
       setEmailErr(emailErr);
       setPasswordErr(passwordErr);
+      setTokenErr(tokenErr);
       return false;
     }
 
@@ -58,13 +65,13 @@ const Login = ({ history }) => {
       setPassword("");
     }
 
-    dispatch(login(email, password));
+    dispatch(login(email, password, token));
   };
-  
+
   return (
     <div class="p-0">
       <Meta title="Sign In - Picxls" />
-      {error && <ErrorToast message={error.message} />}
+      {error && <ErrorToast message={error} />}
       <div className="d-flex flex-column flex-root">
         <div
           className="d-flex flex-column flex-lg-row flex-column-fluid"
@@ -75,6 +82,7 @@ const Login = ({ history }) => {
               <img
                 className="logo-width"
                 src="../assets/media/picxls-logo.png"
+                alt="photo"
               />
               <br />
               <h3 className="fw-bolder fs-2x text-white lh-lg">
@@ -101,7 +109,7 @@ const Login = ({ history }) => {
                     Welcome to Picxls
                   </h3>
                 </div>
-                <div className="fv-row mb-10">
+                <div className="fv-row mb-7">
                   <label className="form-label fs-6 fw-bolder text-dark">
                     Email
                   </label>
@@ -115,7 +123,7 @@ const Login = ({ history }) => {
                   />
                   <span className="error-msg">{emailErr}</span>
                 </div>
-                <div className="fv-row mb-10">
+                <div className="fv-row mb-7">
                   <label className="form-label fs-6 fw-bolder text-dark pt-5">
                     Password
                   </label>
@@ -128,9 +136,17 @@ const Login = ({ history }) => {
                       autocomplete="off"
                       value={password}
                     />
-                    {/* <FiEye /> */}
                   </div>
                   <span className="error-msg">{passwordErr}</span>
+                </div>
+                <div className="fv-row mb-7">
+                  <ReCAPTCHA
+                    ref={reCapatcha}
+                    sitekey="6LcCj_EaAAAAAHMNyPO-AztxeM4g7Zm2AaIn10Bg"
+                    onChange={(token) => setToken(token)}
+                    onExpired={(e) => setToken("")}
+                  />
+                  <span className="error-msg">{tokenErr}</span>
                 </div>
                 <div className="pb-lg-0 pb-5">
                   {loading ? (
@@ -146,10 +162,7 @@ const Login = ({ history }) => {
                       />
                     </button>
                   ) : (
-                    <button
-                      type="submit"
-                      className="btn btn-dark login-btn"
-                    >
+                    <button type="submit" className="btn btn-dark login-btn">
                       Sign In
                     </button>
                   )}

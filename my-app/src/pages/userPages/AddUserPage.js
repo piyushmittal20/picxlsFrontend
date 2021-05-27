@@ -13,7 +13,7 @@ const AddUserPage = ({ history }) => {
   const dispatch = useDispatch();
 
   const userCreate = useSelector((state) => state.userCreate);
-  const { loading, success: createSuccess } = userCreate;
+  const { loading, success: createSuccess, error } = userCreate;
 
   const schema = yup.object().shape({
     firstname: yup.string().required("This Field is Required").max(50).trim(),
@@ -45,6 +45,7 @@ const AddUserPage = ({ history }) => {
       <Meta title="Add User - Picxls" />
       <div className="container-fluid mt-40">
         <container>
+          {error && <ErrorToast message={error} />}
           {errors.firstname && (
             <ErrorToast message={errors.firstname.message} />
           )}

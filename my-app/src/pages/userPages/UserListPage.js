@@ -29,10 +29,8 @@ const UserListPage = ({ history, match }) => {
   const [status, setStatus] = useState("");
   const [startDate, setStartDate] = useState("");
   const [lastDate, setLastDate] = useState("");
-  // var [data, setData] = useState([]);
   const [status2, setStatus2] = useState("");
   const [search, setSearch] = useState("");
-  // const [q, setQ] = useState("");
 
   const dispatch = useDispatch();
 
@@ -236,7 +234,7 @@ const UserListPage = ({ history, match }) => {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrorToast message={error.message} />
+          <ErrorToast message={error} />
         ) : (
           <table id="datatable1" className="table table-row-bordered gy-5">
             <thead style={{ borderBottom: "1px solid black" }}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createCity,
@@ -57,7 +57,7 @@ const AddCityPage = ({ history }) => {
       <div className="container-fluid mt-40">
         {errors.title && <ErrorToast message={errors.title.message} />}
         <container>
-          {createError && <ErrorToast message={createError.message} />}
+          {createError && <ErrorToast message={createError} />}
           {loading ? (
             <Loader />
           ) : (

@@ -53,7 +53,7 @@ const RequestViewPage = ({ history, match }) => {
     } else {
       dispatch(verifyRequestDetail(requestId));
     }
-  }, [adminInfo, history, dispatch, verifySuccess, requestId]);
+  }, [adminInfo, history, dispatch, verifySuccess, requestId, dropSuccess]);
 
   return (
     <div style={{ paddingBottom: "50px" }}>

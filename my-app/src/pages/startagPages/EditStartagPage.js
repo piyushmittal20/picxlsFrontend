@@ -96,8 +96,8 @@ const EditStartagPage = ({ history, match }) => {
       <Meta title="Edit Startag - Picxls" />
       <div className="container-fluid mt-40">
         <container>
-          {error && <ErrorToast message={error.message} />}
-          {updateError && <ErrorToast message={updateError.message} />}
+          {error && <ErrorToast message={error} />}
+          {updateError && <ErrorToast message={updateError} />}
           {loading ? (
             <Loader />
           ) : (

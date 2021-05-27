@@ -26,7 +26,6 @@ const EditCityPage = ({ history, match }) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     setValue,
   } = useForm({
     mode: "onTouched",

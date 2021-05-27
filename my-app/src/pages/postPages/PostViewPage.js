@@ -71,7 +71,7 @@ const PostViewPage = ({ history, match }) => {
         $("#datatable1").DataTable();
       }, 2000);
     }
-  }, [adminInfo, dispatch, history, deleteSuccess, updateSuccess]);
+  }, [adminInfo, dispatch, history, deleteSuccess, updateSuccess, postId]);
 
   return (
     <div style={{ paddingBottom: "50px" }}>
@@ -83,7 +83,7 @@ const PostViewPage = ({ history, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorToast message={error.message} />
+        <ErrorToast message={error} />
       ) : (
         <container>
           <div className="container-fluid mt-10 pb-18">

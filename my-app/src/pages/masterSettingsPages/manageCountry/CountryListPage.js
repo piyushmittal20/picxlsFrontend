@@ -53,13 +53,13 @@ const CountryListcountry = ({ history }) => {
     } else {
       history.push("/admin-login");
     }
-  }, [dispatch, successDelete, updateSuccess, adminInfo]);
+  }, [dispatch, successDelete, updateSuccess, adminInfo, history]);
 
   return (
     <div className="wapper" style={{ paddingBottom: "50px" }}>
       <Meta title="Country List - Picxls" />
       {show && <Modals show={show} setShow={setShow} status={status} />}
-      {error && <ErrorToast message={error.message} />}
+      {error && <ErrorToast message={error} />}
       {loading ? (
         <Loader />
       ) : (

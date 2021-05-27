@@ -30,7 +30,6 @@ const StartagList = ({ history, match }) => {
   const [startDate, setStartDate] = useState("");
   const [lastDate, setLastDate] = useState("");
 
-  const [role, setRole] = useState("");
   const [status2, setStatus2] = useState("");
   const [search, setSearch] = useState("");
 
@@ -40,11 +39,7 @@ const StartagList = ({ history, match }) => {
   const { loading, error, startags, pages, page, total } = startagList;
 
   const startagDelete = useSelector((state) => state.startagDelete);
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = startagDelete;
+  const { success: successDelete } = startagDelete;
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
@@ -250,7 +245,7 @@ const StartagList = ({ history, match }) => {
         {loading ? (
           <Loader />
         ) : error ? (
-          <ErrorToast message={error.message} />
+          <ErrorToast message={error} />
         ) : (
           <table id="datatable1" className="table table-row-bordered gy-5">
             <thead>

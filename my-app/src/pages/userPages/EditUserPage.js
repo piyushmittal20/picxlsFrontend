@@ -70,8 +70,8 @@ const EditUserPage = ({ history, match }) => {
       <Meta title="Edit User - Picxls" />
       <div className="container-fluid mt-40">
         <container>
-          {updateError && <ErrorToast message={updateError.message} />}
-          {error && <ErrorToast message={error.message} />}
+          {updateError && <ErrorToast message={updateError} />}
+          {error && <ErrorToast message={error} />}
           {loading ? (
             <Loader />
           ) : (

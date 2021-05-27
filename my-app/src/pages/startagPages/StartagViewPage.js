@@ -33,7 +33,7 @@ const StartagViewPage = ({ history, match }) => {
     } else {
       dispatch(getStartag(startagId));
     }
-  }, [adminInfo, history, dispatch, successDelete]);
+  }, [adminInfo, history, dispatch, successDelete, startagId]);
 
   const handleShow = () => setShow(true);
 
@@ -48,7 +48,7 @@ const StartagViewPage = ({ history, match }) => {
       {loading ? (
         <Loader />
       ) : error ? (
-        <ErrorToast message={error.message} />
+        <ErrorToast message={error} />
       ) : (
         <container>
           <div className="container-fluid mt-10 pb-18">

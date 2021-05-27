@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -12,23 +12,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const EditCountryPage = ({ history, match }) => {
   const countryId = match.params.id;
-
-  // const [title, setTitle] = useState('');
-  // const [titleError, setTitleError] = useState('')
-
-  // const validate = () => {
-  //     let titleError = '';
-
-  //     if(!title) {
-  //         titleError = "Only empty sapce isn't required"
-  //     }
-
-  //     if(titleError) {
-  //         setTitleError(titleError)
-  //         return false
-  //     }
-  //     return true;
-  // }
 
   const dispatch = useDispatch();
 
@@ -49,14 +32,11 @@ const EditCountryPage = ({ history, match }) => {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     setValue,
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
-
-  console.log(errors);
 
   useEffect(() => {
     if (updateSuccess) {
@@ -81,6 +61,7 @@ const EditCountryPage = ({ history, match }) => {
       <Meta title="Edit Country - Picxls" />
       <div class="container-fluid mt-40">
         <container>
+          {error && <ErrorToast message={error} />}
           {updateError && <ErrorToast message={updateError.message} />}
           {errors.title && <ErrorToast message={errors.title.message} />}
           {loading ? (

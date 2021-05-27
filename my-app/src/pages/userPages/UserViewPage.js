@@ -8,14 +8,7 @@ import Modals from "../../components/Modal";
 import Loader from "../../components/Loader";
 import Meta from "../../components/Meta";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
-import {
-  OverlayTrigger,
-  Tooltip,
-  Row,
-  Col,
-  Badge,
-  Modal,
-} from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Row, Col, Badge } from "react-bootstrap";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
