@@ -97,6 +97,11 @@ const AddCityPage = ({ history }) => {
                           <option value={country._id}>{country.title}</option>
                         ))}
                     </select>
+                    {errors.country && (
+                      <p className="text-danger small p-1">
+                        {errors.country.message}
+                      </p>
+                    )}
                   </div>
                   <div class="col-sm-12">
                     <label>State Name</label>
@@ -113,6 +118,11 @@ const AddCityPage = ({ history }) => {
                             <option value={state._id}>{state.title}</option>
                           ))}
                     </select>
+                    {errors.state && (
+                      <p className="text-danger small p-1">
+                        {errors.state.message}
+                      </p>
+                    )}
                   </div>
                   <div class="col-sm-12">
                     <label>City Name</label>

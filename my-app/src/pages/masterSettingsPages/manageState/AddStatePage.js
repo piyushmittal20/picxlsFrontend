@@ -89,6 +89,11 @@ const AddStatePage = ({ history }) => {
                           <option value={country._id}>{country.title}</option>
                         ))}
                     </select>
+                    {errors.country && (
+                      <p className="text-danger small p-1">
+                        {errors.country.message}
+                      </p>
+                    )}
                   </div>
                   <div class="col-sm-12">
                     <label>Add State Name</label>
