@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyRequestList } from "../../actions/userActions";
 import { Link } from "react-router-dom";
-import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import { RiEyeFill } from "react-icons/ri";
 import $ from "jquery";
@@ -44,7 +44,7 @@ const RequestListPage = ({ history }) => {
       dispatch(verifyRequestList());
       setTimeout(() => {
         $("#datatable1").DataTable();
-      }, 2000);
+      }, 2500);
     } else {
       history.push("/admin-login");
     }
@@ -70,7 +70,7 @@ const RequestListPage = ({ history }) => {
       {error && <ErrorToast message={error} />}
       {loading ? (
         <Loader />
-      ) : (
+      ) : requests !== undefined ? (
         <div className="container-fluid mt-10 pb-18">
           <div
             className="d-flex align-items-stretch justify-content-between"
@@ -217,6 +217,16 @@ const RequestListPage = ({ history }) => {
                 ))}
             </tbody>
           </table>
+        </div>
+      ) : (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
         </div>
       )}
     </div>

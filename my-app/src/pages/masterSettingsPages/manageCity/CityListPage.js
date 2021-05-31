@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCities } from "../../../actions/masterSettings";
-import { Button, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import {
   ADMIN_ADDCITY_RESET,
@@ -63,7 +63,7 @@ const CityListPage = ({ history }) => {
         <Loader />
       ) : error ? (
         <ErrorToast message={error} />
-      ) : (
+      ) : cities !== undefined ? (
         <div className="container-fluid mt-10 pb-18">
           <div
             className="d-flex align-items-stretch justify-content-between"
@@ -183,6 +183,16 @@ const CityListPage = ({ history }) => {
                 ))}
             </tbody>
           </table>
+        </div>
+      ) : (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
         </div>
       )}
     </div>

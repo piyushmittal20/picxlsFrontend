@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllPages } from "../../actions/cmsActions";
-import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import Modals from "../../components/Modal";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
@@ -53,7 +53,7 @@ const CmsPageList = ({ history }) => {
       {error && <ErrorToast message={error.message} />}
       {loading ? (
         <Loader />
-      ) : (
+      ) : pages !== undefined ? (
         <div className="container-fluid mt-10 pb-18">
           <div
             className="d-flex align-items-stretch justify-content-between"
@@ -168,6 +168,16 @@ const CmsPageList = ({ history }) => {
                 ))}
             </tbody>
           </table>
+        </div>
+      ) : (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
         </div>
       )}
     </div>

@@ -1,169 +1,77 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { adminDashboardData } from "../actions/dashbordActions";
 import Meta from "../components/Meta";
+import LineChart from "../components/LineChart";
+import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
+import ErrorToast from "../components/ErrorToast";
 
 const Dashboard = ({ history }) => {
+  const dispatch = useDispatch();
+
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
+
+  const adminDashboard = useSelector((state) => state.adminDashboard);
+  const { loading, error, last7Day, last14Day, last28Day, last24Hour } =
+    adminDashboard;
 
   useEffect(() => {
     if (!adminInfo) {
       history.push("/admin-login");
+    } else {
+      dispatch(adminDashboardData());
     }
   }, [history, adminInfo]);
+
+  let data1;
+  let data2;
+  let data3;
+  let data4;
+
+  if (last7Day && last7Day.status === "fulfilled") {
+    data1 = last7Day.value.data.userCount;
+  }
+  if (last14Day && last14Day.status === "fulfilled") {
+    data2 = last14Day.value.data.userCount;
+  }
+  if (last28Day && last28Day.status === "fulfilled") {
+    data3 = last28Day.value.data.userCount;
+  }
+  if (last24Hour && last24Hour.status === "fulfilled") {
+    data4 = last24Hour.value.data.userCount;
+  }
 
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Dashboard - Picxls" />
-      {/*begin::Main*/}
-      {/*begin::Root*/}
-      <div className="d-flex flex-column flex-root">
-        {/*begin::Page*/}
-        <div className="page d-flex flex-row flex-column-fluid text-center">
-          {/*begin::Aside*/}
-          {/* <div
-            id="kt_aside"
-            className="aside bg-info"
-            data-kt-offcanvas="true"
-            data-kt-offcanvas-name="aside"
-            data-kt-offcanvas-activate="{default: true, lg: false}"
-            data-kt-offcanvas-overlay="true"
-            data-kt-offcanvas-width="{default:'200px', '300px': '250px'}"
-            data-kt-offcanvas-direction="left"
-            data-kt-offcanvas-toggle="#kt_aside_toggler"
-            data-kt-offcanvas-close
-            >
-            <div className="aside-secondary d-flex flex-row-fluid bg-blue">
-              <div
-                className="aside-workspace my-7 ps-5 pe-4 ps-lg-10 pe-lg-6"
-                id="kt_aside_wordspace"
-              >
-                <div
-                  className="menu menu-column menu-rounded menu-title-gray-700 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500 fw-bold fs-6"
-                  data-kt-menu="true"
-                >
-                  <div
-                    className="hover-scroll-y pe-4 pe-lg-5"
-                    id="kt_aside_menu_scroll"
-                    data-kt-scroll="true"
-                    data-kt-scroll-height="auto"
-                    data-kt-scroll-dependencies="#kt_aside_logo"
-                    data-kt-scroll-wrappers="#kt_aside_wordspace"
-                    data-kt-scroll-offset="10px"
-                  >
-                    <div className="menu-wrapper menu-column menu-fit">
-                      <div className="menu-item here show">
-                      
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/">
-                              <span className="menu-title">Dashboard</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                            Master Settings
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/countrylist">
-                              <span className="menu-title">Manage Country</span>
-                            </Link>
-                          </div>
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/statelist">
-                              <span className="menu-title">Manage State</span>
-                            </Link>
-                          </div>
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/citylist">
-                              <span className="menu-title">Manage City</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          CMS
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/CMS">
-                              <span className="menu-title">Manage Pages</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/userlist">
-                              <span className="menu-title">Manage Users</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          Startag Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/startaglist">
-                              <span className="menu-title">Manage Startags</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          User Verification Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/requestList">
-                              <span className="menu-title">Manage Verification Requests</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="menu-item show">
-                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
-                          Post Management
-                        </h4>
-                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
-                          <div className="menu-item">
-                            <Link className="menu-link py-2" to="/postlist">
-                              <span className="menu-title">Manage Posts</span>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <ErrorToast message={error} />
+      ) : (
+        <div className="d-flex flex-column flex-root">
+          <div className="page d-flex flex-row flex-column-fluid text-center">
+            <div>
+              <div className="">
+                <div className="content" id="kt_content">
+                  <div style={{ margin: "40px auto" }}>
+                    <Link to="/userlist">
+                      <LineChart
+                        data1={data1}
+                        data2={data2}
+                        data3={data3}
+                        data4={data4}
+                      />
+                    </Link>
                   </div>
                 </div>
               </div>
             </div>
-          </div>*/}
-          <div>
-            <div className="">
-              <div className="content" id="kt_content">
-                <div style={{ margin: "40px auto" }}>
-                  <h1>Under Construction</h1>
-                </div>
-              </div>
-            </div>
           </div>
-          {/*end::Wrapper*/}
         </div>
-        {/*end::Page*/}
-      </div>
-      {/*end::Root*/}
+      )}
     </div>
   );
 };

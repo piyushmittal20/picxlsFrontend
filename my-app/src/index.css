@@ -237,3 +237,14 @@ div.dataTables_wrapper div.dataTables_filter {
 .image-post {
   width: auto;
 }
+
+.chart {
+  height: 320px !important;
+  width: 520px !important;
+  padding: 10px;
+}
+
+.errorCmp {
+  margin: 20px auto;
+  width: 500px;
+}

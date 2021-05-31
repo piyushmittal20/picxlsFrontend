@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllStates } from "../../../actions/masterSettings";
 import { Link } from "react-router-dom";
-import { Button, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { ADMIN_ADDSTATE_RESET } from "../../../constants/adminConstants";
 import Modals from "../../../components/Modal";
 import { FaEdit } from "react-icons/fa";
@@ -59,7 +59,7 @@ const StateListPage = ({ history }) => {
         <Loader />
       ) : error ? (
         <ErrorToast message={error} />
-      ) : (
+      ) : states !== undefined ? (
         <div className="container-fluid mt-10 pb-18">
           <div
             className="d-flex align-items-stretch justify-content-between"
@@ -181,6 +181,16 @@ const StateListPage = ({ history }) => {
                 ))}
             </tbody>
           </table>
+        </div>
+      ) : (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { listUsers } from "../../actions/userActions";
 import DeleteModal from "../../components/DeleteModal";
 import Modals from "../../components/Modal";
@@ -92,27 +92,6 @@ const UserListPage = ({ history, match }) => {
     newLast,
   ]);
 
-  // var result = [];
-
-  // if (!startDate && !lastDate && status2 === "every") {
-  //   data = users;
-  // }
-
-  // useEffect(() => {
-  //   if (startDate && lastDate) {
-  //     result =
-  //       users &&
-  //       users.filter((user) =>
-  //         moment(user.createdAt).isBetween(startDate, lastDate)
-  //       );
-  //   }
-  //   if (status2 !== "every") {
-  //     result =
-  //       users && users.filter((user) => user.status.toString() === status2);
-  //   }
-  //   setData(result);
-  // }, [startDate, lastDate, status2, pageNumber]);
-
   const resetFilter = () => {
     setLastDate("");
     setStartDate("");
@@ -146,22 +125,22 @@ const UserListPage = ({ history, match }) => {
     }
   });
 
-  // const search = (rows) => {
-  //   return rows.filter(
-  //     (row) =>
-  //       (row.email && row.email.toLowerCase().indexOf(q) > -1) ||
-  //       (row.username && row.username.toLowerCase().indexOf(q) > -1) ||
-  //       (row.firstname && row.firstname.toLowerCase().indexOf(q) > -1) ||
-  //       (row.phoneNumber && row.phoneNumber.toLowerCase().indexOf(q) > -1) ||
-  //       row.createdAt.toString().toLowerCase().indexOf(q) > -1
-  //   );
-  // };
-
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="User Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}
+      {users === undefined && (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
+        </div>
+      )}
       <div className="container-fluid mt-10 pb-18">
         <div
           className="d-flex align-items-stretch justify-content-between"

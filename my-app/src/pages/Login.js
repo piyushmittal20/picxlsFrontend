@@ -2,49 +2,65 @@ import { useState, useEffect, useRef } from "react";
 import { login } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
-import ErrorToast from "../components/ErrorToast";
 import { ADMIN_LOGIN_RESET } from "../constants/adminConstants";
+import ErrorToast from "../components/ErrorToast";
 import Meta from "../components/Meta";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = ({ history }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailErr, setEmailErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [emailErr, setEmailErr] = useState("");
+  // const [passwordErr, setPasswordErr] = useState("");
   const [token, setToken] = useState("");
-  const [tokenErr, setTokenErr] = useState("");
+  // const [tokenErr, setTokenErr] = useState("");
   const reCapatcha = useRef();
 
-  const validate = () => {
-    let emailErr = "";
-    let passwordErr = "";
-    let tokenErr = "";
+  // const validate = () => {
+  //   let emailErr = "";
+  //   let passwordErr = "";
+  //   let tokenErr = "";
 
-    if (!email) {
-      emailErr = "Email cannot be empty";
-    }
-    if (!password) {
-      passwordErr = "Password cannot be empty";
-    }
-    if (!token) {
-      tokenErr = "Please verify the captcha";
-    }
+  //   if (!email) {
+  //     emailErr = "Email cannot be empty";
+  //   }
+  //   if (!password) {
+  //     passwordErr = "Password cannot be empty";
+  //   }
+  //   if (!token) {
+  //     tokenErr = "Please verify the captcha";
+  //   }
 
-    if (emailErr && passwordErr && tokenErr) {
-      setEmailErr(emailErr);
-      setPasswordErr(passwordErr);
-      setTokenErr(tokenErr);
-      return false;
-    }
+  //   if (emailErr && passwordErr && tokenErr) {
+  //     setEmailErr(emailErr);
+  //     setPasswordErr(passwordErr);
+  //     setTokenErr(tokenErr);
+  //     return false;
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 
   const dispatch = useDispatch();
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { loading, error, adminInfo } = adminLogin;
+
+  const schema = yup.object().shape({
+    email: yup.string().required("This Field is Required").max(50).trim(),
+    password: yup.string().required("This Field is required").trim(),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (adminInfo) {
@@ -57,15 +73,21 @@ const Login = ({ history }) => {
     }
   }, [adminInfo, history, dispatch, error]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submitHandler = (data) => {
+    // e.preventDefault();
 
-    const isValid = validate();
-    if (isValid) {
-      setPassword("");
-    }
+    // const isValid = validate();
+    // if (isValid) {
+    //   setPassword("");
+    // }
 
-    dispatch(login(email, password, token));
+    const creds = {
+      email: data.email,
+      password: data.password,
+      token: token,
+    };
+
+    dispatch(login(creds));
   };
 
   return (
@@ -100,7 +122,7 @@ const Login = ({ history }) => {
           <div className="login-content flex-lg-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden py-20 px-10 p-lg-7 mx-auto mw-450px w-100">
             <div className="d-flex flex-column-fluid flex-center py-10">
               <form
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(submitHandler)}
                 className="form w-100"
                 novalidate="novalidate"
               >
@@ -115,13 +137,14 @@ const Login = ({ history }) => {
                   </label>
                   <input
                     className="form-control form-control-lg form-control-solid"
-                    onChange={(e) => setEmail(e.target.value)}
                     type="text"
-                    name="username"
-                    autocomplete="off"
-                    value={email}
+                    {...register("email")}
                   />
-                  <span className="error-msg">{emailErr}</span>
+                  {errors.email && (
+                    <p className="text-danger small p-1">
+                      {errors.email.message}
+                    </p>
+                  )}
                 </div>
                 <div className="fv-row mb-7">
                   <label className="form-label fs-6 fw-bolder text-dark pt-5">
@@ -130,14 +153,15 @@ const Login = ({ history }) => {
                   <div>
                     <input
                       className="form-control form-control-lg form-control-solid"
-                      onChange={(e) => setPassword(e.target.value)}
                       type="password"
-                      name="password"
-                      autocomplete="off"
-                      value={password}
+                      {...register("password")}
                     />
+                    {errors.password && (
+                      <p className="text-danger small p-1">
+                        {errors.password.message}
+                      </p>
+                    )}
                   </div>
-                  <span className="error-msg">{passwordErr}</span>
                 </div>
                 <div className="fv-row mb-7">
                   <ReCAPTCHA
@@ -146,7 +170,6 @@ const Login = ({ history }) => {
                     onChange={(token) => setToken(token)}
                     onExpired={(e) => setToken("")}
                   />
-                  <span className="error-msg">{tokenErr}</span>
                 </div>
                 <div className="pb-lg-0 pb-5">
                   {loading ? (
@@ -155,7 +178,7 @@ const Login = ({ history }) => {
                       disabled="true"
                       className="btn btn-dark  fw-bolder fs-6 px-8 py-4 my-3 me-3 login-btn"
                     >
-                      <p>Processing...</p>{" "}
+                      <p>Signing In...</p>{" "}
                       <Spinner
                         style={{ marginLeft: "10px" }}
                         animation="border"

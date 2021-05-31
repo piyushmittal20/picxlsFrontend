@@ -64,6 +64,8 @@ import {
   statusUpdateReducer,
 } from "./reducers/postReducers";
 
+import { adminDashboardReducer } from "./reducers/dashboardReducers";
+
 const reducer = combineReducers({
   adminLogin: adminLoginReducer,
   pageList: pageListReducer,
@@ -111,6 +113,7 @@ const reducer = combineReducers({
   statusUpdate: statusUpdateReducer,
   reportList: reportListReducer,
   reportStatus: reportStatusReducer,
+  adminDashboard: adminDashboardReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")

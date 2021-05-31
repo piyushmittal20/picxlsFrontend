@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Badge, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { GrPowerReset } from "react-icons/gr";
 import moment from "moment";
 import Loader from "../../components/Loader";
@@ -167,6 +167,17 @@ const PostListPage = ({ history, match }) => {
       <Meta title="Post Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       {show && <DeleteModal show={show} setShow={setShow} />}
+      {posts === undefined && (
+        <div className="errorCmp">
+          <Alert variant="danger">
+            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+            <p>
+              We are unable to serve data. Something went wrong, please check
+              your internet connection or try again later.
+            </p>
+          </Alert>
+        </div>
+      )}
       <div className="container-fluid mt-10 pb-18">
         <div
           className="d-flex align-items-stretch justify-content-between"
