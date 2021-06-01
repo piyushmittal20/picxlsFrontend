@@ -1,34 +1,37 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { getUserDetails, userUpdate } from "../../actions/userActions";
+import {} from "../../actions/taxActions";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import { getTaxDetail, updateTax } from "../../actions/taxActions";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-const EditUserPage = ({ history, match }) => {
-  const userId = match.params.id;
+const EditTaxPage = ({ history, match }) => {
+  const taxId = match.params.id;
+
+  const [country, setCountry] = useState("");
+  const [state, setState] = useState("");
 
   const dispatch = useDispatch();
 
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
+  const taxDetail = useSelector((state) => state.taxDetail);
+  const { loading, error, tax } = taxDetail;
 
-  const updateUser = useSelector((state) => state.updateUser);
+  const taxUpdate = useSelector((state) => state.taxUpdate);
   const {
     loading: updateLoading,
     error: updateError,
     success: updateSuccess,
-  } = updateUser;
+  } = taxUpdate;
 
   const schema = yup.object().shape({
-    firstname: yup.string().required("This Field is Required").max(50).trim(),
-    lastname: yup.string().required("This Field is Required").max(50).trim(),
-    email: yup.string().email().required("This Field is Required").trim(),
+    title: yup.string().required("This Field is Required").max(50).trim(),
+    taxPercentage: yup.string().required("This Field is Required").trim(),
   });
   const {
     register,
@@ -42,28 +45,29 @@ const EditUserPage = ({ history, match }) => {
 
   useEffect(() => {
     if (updateSuccess) {
-      history.push("/userlist");
+      history.push("/taxlist");
     } else {
-      if (user) {
-        if (!user.firstname || user._id !== userId) {
-          dispatch(getUserDetails(userId));
+      if (tax) {
+        if (!tax.title || tax._id !== taxId) {
+          dispatch(getTaxDetail(taxId));
         } else {
-          setValue("firstname", user.firstname);
-          setValue("lastname", user.lastname);
-          setValue("email", user.email);
-          setValue("phoneNumber", user.phoneNumber);
+          setValue("title", tax.title);
+          setValue("taxPercentage", tax.taxPercentage);
+          setCountry(tax.country.title);
+          setState(tax.state.title);
         }
       }
     }
-  }, [dispatch, userId, user, history, updateSuccess]);
+  }, [dispatch, history, taxId, tax, updateSuccess]);
 
   const submitForm = (data) => {
-    dispatch(userUpdate(data, userId));
+    console.log(data);
+    dispatch(updateTax(data, taxId));
   };
 
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
-      <Meta title="Edit User - Picxls" />
+      <Meta title="Edit Tax - Picxls" />
       <div className="container-fluid mt-40">
         <container>
           {updateError && <ErrorToast message={updateError} />}
@@ -74,7 +78,7 @@ const EditUserPage = ({ history, match }) => {
             <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
               <h1>
                 {" "}
-                <Link to="/userlist">
+                <Link to="/taxlist">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon icon-tabler icon-tabler-chevron-left"
@@ -91,74 +95,66 @@ const EditUserPage = ({ history, match }) => {
                     <polyline points="15 6 9 12 15 18" />
                   </svg>
                 </Link>{" "}
-                EDIT USER
+                EDIT TAX
               </h1>
               <div class="form rounded border p-10">
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>First Name</label>
+                    <label>Name</label>
                     <input
                       type="text"
-                      {...register("firstname")}
+                      {...register("title")}
                       className="form-control my-5"
                       placeholder="Enter firstname"
                     />
-                    {errors.firstname && (
+                    {errors.title && (
                       <p className="text-danger small p-1">
-                        {errors.firstname.message}
+                        {errors.title.message}
                       </p>
                     )}
                   </div>
                   <div class="col-sm-6">
-                    <label>Last Name</label>
+                    <label>COUNTRY</label>
                     <input
                       type="text"
-                      {...register("lastname")}
+                      value={country}
                       className="form-control my-5"
-                      placeholder="Enter lastname"
+                      placeholder="Enter country"
+                      disabled
                     />
-                    {errors.lastname && (
-                      <p className="text-danger small p-1">
-                        {errors.lastname.message}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Email</label>
+                    <label>STATE</label>
                     <input
                       type="text"
-                      {...register("email")}
+                      value={state}
                       className="form-control my-5"
-                      placeholder="Enter Email"
+                      placeholder="Enter State"
+                      disabled
                     />
-                    {errors.email && (
-                      <p className="text-danger small p-1">
-                        {errors.email.message}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
-                    <label>Contact Number</label>
+                    <label>TAX PERCENTAGE</label>
                     <input
                       type="text"
-                      {...register("phoneNumber")}
+                      {...register("taxPercentage")}
                       className="form-control my-5"
-                      placeholder="Enter Contact number"
+                      placeholder="Enter Tax Percentage"
                     />
-                    {errors.phoneNumber && (
+                    {errors.taxPercentage && (
                       <p className="text-danger small p-1">
-                        {errors.phoneNumber.message}
+                        {errors.taxPercentage.message}
                       </p>
                     )}
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <Link to="/userlist">
+                  <Link to="/taxlist">
                     <Button type="submit" className="mx-3" variant="secondary">
                       Cancel
                     </Button>
@@ -168,7 +164,7 @@ const EditUserPage = ({ history, match }) => {
                       <Spinner
                         animation="border"
                         size="sm"
-                        style={{ marginRight: "5px" }}
+                        style={{ marginRight: "5px", marginBottom: "3px" }}
                       />
                       Updating...
                     </Button>
@@ -187,4 +183,4 @@ const EditUserPage = ({ history, match }) => {
   );
 };
 
-export default EditUserPage;
+export default EditTaxPage;

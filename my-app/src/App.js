@@ -28,6 +28,9 @@ import PostViewPage from "./pages/postPages/PostViewPage";
 import StartagViewPage from "./pages/startagPages/StartagViewPage";
 import UserViewPage from "./pages/userPages/UserViewPage";
 import Sidebar from "./components/Sidebar";
+import TaxListPage from "./pages/taxPages/TaxListPage";
+import TaxViewPage from "./pages/taxPages/TaxViewPage";
+import EditTaxPage from "./pages/taxPages/EditTaxPage";
 
 function App() {
   const adminLogin = useSelector((state) => state.adminLogin);
@@ -81,6 +84,9 @@ function App() {
           <Route path="/viewpost/:id" exact component={PostViewPage} />
           <Route path="/viewstartag/:id" exact component={StartagViewPage} />
           <Route path="/viewuser/:id" exact component={UserViewPage} />
+          <Route path="/taxlist" exact component={TaxListPage} />
+          <Route path="/viewtax/:id" exact component={TaxViewPage} />
+          <Route path="/edittax/:id" exact component={EditTaxPage} />
         </Switch>
       </div>
       <Footer />

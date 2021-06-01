@@ -1,5 +1,5 @@
-// const IpAddress = `http://localhost:5000/api/admin`;
-const IpAddress = `https://picxls-testing.herokuapp.com/api/admin`;
+const IpAddress = `http://localhost:5000/api/admin`;
+// const IpAddress = `https://picxls-testing.herokuapp.com/api/admin`;
 
 export const adminLogin = IpAddress;
 export const getPages = IpAddress;
@@ -47,3 +47,8 @@ export const last24hourusercount = IpAddress;
 export const last7dayusercount = IpAddress;
 export const last14dayusercount = IpAddress;
 export const last28dayusercount = IpAddress;
+export const getTaxlist = IpAddress;
+export const getTaxDetails = IpAddress;
+export const taxStatusUpdate = IpAddress;
+export const taxUpdate = IpAddress;
+export const taxDelete = IpAddress;

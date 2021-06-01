@@ -66,6 +66,15 @@ import {
 
 import { adminDashboardReducer } from "./reducers/dashboardReducers";
 
+import {
+  deleteTaxReducer,
+  listTaxReducer,
+  taxDetailReducer,
+  taxStatusReducer,
+  taxUpdateReducer,
+} from "./reducers/taxReducers";
+import { taxStatusUpdate } from "./service";
+
 const reducer = combineReducers({
   adminLogin: adminLoginReducer,
   pageList: pageListReducer,
@@ -114,6 +123,11 @@ const reducer = combineReducers({
   reportList: reportListReducer,
   reportStatus: reportStatusReducer,
   adminDashboard: adminDashboardReducer,
+  listTax: listTaxReducer,
+  taxDetail: taxDetailReducer,
+  taxStatus: taxStatusReducer,
+  taxUpdate: taxUpdateReducer,
+  deleteTax: deleteTaxReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")

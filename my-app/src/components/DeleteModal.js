@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { removeStartag } from "../actions/startagActions";
 import { deleteUser } from "../actions/userActions";
 import { deletePost } from "../actions/postActions";
+import { deleteTax } from "../actions/taxActions";
 
 const DeleteModal = ({ show, setShow }) => {
   const dispatch = useDispatch();
@@ -10,6 +11,7 @@ const DeleteModal = ({ show, setShow }) => {
   const delStarId = localStorage.getItem("delStarId");
   const delUserId = localStorage.getItem("delUserId");
   const delPostId = localStorage.getItem("delPostId");
+  const delTaxId = localStorage.getItem("delTaxId");
 
   const deleteHandler = () => {
     if (delStarId) {
@@ -23,6 +25,10 @@ const DeleteModal = ({ show, setShow }) => {
     if (delPostId) {
       dispatch(deletePost(delPostId));
       localStorage.removeItem("delPostId");
+    }
+    if (delTaxId) {
+      dispatch(deleteTax(delTaxId));
+      localStorage.removeItem("delTaxId");
     }
   };
 

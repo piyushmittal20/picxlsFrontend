@@ -111,9 +111,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DELETEUSER_REQUEST });
 
-    const { data } = await axios.delete(
-      `${removeUser}/user/${id}`
-    );
+    const { data } = await axios.delete(`${removeUser}/user/${id}`);
 
     dispatch({
       type: ADMIN_DELETEUSER_SUCCESS,
@@ -167,8 +165,6 @@ export const userUpdate = (user, id) => async (dispatch, getState) => {
     const {
       data: { savedUser },
     } = await axios.put(`${updateUser}/user/${id}`, user, config);
-
-    console.log(savedUser);
 
     dispatch({ type: ADMIN_UPDATEUSER_SUCCESS });
     dispatch({

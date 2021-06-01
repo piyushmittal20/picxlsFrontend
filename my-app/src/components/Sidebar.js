@@ -137,7 +137,6 @@ const Sidebar = () => {
                           </div>
                         </div>
                       </div>
-
                       <div className="menu-item show">
                         <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
                           Post Management
@@ -146,6 +145,18 @@ const Sidebar = () => {
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/postlist">
                               <span className="menu-title">Manage Posts</span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          Tax Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link className="menu-link py-2" to="/taxlist">
+                              <span className="menu-title">Manage TaxList</span>
                             </Link>
                           </div>
                         </div>
