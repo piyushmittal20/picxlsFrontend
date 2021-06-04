@@ -17,16 +17,26 @@ import {
   ADMIN_TAXDELETE_SUCCESS,
   ADMIN_TAXDELETE_FAIL,
   ADMIN_TAXDELETE_RESET,
+  ADMIN_ADDTAX_REQUEST,
+  ADMIN_ADDTAX_SUCCESS,
+  ADMIN_ADDTAX_FAIL,
+  ADMIN_ADDTAX_RESET,
 } from "../constants/adminConstants";
 
-export const listTaxReducer = (state = {}, action) => {
+export const listTaxReducer = (state = { taxes: [] }, action) => {
   switch (action.type) {
     case ADMIN_TAXLIST_REQUEST:
-      return { loading: true };
+      return {
+        loading: true,
+        taxes: [],
+      };
     case ADMIN_TAXLIST_SUCCESS:
       return {
         loading: false,
-        taxes: action.payload,
+        taxes: action.payload.taxes,
+        pages: action.payload.pages,
+        page: action.payload.page,
+        total: action.payload.total,
       };
     case ADMIN_TAXLIST_FAIL:
       return {
@@ -115,6 +125,29 @@ export const deleteTaxReducer = (state = {}, action) => {
         error: action.payload,
       };
     case ADMIN_TAXDELETE_RESET:
+      return {};
+    default:
+      return state;
+  }
+};
+
+export const taxCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_ADDTAX_REQUEST:
+      return {
+        loading: true,
+      };
+    case ADMIN_ADDTAX_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_ADDTAX_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case ADMIN_ADDTAX_RESET:
       return {};
     default:
       return state;

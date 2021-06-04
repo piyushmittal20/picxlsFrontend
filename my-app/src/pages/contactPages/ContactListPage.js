@@ -1,60 +1,44 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
-import { getTaxlisting } from "../../actions/taxActions";
+import { Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import { RiEyeFill } from "react-icons/ri";
-import { FaTrashAlt, FaEdit } from "react-icons/fa";
-import { BsToggleOff, BsToggleOn } from "react-icons/bs";
-import Loader from "../../components/Loader";
-import moment from "moment";
-import DeleteModal from "../../components/DeleteModal";
+import { getContactListing } from "../../actions/contactActions";
 import Modals from "../../components/Modal";
 import Meta from "../../components/Meta";
 import ErrorToast from "../../components/ErrorToast";
+import Loader from "../../components/Loader";
 import { GrPowerReset } from "react-icons/gr";
-import {
-  ADMIN_TAXUPDATE_RESET,
-  ADMIN_TAXDELETE_RESET,
-} from "../../constants/adminConstants";
+import { BsToggleOff, BsToggleOn } from "react-icons/bs";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import moment from "moment";
 
-const TaxListPage = ({ history, match }) => {
+const ContactListPage = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
 
-  const [show, setShow] = useState(false);
+  const [q, setQ] = useState("");
+  const [status2, setStatus2] = useState("");
   const [show2, setShow2] = useState(false);
   const [status, setStatus] = useState("");
-  const [q, setQ] = useState("");
   const [startDate, setStartDate] = useState("");
   const [lastDate, setLastDate] = useState("");
-  const [status2, setStatus2] = useState("");
 
   const dispatch = useDispatch();
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
 
-  const listTax = useSelector((state) => state.listTax);
-  const { loading, error, taxes, pages, page, total } = listTax;
+  const listContact = useSelector((state) => state.listContact);
+  const { loading, error, contacts, pages, page, total } = listContact;
 
-  const taxStatus = useSelector((state) => state.taxStatus);
-  const { success } = taxStatus;
-
-  const deleteTax = useSelector((state) => state.deleteTax);
-  const { success: deleteSuccess } = deleteTax;
-
-  const handleShow = () => setShow(true);
+  const statusContact = useSelector((state) => state.statusContact);
+  const { success: updateSuccess } = statusContact;
 
   const handleShow2 = () => setShow2(true);
 
-  const deleteHandler = (id) => {
-    localStorage.setItem("delTaxId", id);
-  };
-
   const statusHandler = (id) => {
-    localStorage.setItem("taxId", id);
+    localStorage.setItem("contactId", id);
   };
 
   let newStart = "";
@@ -71,18 +55,15 @@ const TaxListPage = ({ history, match }) => {
 
   useEffect(() => {
     if (adminInfo) {
-      dispatch({ type: ADMIN_TAXDELETE_RESET });
-      dispatch({ type: ADMIN_TAXUPDATE_RESET });
-      dispatch(getTaxlisting(pageNumber, status2, newStart, newLast));
+      dispatch(getContactListing(pageNumber, status2, newStart, newLast));
     } else {
       history.push("/admin-login");
     }
   }, [
-    adminInfo,
-    history,
     dispatch,
-    success,
-    deleteSuccess,
+    history,
+    adminInfo,
+    updateSuccess,
     pageNumber,
     status2,
     newStart,
@@ -114,7 +95,7 @@ const TaxListPage = ({ history, match }) => {
     ) {
       return (
         <span key={number}>
-          <Link to={`/taxlist/page/${number}`} className={classes}>
+          <Link to={`/contactlist/page/${number}`} className={classes}>
             {number}
           </Link>
         </span>
@@ -125,30 +106,21 @@ const TaxListPage = ({ history, match }) => {
   const search = (rows) => {
     return rows.filter(
       (row) =>
-        (row.title && row.title.toLowerCase().indexOf(q) > -1) ||
-        (row.country.title &&
-          row.country.title.toLowerCase().indexOf(q) > -1) ||
-        (row.state.title && row.state.title.toLowerCase().indexOf(q) > -1) ||
+        (row.userId.firstname &&
+          row.userId.firstname.toLowerCase().indexOf(q) > -1) ||
+        (row.userId.username &&
+          row.userId.username.toLowerCase().indexOf(q) > -1) ||
+        (row.userId.email && row.userId.email.toLowerCase().indexOf(q) > -1) ||
+        (row.userId.phoneNumber &&
+          row.userId.phoneNumber.toLowerCase().indexOf(q) > -1) ||
         row.createdAt.toString().toLowerCase().indexOf(q) > -1
     );
   };
 
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
-      <Meta title="Tax Management - Picxls" />
+      <Meta title="Contact Us - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
-      {show && <DeleteModal show={show} setShow={setShow} />}
-      {taxes === undefined && (
-        <div className="errorCmp">
-          <Alert variant="danger">
-            <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
-            <p>
-              We are unable to serve data. Something went wrong, please check
-              your internet connection or try again later.
-            </p>
-          </Alert>
-        </div>
-      )}
       <div className="container-fluid mt-10 pb-18">
         <div
           className="d-flex align-items-stretch justify-content-between"
@@ -173,13 +145,8 @@ const TaxListPage = ({ history, match }) => {
                 <polyline points="15 6 9 12 15 18" />
               </svg>
             </Link>{" "}
-            Tax Listing
+            Contact Us
           </h2>
-          <Link to="/addtax">
-            <Button variant="dark" className="add-btn">
-              <i className="fas fa-plus"></i>Add Tax
-            </Button>
-          </Link>
         </div>
         <div className="filter-container">
           <label>Start Date: </label>
@@ -198,8 +165,8 @@ const TaxListPage = ({ history, match }) => {
           <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
             <option disabled>Select option</option>
             <option value="">All</option>
-            <option value="true">Active</option>
-            <option value="false">InActive</option>
+            <option value="true">Pending</option>
+            <option value="false">Closed</option>
           </select>
           <div className="reset-icon" onClick={resetFilter}>
             <OverlayTrigger
@@ -218,47 +185,53 @@ const TaxListPage = ({ history, match }) => {
           <Loader />
         ) : error ? (
           <ErrorToast message={error} />
-        ) : (
+        ) : contacts !== undefined ? (
           <table id="datatable1" className="table table-row-bordered gy-5">
             <thead style={{ borderBottom: "1px solid black" }}>
               <tr className="fw-bold fs-6 text-muted">
                 <th className="colorblack">
                   <bold>#</bold>
                 </th>
-                <th className="colorblack">Tax Name</th>
-                <th className="colorblack">Country</th>
-                <th className="colorblack">State</th>
-                <th className="colorblack">Tax Percentage</th>
+                <th className="colorblack">Name</th>
+                <th className="colorblack">Username</th>
+                <th className="colorblack">Email</th>
+                <th className="colorblack">Contact Number</th>
                 <th className="colorblack">Created On</th>
                 <th className="colorblack">Status</th>
                 <th className="colorblack">Action</th>
               </tr>
             </thead>
             <tbody style={{ borderBottom: "1px solid black" }}>
-              {taxes &&
-                search(taxes).map((tax, index) => (
-                  <tr key={tax._id}>
+              {contacts &&
+                search(contacts).map((contact, index) => (
+                  <tr key={contact._id}>
                     <td>{index + 1}.</td>
-                    <td>{tax.title}</td>
-                    <td>{tax.country.title}</td>
-                    <td>{tax.state.title}</td>
-                    <td style={{ textAlign: "center" }}>
-                      {tax.taxPercentage}%
+                    <td>{contact.userId.firstname}</td>
+                    <td>{contact.userId.username}</td>
+                    <td>
+                      {contact.userId.email ? (
+                        contact.userId.email
+                      ) : (
+                        <span>NA</span>
+                      )}
+                    </td>
+                    <td>
+                      {contact.userId.phoneNumber ? (
+                        contact.userId.phoneNumber
+                      ) : (
+                        <span>NA</span>
+                      )}
                     </td>
                     <td>
                       {" "}
-                      {moment(tax.createdAt.substring(0, 10)).format(
+                      {moment(contact.createdAt.substring(0, 10)).format(
                         "MMMM DD YYYY"
                       )}
                     </td>
                     <td>
-                      {tax.status ? (
-                        <Badge
-                          pill
-                          variant="success"
-                          style={{ backgroundColor: "green" }}
-                        >
-                          Active
+                      {contact.status ? (
+                        <Badge pill variant="warning">
+                          Pending
                         </Badge>
                       ) : (
                         <Badge
@@ -266,13 +239,13 @@ const TaxListPage = ({ history, match }) => {
                           variant="danger"
                           style={{ backgroundColor: "red", cursor: "pointer" }}
                         >
-                          Inactive
+                          Closed
                         </Badge>
                       )}
                     </td>
                     <td style={{ padding: "10px" }}>
                       <ul className="action-list">
-                        <Link to={`/viewtax/${tax._id}`}>
+                        <Link to={`/contactview/${contact._id}`}>
                           <OverlayTrigger
                             placement="bottom"
                             overlay={(props) => (
@@ -284,34 +257,6 @@ const TaxListPage = ({ history, match }) => {
                             </li>
                           </OverlayTrigger>
                         </Link>
-                        <Link to={`/edittax/${tax._id}`}>
-                          <OverlayTrigger
-                            placement="bottom"
-                            overlay={(props) => (
-                              <Tooltip {...props}>Edit</Tooltip>
-                            )}
-                          >
-                            <li className="action-list-item">
-                              <FaEdit />
-                            </li>
-                          </OverlayTrigger>
-                        </Link>
-                        <OverlayTrigger
-                          placement="bottom"
-                          overlay={(props) => (
-                            <Tooltip {...props}>Delete</Tooltip>
-                          )}
-                        >
-                          <li
-                            className="action-list-item"
-                            onClick={() => {
-                              handleShow();
-                              deleteHandler(tax._id);
-                            }}
-                          >
-                            <FaTrashAlt style={{ color: "red" }} />
-                          </li>
-                        </OverlayTrigger>
                         <OverlayTrigger
                           placement="bottom"
                           overlay={(props) => (
@@ -322,11 +267,11 @@ const TaxListPage = ({ history, match }) => {
                             className="action-list-item"
                             onClick={() => {
                               handleShow2();
-                              statusHandler(tax._id);
-                              setStatus(tax.status);
+                              statusHandler(contact._id);
+                              setStatus(contact.status);
                             }}
                           >
-                            {tax.status ? (
+                            {contact.status ? (
                               <BsToggleOn
                                 style={{ color: "green", fontSize: "25px" }}
                               />
@@ -343,6 +288,16 @@ const TaxListPage = ({ history, match }) => {
                 ))}
             </tbody>
           </table>
+        ) : (
+          <div className="errorCmp">
+            <Alert variant="danger">
+              <Alert.Heading>Oh snap! You got an error! 😐</Alert.Heading>
+              <p>
+                We are unable to serve data. Something went wrong, please check
+                your internet connection or try again later.
+              </p>
+            </Alert>
+          </div>
         )}
         <div className="pagination-div">{renderPageNumbers}</div>
       </div>
@@ -350,4 +305,4 @@ const TaxListPage = ({ history, match }) => {
   );
 };
 
-export default TaxListPage;
+export default ContactListPage;

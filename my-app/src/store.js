@@ -69,11 +69,18 @@ import { adminDashboardReducer } from "./reducers/dashboardReducers";
 import {
   deleteTaxReducer,
   listTaxReducer,
+  taxCreateReducer,
   taxDetailReducer,
   taxStatusReducer,
   taxUpdateReducer,
 } from "./reducers/taxReducers";
-import { taxStatusUpdate } from "./service";
+
+import {
+  listContactReducer,
+  detailContactReducer,
+  statusContactReducer,
+  answerConcernReducer,
+} from "./reducers/contactReducers";
 
 const reducer = combineReducers({
   adminLogin: adminLoginReducer,
@@ -128,6 +135,11 @@ const reducer = combineReducers({
   taxStatus: taxStatusReducer,
   taxUpdate: taxUpdateReducer,
   deleteTax: deleteTaxReducer,
+  taxCreate: taxCreateReducer,
+  listContact: listContactReducer,
+  detailContact: detailContactReducer,
+  statusContact: statusContactReducer,
+  answerConcern: answerConcernReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")

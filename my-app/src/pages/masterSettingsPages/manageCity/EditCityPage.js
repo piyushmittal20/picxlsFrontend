@@ -17,6 +17,7 @@ const EditCityPage = ({ history, match }) => {
   const [state, setState] = useState("");
   const [loading, setLoading] = useState(false);
   const [updateLoading, setUpdateLoading] = useState(false);
+  const [error, setError] = useState("");
   const [updateErr, setUpdateErr] = useState("");
 
   const schema = yup.object().shape({
@@ -47,7 +48,11 @@ const EditCityPage = ({ history, match }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -66,9 +71,13 @@ const EditCityPage = ({ history, match }) => {
         setUpdateLoading(false);
         history.push("/citylist");
       }
-    } catch (err) {
+    } catch (error) {
       setUpdateLoading(false);
-      setUpdateErr(err.response.data);
+      setUpdateErr(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -77,7 +86,8 @@ const EditCityPage = ({ history, match }) => {
       <Meta title="Edit City - Picxls" />
       <div class="container-fluid mt-40">
         <container>
-          {updateErr && <ErrorToast message={updateErr.message} />}
+          {error && <ErrorToast message={error} />}
+          {updateErr && <ErrorToast message={updateErr} />}
           {errors.title && <ErrorToast message={errors.title.message} />}
           {loading ? (
             <Loader />

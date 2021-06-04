@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getTaxDetail } from "../../actions/taxActions";
-import { OverlayTrigger, Tooltip, Row, Col, Badge } from "react-bootstrap";
+import { OverlayTrigger, Tooltip, Row } from "react-bootstrap";
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import DeleteModal from "../../components/DeleteModal";
 
 const TaxViewPage = ({ history, match }) => {
   const taxId = match.params.id;
@@ -27,19 +28,19 @@ const TaxViewPage = ({ history, match }) => {
     } else {
       history.push("/admin-login");
     }
-  }, [dispatch, adminInfo, history]);
+  }, [dispatch, adminInfo, history, taxId]);
 
   const handleShow = () => setShow(true);
 
   const deleteHandler = (id) => {
-    localStorage.setItem("delUserId", id);
+    localStorage.setItem("delTaxId", id);
   };
 
   return (
     <div style={{ paddingBottom: "50px" }}>
       <Meta title={`${tax && tax.title} - Picxls`} />
-      {/* {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
-      {show && <DeleteModal show={show} setShow={setShow} />} */}
+      {/* {show2 && <Modals show={show2} setShow={setShow2} status={status} />} */}
+      {show && <DeleteModal show={show} setShow={setShow} />}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -83,7 +84,7 @@ const TaxViewPage = ({ history, match }) => {
                         placement="bottom"
                         overlay={(props) => <Tooltip {...props}>Edit</Tooltip>}
                       >
-                        <Link className="mr-15" to={`/edituser/${tax._id}`}>
+                        <Link className="mr-15" to={`/edittax/${tax._id}`}>
                           <FaEdit />
                         </Link>
                       </OverlayTrigger>
@@ -139,28 +140,6 @@ const TaxViewPage = ({ history, match }) => {
                             </td>
                           </tr>
                         </table>
-                        {/* <div className="btn-container">
-                        <Link className="mr-15" to={`/edituser/${user._id}`}>
-                          <Button
-                            className="btn"
-                            variant="dark"
-                            style={{ width: "100%" }}
-                          >
-                            Edit
-                          </Button>
-                        </Link>
-                        <Button
-                          className="btn"
-                          variant="danger"
-                          style={{ background: "red", width: "170px" }}
-                          onClick={() => {
-                            handleShow();
-                            deleteHandler(user._id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </div> */}
                       </div>
                     </div>
                   </div>

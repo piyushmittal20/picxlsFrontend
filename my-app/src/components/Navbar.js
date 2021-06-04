@@ -19,7 +19,8 @@ const Navbar = () => {
         class="header"
         data-kt-sticky="true"
         data-kt-sticky-name="header"
-        data-kt-sticky-offset="{default: '200px', lg: '300px'}">
+        data-kt-sticky-offset="{default: '200px', lg: '300px'}"
+      >
         <div class="container-fluid d-flex align-items-stretch justify-content-between">
           <div class="d-flex align-items-center">
             <button
@@ -77,11 +78,12 @@ const Navbar = () => {
                 />
               </OverlayTrigger>
             </div>
-            
+
             <div
               className="modal bg-white fade"
               id="kt_header_search_modal"
-              aria-hidden="true">
+              aria-hidden="true"
+            >
               <div className="modal-dialog modal-fullscreen">
                 <div className="modal-content shadow-none">
                   <div className="container w-lg-800px">
@@ -156,7 +158,8 @@ const Navbar = () => {
               className="modal modal-sticky modal-sticky-lg modal-sticky-bottom-right"
               id="kt_inbox_compose"
               role="dialog"
-              data-backdrop="false">
+              data-backdrop="false"
+            >
               <div className="modal-dialog" role="document">
                 <div className="modal-content">
                   {/*begin::Form*/}
@@ -522,147 +525,201 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      <div className="modal bg-white fade" id="kt_mega_menu_modal" tabIndex={-1} aria-hidden="true">
-              <div className="modal-dialog modal-fullscreen">
-                <div className="modal-content shadow-none">
-                  <div className="container">
-                    <div className="modal-header d-flex align-items-center justify-content-between border-0">
-                      <div className="d-flex align-items-center">
-                        {/*begin::Logo*/}
-                        <a href="../index-2.html">
-                          <img
-                            alt="Logo"
-                            src="../assets/media/picxls-logo.png"
-                            className="h-30px"
-                          />
-                        </a>
-                        {/*end::Logo*/}
-                      </div>
-                      {/*begin::Close*/}
-                      <div
-                        className="btn btn-icon btn-light-primary ms-2"
-                        data-bs-dismiss="modal"
+      <div
+        className="modal bg-white fade"
+        id="kt_mega_menu_modal"
+        tabIndex={-1}
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-fullscreen">
+          <div className="modal-content shadow-none">
+            <div className="container">
+              <div className="modal-header d-flex align-items-center justify-content-between border-0">
+                <div className="d-flex align-items-center">
+                  {/*begin::Logo*/}
+                  <a href="../index-2.html">
+                    <img
+                      alt="Logo"
+                      src="../assets/media/picxls-logo.png"
+                      className="h-30px"
+                    />
+                  </a>
+                  {/*end::Logo*/}
+                </div>
+                {/*begin::Close*/}
+                <div
+                  className="btn btn-icon btn-light-primary ms-2"
+                  data-bs-dismiss="modal"
+                >
+                  {/*begin::Svg Icon | path: '.svg/icons/Navigation/Close.svg.'*/}
+                  <span className="svg-icon svg-icon-2x">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      width="24px"
+                      height="24px"
+                      viewBox="0 0 24 24"
+                      version="1.1"
+                    >
+                      <g
+                        stroke="none"
+                        strokeWidth={1}
+                        fill="none"
+                        fillRule="evenodd"
                       >
-                        {/*begin::Svg Icon | path: '.svg/icons/Navigation/Close.svg.'*/}
-                        <span className="svg-icon svg-icon-2x">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
-                            width="24px"
-                            height="24px"
-                            viewBox="0 0 24 24"
-                            version="1.1"
-                          >
-                            <g
-                              stroke="none"
-                              strokeWidth={1}
-                              fill="none"
-                              fillRule="evenodd"
+                        <g
+                          transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
+                          fill="#000000"
+                        >
+                          <rect x={0} y={7} width={16} height={2} rx={1} />
+                          <rect
+                            opacity="0.3"
+                            transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
+                            x={0}
+                            y={7}
+                            width={16}
+                            height={2}
+                            rx={1}
+                          />
+                        </g>
+                      </g>
+                    </svg>
+                  </span>
+                  {/*end::Svg Icon*/}
+                </div>
+                {/*end::Close*/}
+              </div>
+              <div className="modal-body">
+                {/*begin::Row*/}
+                <div className="row py-10 g-5">
+                  {/*begin::Column*/}
+                  <div className="col-lg-6 pe-lg-25">
+                    {/*begin::Row*/}
+                    <div className="row">
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Dashboards</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <a className="menu-link ps-0 py-2" href="/">
+                              Home
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">
+                          Content Management System
+                        </h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/countrylist"
                             >
-                              <g
-                                transform="translate(12.000000, 12.000000) rotate(-45.000000) translate(-12.000000, -12.000000) translate(4.000000, 4.000000)"
-                                fill="#000000"
-                              >
-                                <rect
-                                  x={0}
-                                  y={7}
-                                  width={16}
-                                  height={2}
-                                  rx={1}
-                                />
-                                <rect
-                                  opacity="0.3"
-                                  transform="translate(8.000000, 8.000000) rotate(-270.000000) translate(-8.000000, -8.000000)"
-                                  x={0}
-                                  y={7}
-                                  width={16}
-                                  height={2}
-                                  rx={1}
-                                />
-                              </g>
-                            </g>
-                          </svg>
-                        </span>
-                        {/*end::Svg Icon*/}
+                              Manage Page
+                            </Link>
+                          </li>
+                        </ul>
                       </div>
-                      {/*end::Close*/}
-                    </div>
-                    <div className="modal-body">
-                      {/*begin::Row*/}
-                      <div className="row py-10 g-5">
-                        {/*begin::Column*/}
-                        <div className="col-lg-6 pe-lg-25">
-                          {/*begin::Row*/}
-                          <div className="row">
-                            <div className="col-sm-4">
-                              <h3 className="fw-bolder mb-5">Dashboards</h3>
-                              <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
-                                <li className="menu-item">
-                                  <a className="menu-link ps-0 py-2" href="/">
-                                    Home
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="col-sm-4">
-                              <h3 className="fw-bolder mb-5">CMS</h3>
-                              <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
-                                <li className="menu-item">
-                                  <Link
-                                    className="menu-link ps-0 py-2"
-                                    to="/countrylist"
-                                  >
-                                    Manage Page
-                                  </Link>
-                                </li>
-                              </ul>
-                            </div>
-                            <div className="col-sm-4">
-                              <h3 className="fw-bolder mb-5">
-                                Master Settings
-                              </h3>
-                              <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
-                                <li className="menu-item">
-                                  <Link
-                                    className="menu-link ps-0 py-2"
-                                    to="/countrylist"
-                                  >
-                                    Manage Country
-                                  </Link>
-                                </li>
-                                <li className="menu-item">
-                                  <Link
-                                    className="menu-link ps-0 py-2"
-                                    to="/statelist"
-                                  >
-                                    Manage State
-                                  </Link>
-                                </li>
-                                <li className="menu-item">
-                                  <Link
-                                    className="menu-link ps-0 py-2"
-                                    to="/citylist"
-                                  >
-                                    Manage City
-                                  </Link>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                          {/*end::Row*/}
-                          {/*begin::Row*/}
-                          {/*end::Row*/}
-                        </div>
-                        {/*end::Column*/}
-                        {/*begin::Column*/}
-                        {/*end::Column*/}
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Master Settings</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/countrylist"
+                            >
+                              Manage Country
+                            </Link>
+                          </li>
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/statelist"
+                            >
+                              Manage State
+                            </Link>
+                          </li>
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/citylist"
+                            >
+                              Manage City
+                            </Link>
+                          </li>
+                        </ul>
                       </div>
-                      {/*end::Row*/}
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">User Management</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/userlist"
+                            >
+                              Manage Users
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Startag Management</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/startaglist"
+                            >
+                              Manage Startags
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Post Management</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/postlist"
+                            >
+                              Manage Posts
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Request Verification</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link
+                              className="menu-link ps-0 py-2"
+                              to="/requestlist"
+                            >
+                              Manage Requests
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="col-sm-4">
+                        <h3 className="fw-bolder mb-5">Tax Management</h3>
+                        <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
+                          <li className="menu-item">
+                            <Link className="menu-link ps-0 py-2" to="/taxlist">
+                              Manage Taxlist
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

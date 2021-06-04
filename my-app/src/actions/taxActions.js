@@ -1,6 +1,9 @@
 import axios from "axios";
 
 import {
+  ADMIN_ADDTAX_FAIL,
+  ADMIN_ADDTAX_REQUEST,
+  ADMIN_ADDTAX_SUCCESS,
   ADMIN_TAXDELETE_FAIL,
   ADMIN_TAXDELETE_REQUEST,
   ADMIN_TAXDELETE_SUCCESS,
@@ -23,30 +26,33 @@ import {
   taxStatusUpdate,
   taxUpdate,
   taxDelete,
+  taxAdd,
 } from "../service";
 
-export const getTaxlisting = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ADMIN_TAXLIST_REQUEST });
+export const getTaxlisting =
+  (pageNumber = "", status = "", startaDate = "", lastDate = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_TAXLIST_REQUEST });
 
-    const {
-      data: { taxList },
-    } = await axios.get(`${getTaxlist}/taxlist`);
+      const { data } = await axios.get(
+        `${getTaxlist}/taxlist?pageNumber=${pageNumber}&status=${status}&startDate=${startaDate}&lastDate=${lastDate}`
+      );
 
-    dispatch({
-      type: ADMIN_TAXLIST_SUCCESS,
-      payload: taxList,
-    });
-  } catch (error) {
-    dispatch({
-      type: ADMIN_TAXLIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: ADMIN_TAXLIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_TAXLIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const getTaxDetail = (id) => async (dispatch, getState) => {
   try {
@@ -114,8 +120,6 @@ export const updateTax = (tax, id) => async (dispatch, getState) => {
       data: { savedTax },
     } = await axios.put(`${taxUpdate}/tax/${id}`, tax, config);
 
-    console.log(savedTax);
-
     dispatch({ type: ADMIN_TAXUPDATE_SUCCESS });
     dispatch({
       type: ADMIN_TAXDETAIL_SUCCESS,
@@ -145,6 +149,35 @@ export const deleteTax = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: ADMIN_TAXDELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createTax = (tax) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ADMIN_ADDTAX_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const {
+      data: { savedTax },
+    } = await axios.post(`${taxAdd}/tax`, tax, config);
+
+    dispatch({
+      type: ADMIN_ADDTAX_SUCCESS,
+      payload: savedTax,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_ADDTAX_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

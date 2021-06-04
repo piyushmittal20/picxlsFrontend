@@ -17,6 +17,7 @@ const EditStatePage = ({ history, match }) => {
   const [loading, setLoading] = useState(false);
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateErr, setUpdateErr] = useState("");
+  const [error, setError] = useState("");
 
   const schema = yup.object().shape({
     title: yup.string().required("This Field is Required").max(50).trim(),
@@ -45,7 +46,11 @@ const EditStatePage = ({ history, match }) => {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      setError(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -66,7 +71,11 @@ const EditStatePage = ({ history, match }) => {
       }
     } catch (error) {
       setUpdateLoading(false);
-      setUpdateErr(error.response.data);
+      setUpdateErr(
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message
+      );
     }
   };
 
@@ -75,7 +84,8 @@ const EditStatePage = ({ history, match }) => {
       <Meta title="Edit State - Picxls" />
       <div className="container-fluid mt-40">
         <container>
-          {updateErr && <ErrorToast message={updateErr.message} />}
+          {error && <ErrorToast message={error} />}
+          {updateErr && <ErrorToast message={updateErr} />}
           {errors.title && <ErrorToast message={errors.title.message} />}
           {loading ? (
             <Loader />

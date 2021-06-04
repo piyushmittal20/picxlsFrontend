@@ -13,6 +13,7 @@ import {
 import { updateStartagStatus } from "../actions/startagActions";
 import { updatePostStatus, reportStatusUpdate } from "../actions/postActions";
 import { taxUpdateStatus } from "../actions/taxActions";
+import { contactStatusUpdate } from "../actions/contactActions";
 
 const Modals = ({ show, setShow, status }) => {
   const countryId = localStorage.getItem("countryId");
@@ -25,6 +26,7 @@ const Modals = ({ show, setShow, status }) => {
   const reportId = localStorage.getItem("reportId");
   const reportUserId = localStorage.getItem("reportUserId");
   const taxId = localStorage.getItem("taxId");
+  const contactId = localStorage.getItem("contactId");
 
   const dispatch = useDispatch();
 
@@ -98,6 +100,13 @@ const Modals = ({ show, setShow, status }) => {
       };
       dispatch(taxUpdateStatus(tax, taxId));
       localStorage.removeItem("taxId");
+    }
+    if (contactId) {
+      const contact = {
+        status: !status,
+      };
+      dispatch(contactStatusUpdate(contact, contactId));
+      localStorage.removeItem("contactId");
     }
   };
 

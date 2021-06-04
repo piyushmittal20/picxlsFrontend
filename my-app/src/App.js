@@ -31,6 +31,10 @@ import Sidebar from "./components/Sidebar";
 import TaxListPage from "./pages/taxPages/TaxListPage";
 import TaxViewPage from "./pages/taxPages/TaxViewPage";
 import EditTaxPage from "./pages/taxPages/EditTaxPage";
+import AddTaxPage from "./pages/taxPages/AddTaxPage";
+import ContactListPage from "./pages/contactPages/ContactListPage";
+import ContactViewPage from "./pages/contactPages/ContactViewPage";
+import ReplyContactPage from "./pages/contactPages/ReplyContactPage";
 
 function App() {
   const adminLogin = useSelector((state) => state.adminLogin);
@@ -85,8 +89,22 @@ function App() {
           <Route path="/viewstartag/:id" exact component={StartagViewPage} />
           <Route path="/viewuser/:id" exact component={UserViewPage} />
           <Route path="/taxlist" exact component={TaxListPage} />
+          <Route
+            path="/taxlist/page/:pageNumber"
+            exact
+            component={TaxListPage}
+          />
+          <Route path="/addtax" exact component={AddTaxPage} />
           <Route path="/viewtax/:id" exact component={TaxViewPage} />
           <Route path="/edittax/:id" exact component={EditTaxPage} />
+          <Route path="/contactlist" exact component={ContactListPage} />
+          <Route
+            path="/contactlist/page/:pageNumber"
+            exact
+            component={TaxListPage}
+          />
+          <Route path="/contactview/:id" exact component={ContactViewPage} />
+          <Route path="/answerconcern/:id" exact component={ReplyContactPage} />
         </Switch>
       </div>
       <Footer />

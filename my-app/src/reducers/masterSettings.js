@@ -305,6 +305,7 @@ export const stateListReducer = (state = {}, action) => {
     case ADMIN_STATELIST_SUCCESS:
       return {
         loading: false,
+        success: true,
         states: action.payload,
       };
     case ADMIN_STATELIST_FAIL:

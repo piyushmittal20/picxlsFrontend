@@ -13,18 +13,23 @@ import Meta from "../../../components/Meta";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+
 const AddCityPage = ({ history }) => {
   const dispatch = useDispatch();
+
   const countryList = useSelector((state) => state.countryList);
   const { loading, countries } = countryList;
+
   const stateList = useSelector((state) => state.stateList);
   const { states } = stateList;
+
   const cityCreate = useSelector((state) => state.cityCreate);
   const {
     loading: createLoading,
     error: createError,
     success: createSuccess,
   } = cityCreate;
+
   const schema = yup.object().shape({
     title: yup.string().required("This Field is Required").max(50).trim(),
     country: yup.string().required("This Field is Required").max(50).trim(),
@@ -39,7 +44,9 @@ const AddCityPage = ({ history }) => {
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
-  const country = watch("country");
+
+  var country = watch("country");
+
   useEffect(() => {
     dispatch(getAllCountries());
     dispatch(getAllStates());
@@ -47,10 +54,11 @@ const AddCityPage = ({ history }) => {
       history.push("/citylist");
     }
   }, [dispatch, history, createSuccess]);
+
   const submitForm = (data) => {
     dispatch(createCity(data));
   };
-  console.log(errors);
+
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Country - Picxls" />
@@ -87,7 +95,7 @@ const AddCityPage = ({ history }) => {
                   <div class="col-sm-12">
                     <label>Country Name</label>
                     <select
-                      className="form-select my-5"
+                      className="form-select my-5 dropdown"
                       aria-label="Select example"
                       {...register("country")}
                     >
@@ -106,14 +114,15 @@ const AddCityPage = ({ history }) => {
                   <div class="col-sm-12">
                     <label>State Name</label>
                     <select
-                      className="form-select my-5"
+                      className="form-select my-5 dropdown"
                       aria-label="Select example"
+                      disabled={!country}
                       {...register("state")}
                     >
                       <option value="">Select State</option>
                       {states &&
                         states
-                          .filter((i) => i.country === country)
+                          .filter((i) => i.country._id === country)
                           .map((state, index) => (
                             <option value={state._id}>{state.title}</option>
                           ))}
