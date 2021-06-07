@@ -213,7 +213,7 @@ const UserViewPage = ({ history, match }) => {
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
-                        <th>Reason</th>
+                        <th>Type</th>
                         <th>Added on</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -233,7 +233,7 @@ const UserViewPage = ({ history, match }) => {
                                 <span>NA</span>
                               )}
                             </td>
-                            <td>{report.description}</td>
+                            <td>{report.type}</td>
                             <td>{report.createdAt.substring(0, 10)}</td>
                             <td>
                               {report.status ? (

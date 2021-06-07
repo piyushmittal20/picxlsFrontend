@@ -22,13 +22,20 @@ const TaxViewPage = ({ history, match }) => {
   const taxDetail = useSelector((state) => state.taxDetail);
   const { loading, error, tax } = taxDetail;
 
+  const deleteTax = useSelector((state) => state.deleteTax);
+  const { success: deleteSuccess } = deleteTax;
+
   useEffect(() => {
     if (adminInfo) {
       dispatch(getTaxDetail(taxId));
-    } else {
+    } 
+    if(deleteSuccess) {
+      history.push('/taxlist')
+    }
+    else {
       history.push("/admin-login");
     }
-  }, [dispatch, adminInfo, history, taxId]);
+  }, [dispatch, adminInfo, history, taxId, deleteSuccess]);
 
   const handleShow = () => setShow(true);
 
