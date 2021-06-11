@@ -10,7 +10,7 @@ import { ADMIN_ADDSTARTAG_RESET } from "../../constants/adminConstants";
 const AddStartagPage = ({ history }) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
-  const [cost, setCost] = useState("");
+  const [cost, setCost] = useState(0);
   const [image, setImage] = useState("");
   const [nameErr, setNameErr] = useState("");
   const [typeErr, setTypeErr] = useState("");

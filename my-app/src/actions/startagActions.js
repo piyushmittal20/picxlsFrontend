@@ -125,7 +125,7 @@ export const getStartag = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateStartag = (startag) => async (dispatch, getState) => {
+export const updateStartag = (startag, id) => async (dispatch, getState) => {
   console.log(startag);
 
   try {
@@ -140,7 +140,7 @@ export const updateStartag = (startag) => async (dispatch, getState) => {
     const {
       data: { savedStartag },
     } = await axios.put(
-      `${startagUpdate}/startag/${startag._id}`,
+      `${startagUpdate}/startag/${id}`,
       startag,
       config
     );

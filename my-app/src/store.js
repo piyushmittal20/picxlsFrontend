@@ -81,6 +81,25 @@ import {
   statusContactReducer,
   answerConcernReducer,
 } from "./reducers/contactReducers";
+import {
+  abuseRemoveReducer,
+  abuseStatusReducer,
+  detailAbuseReducer,
+  listAbuseReducer,
+} from "./reducers/abuseReducers";
+import {
+  logoDetailReducer,
+  logoListReducer,
+  logoUpdateReducer,
+  pannelLogoReducer,
+  titleLogoReducer,
+} from "./reducers/logoReducers";
+import {
+  notificationCreateReducer,
+  notificationDetailReducer,
+  notificationEditReducer,
+  notificationListReducer,
+} from "./reducers/notificationReducers";
 
 const reducer = combineReducers({
   adminLogin: adminLoginReducer,
@@ -140,6 +159,19 @@ const reducer = combineReducers({
   detailContact: detailContactReducer,
   statusContact: statusContactReducer,
   answerConcern: answerConcernReducer,
+  listAbuse: listAbuseReducer,
+  detailAbuse: detailAbuseReducer,
+  abuseStatus: abuseStatusReducer,
+  abuseRemove: abuseRemoveReducer,
+  logoList: logoListReducer,
+  logoDetail: logoDetailReducer,
+  logoUpdate: logoUpdateReducer,
+  pannelLogo: pannelLogoReducer,
+  titleLogo: titleLogoReducer,
+  notificationCreate: notificationCreateReducer,
+  notificationDetail: notificationDetailReducer,
+  notificationList: notificationListReducer,
+  notificationEdit: notificationEditReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")
@@ -148,6 +180,7 @@ const adminInfoFromStorage = localStorage.getItem("adminInfo")
 
 const initialState = {
   adminLogin: { adminInfo: adminInfoFromStorage },
+  titleLogo: {},
 };
 
 const middleware = [thunk];

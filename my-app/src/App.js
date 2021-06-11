@@ -1,5 +1,7 @@
 import { Route, Switch } from "react-router-dom";
-import { useSelector } from "react-redux";
+import {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {getTitleLogo} from './actions/logoActions';
 import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import CmsPageList from "./pages/cmsPages/CmsPageList";
@@ -35,8 +37,33 @@ import AddTaxPage from "./pages/taxPages/AddTaxPage";
 import ContactListPage from "./pages/contactPages/ContactListPage";
 import ContactViewPage from "./pages/contactPages/ContactViewPage";
 import ReplyContactPage from "./pages/contactPages/ReplyContactPage";
+import ReportAbuseList from "./pages/reportAbusePages/ReportAbuseList";
+import ReportAbuseView from "./pages/reportAbusePages/ReportAbuseView";
+import LogoList from "./pages/logoPages/LogoList";
+import LogoEdit from "./pages/logoPages/LogoEdit";
 
 function App() {
+  const dispatch = useDispatch()
+
+  const title = 'Admin Page Title'
+
+  const logoUpdate = useSelector((state) => state.logoUpdate)
+  const {success: updateSuccess} = logoUpdate
+
+  const titleLogo = useSelector((state) => state.titleLogo)
+  const {logo} = titleLogo
+
+  console.log(logo);
+
+  useEffect(() => {
+    dispatch(getTitleLogo(title));
+  }, [title, updateSuccess])
+
+  if(logo) {
+  var favicon = document.getElementById("logo");
+  favicon.href = logo.image
+  }
+
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
 
@@ -105,6 +132,15 @@ function App() {
           />
           <Route path="/contactview/:id" exact component={ContactViewPage} />
           <Route path="/answerconcern/:id" exact component={ReplyContactPage} />
+          <Route path="/reportabuselist" exact component={ReportAbuseList} />
+          <Route
+            path="/reportabuselist/page/:pageNumber"
+            exact
+            component={ReportAbuseList}
+          />
+          <Route path="/reportabuseview/:id" exact component={ReportAbuseView} />
+          <Route path="/logolist" exact component={LogoList} />
+          <Route path="/editlogo/:id" exact component={LogoEdit} />
         </Switch>
       </div>
       <Footer />

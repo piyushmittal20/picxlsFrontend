@@ -177,6 +177,12 @@ const PostViewPage = ({ history, match }) => {
                               </td>
                             </tr>
                             <tr>
+                              <td class="tdpd text-gray-600 ps-0">Username</td>
+                              <td class="tdpd text-dark pe-0">
+                                {f.user_details.username}
+                              </td>
+                            </tr>
+                            <tr>
                               <td class="tdpd text-gray-600 ps-0">
                                 Date of birth
                               </td>

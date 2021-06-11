@@ -307,7 +307,7 @@ const StartagList = ({ history, match }) => {
                     </td>
                     <td style={{ padding: "10px" }}>
                       <ul className="action-list">
-                        <Link to={`viewstartag/${startag._id}`}>
+                        <Link to={`/viewstartag/${startag._id}`}>
                           <OverlayTrigger
                             placement="bottom"
                             overlay={(props) => (

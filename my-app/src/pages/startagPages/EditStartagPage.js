@@ -13,7 +13,7 @@ const EditStartagPage = ({ history, match }) => {
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");
-  const [cost, setCost] = useState("");
+  const [cost, setCost] = useState(0);
   const [image, setImage] = useState("");
   const [nameErr, setNameErr] = useState("");
   const [typeErr, setTypeErr] = useState("");
@@ -76,19 +76,19 @@ const EditStartagPage = ({ history, match }) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const newStartag = {
-      _id: startagId,
-      name: name,
-      cost: cost,
-      type: type,
-      image: image,
-    };
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("cost", cost);
+    formData.append("type", type);
+    formData.append("image", image);
+
+    const id = startagId;
 
     const isValid = validate();
     if (isValid) {
     }
 
-    dispatch(updateStartag(newStartag));
+    dispatch(updateStartag(formData, id));
   };
 
   return (
@@ -154,7 +154,7 @@ const EditStartagPage = ({ history, match }) => {
                       <div>
                         <label>Startag Cost</label>
                         <input
-                          type="text"
+                          type="Number"
                           value={cost}
                           onChange={(e) => setCost(e.target.value)}
                           className="form-control my-5"

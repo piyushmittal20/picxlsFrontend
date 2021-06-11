@@ -1,6 +1,23 @@
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPannelLogo } from "../actions/logoActions";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+
+  const title = "Admin Panel Logo";
+
+  const pannelLogo = useSelector((state) => state.pannelLogo);
+  const { logo } = pannelLogo;
+
+  const logoUpdate = useSelector((state) => state.logoUpdate);
+  const { success: updateSuccess } = logoUpdate;
+
+  useEffect(() => {
+    dispatch(getPannelLogo(title));
+  }, [title, updateSuccess]);
+
   return (
     <div className="wrapper">
       <div className="d-flex flex-column flex-root">
@@ -26,13 +43,13 @@ const Sidebar = () => {
               >
                 {/*begin::Logo*/}
                 <div className="aside-logo py-2 pb-7" id="kt_aside_logo">
-                  <a href="#">
+                  <Link to="/">
                     <img
                       alt="Logo"
-                      src="../assets/media/picxls-logo.png"
+                      src={logo && logo.image}
                       className="mh-50px"
                     />
-                  </a>
+                  </Link>
                 </div>
                 {/*end::Logo*/}
                 {/*begin::Aside Menu*/}
@@ -170,6 +187,35 @@ const Sidebar = () => {
                               <span className="menu-title">
                                 Manage Contacts
                               </span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          Report Abuse Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link
+                              className="menu-link py-2"
+                              to="/reportabuselist"
+                            >
+                              <span className="menu-title">
+                                Manage Report Abuse
+                              </span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          Logo Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link className="menu-link py-2" to="/logolist">
+                              <span className="menu-title">Manage Logo</span>
                             </Link>
                           </div>
                         </div>

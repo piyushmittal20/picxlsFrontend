@@ -135,9 +135,6 @@ const UserViewPage = ({ history, match }) => {
                     </div>
                   </div>
                   <div class="card-body">
-                    {/*<div class="bgi-no-repeat bgi-position-center bgi-size-cover h-300px h-md-auto h-lg-300px h-xxl-auto mw-100 w-650px mx-auto">
-                        <Image className="image" src={user.photo} alt="photo" fluid />
-                    </div>*/}
                     <div class="">
                       <div class="">
                         <table class="table table-borderless align-middle fw-bold">
@@ -175,28 +172,6 @@ const UserViewPage = ({ history, match }) => {
                             <td class="tdpd text-dark pe-0">{user.about}</td>
                           </tr>
                         </table>
-                        {/* <div className="btn-container">
-                        <Link className="mr-15" to={`/edituser/${user._id}`}>
-                          <Button
-                            className="btn"
-                            variant="dark"
-                            style={{ width: "100%" }}
-                          >
-                            Edit
-                          </Button>
-                        </Link>
-                        <Button
-                          className="btn"
-                          variant="danger"
-                          style={{ background: "red", width: "170px" }}
-                          onClick={() => {
-                            handleShow();
-                            deleteHandler(user._id);
-                          }}
-                        >
-                          Delete
-                        </Button>
-                      </div> */}
                       </div>
                     </div>
                   </div>

@@ -14,6 +14,7 @@ import { updateStartagStatus } from "../actions/startagActions";
 import { updatePostStatus, reportStatusUpdate } from "../actions/postActions";
 import { taxUpdateStatus } from "../actions/taxActions";
 import { contactStatusUpdate } from "../actions/contactActions";
+import {abuseStatusUpdate} from "../actions/abuseActions";
 
 const Modals = ({ show, setShow, status }) => {
   const countryId = localStorage.getItem("countryId");
@@ -27,6 +28,7 @@ const Modals = ({ show, setShow, status }) => {
   const reportUserId = localStorage.getItem("reportUserId");
   const taxId = localStorage.getItem("taxId");
   const contactId = localStorage.getItem("contactId");
+  const abuseId = localStorage.getItem("abuseId")
 
   const dispatch = useDispatch();
 
@@ -107,6 +109,13 @@ const Modals = ({ show, setShow, status }) => {
       };
       dispatch(contactStatusUpdate(contact, contactId));
       localStorage.removeItem("contactId");
+    }
+    if(abuseId) {
+      const abuse = {
+        status: !status
+      }
+      dispatch(abuseStatusUpdate(abuse, abuseId));
+      localStorage.removeItem('abuseId')
     }
   };
 
