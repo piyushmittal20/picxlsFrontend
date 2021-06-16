@@ -35,8 +35,19 @@ export const getTaxlisting =
     try {
       dispatch({ type: ADMIN_TAXLIST_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
       const { data } = await axios.get(
-        `${getTaxlist}/taxlist?pageNumber=${pageNumber}&status=${status}&startDate=${startaDate}&lastDate=${lastDate}`
+        `${getTaxlist}/taxlist?pageNumber=${pageNumber}&status=${status}&startDate=${startaDate}&lastDate=${lastDate}`,
+        config
       );
 
       dispatch({
@@ -59,8 +70,18 @@ export const getTaxDetail = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_TAXDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { tax },
-    } = await axios.get(`${getTaxDetails}/taxdetail/${id}`);
+    } = await axios.get(`${getTaxDetails}/taxdetail/${id}`, config);
 
     dispatch({
       type: ADMIN_TAXDETAIL_SUCCESS,
@@ -81,9 +102,14 @@ export const taxUpdateStatus = (tax, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_TAXSTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -110,9 +136,14 @@ export const updateTax = (tax, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_TAXUPDATE_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -140,7 +171,17 @@ export const deleteTax = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_TAXDELETE_REQUEST });
 
-    const { data } = await axios.delete(`${taxDelete}/tax/${id}`);
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`${taxDelete}/tax/${id}`, config);
 
     dispatch({
       type: ADMIN_TAXDELETE_SUCCESS,
@@ -161,9 +202,14 @@ export const createTax = (tax) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDTAX_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 

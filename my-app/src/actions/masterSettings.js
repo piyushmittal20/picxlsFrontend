@@ -73,8 +73,18 @@ export const getAllCountries = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_COUNTRYLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { countries },
-    } = await axios.get(`${listCountry}/country`);
+    } = await axios.get(`${listCountry}/country`, config);
 
     dispatch({
       type: ADMIN_COUNTRYLIST_SUCCESS,
@@ -96,8 +106,18 @@ export const getCountry = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_COUNTRYDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { country },
-    } = await axios.get(`${detailCountry}/country/${id}`);
+    } = await axios.get(`${detailCountry}/country/${id}`, config);
 
     dispatch({
       type: ADMIN_COUNTRYDETAIL_SUCCESS,
@@ -118,9 +138,14 @@ export const createCountry = (newCountry) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDCOUNTRY_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -149,9 +174,14 @@ export const updateCountry =
     try {
       dispatch({ type: ADMIN_UPDATECOUNTRY_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 
@@ -184,9 +214,14 @@ export const updateCountryStatus =
     try {
       dispatch({ type: ADMIN_COUNTRYSTATUS_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 
@@ -216,8 +251,18 @@ export const getAllStates = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_STATELIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { states },
-    } = await axios.get(`${listState}/state`);
+    } = await axios.get(`${listState}/state`, config);
 
     dispatch({
       type: ADMIN_STATELIST_SUCCESS,
@@ -238,9 +283,14 @@ export const createState = (newState) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDSTATE_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -268,8 +318,18 @@ export const getState = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_STATEDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { state },
-    } = await axios.get(`${detailState}/state/${id}`);
+    } = await axios.get(`${detailState}/state/${id}`, config);
 
     dispatch({
       type: ADMIN_STATEDETAIL_SUCCESS,
@@ -291,9 +351,20 @@ export const deleteState = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_DELETESTATE_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { state },
     } = await axios.delete(
-      `https://picxls-testing.herokuapp.com/api/admin/state/${id}`
+      `https://picxls-testing.herokuapp.com/api/admin/state/${id}`,
+      config
     );
 
     dispatch({
@@ -315,9 +386,14 @@ export const updateStateStatus = (state, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_STATESTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -346,8 +422,13 @@ export const updateState = (updatedState) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_UPDATESTATE_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       "Content-Type": "application/json",
+      Authorization: `Bearer ${adminInfo.token}`,
     };
 
     const {
@@ -357,8 +438,6 @@ export const updateState = (updatedState) => async (dispatch, getState) => {
       updatedState,
       config
     );
-
-    console.log(savedState);
 
     dispatch({ type: ADMIN_UPDATESTATE_SUCCESS });
     dispatch({
@@ -381,8 +460,18 @@ export const getCities = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_CITYLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { cities },
-    } = await axios.get(`${listCity}/city`);
+    } = await axios.get(`${listCity}/city`, config);
 
     dispatch({
       type: ADMIN_CITYLIST_SUCCESS,
@@ -404,8 +493,18 @@ export const getCity = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_CITYDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { city },
-    } = await axios.get(`${detailCity}/city/${id}`);
+    } = await axios.get(`${detailCity}/city/${id}`, config);
 
     dispatch({
       type: ADMIN_CITYDETAIL_SUCCESS,
@@ -426,9 +525,14 @@ export const createCity = (newCity) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDCITY_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -455,8 +559,19 @@ export const deleteCity = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DELETECITY_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
     const { data } = await axios.delete(
-      `https://picxls-testing.herokuapp.com/api/admin/city/${id}`
+      `https://picxls-testing.herokuapp.com/api/admin/city/${id}`,
+      config
     );
 
     dispatch({
@@ -478,9 +593,14 @@ export const updateCityStatus = (city, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_CITYSTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -509,9 +629,14 @@ export const updateCity = (city) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_UPDATECITY_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 

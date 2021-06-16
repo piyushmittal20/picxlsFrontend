@@ -8,8 +8,8 @@ const LineChart = ({ data1, data2, data3, data4 }) => {
         label: "No. of Users",
         data: [data4, data1, data2, data3],
         fill: true,
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgba(255, 99, 132, 0.2)",
+        backgroundColor: "rgb(7, 32, 98)",
+        borderColor: "#3B14A7",
       },
     ],
   };

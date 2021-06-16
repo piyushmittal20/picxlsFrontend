@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllAbuseList } from "../../actions/abuseActions";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 import Meta from "../../components/Meta";
 import ErrorToast from "../../components/ErrorToast";
 import Loader from "../../components/Loader";
@@ -14,14 +14,14 @@ import moment from "moment";
 import { ADMIN_ABUSEDELETE_RESET } from "../../constants/adminConstants";
 
 const ReportAbuseList = ({ history, match }) => {
-  const pageNumber = match.params.pageNumber || 1
+  const pageNumber = match.params.pageNumber || 1;
 
   const [q, setQ] = useState("");
   const [status2, setStatus2] = useState("");
   const [show2, setShow2] = useState(false);
   const [status, setStatus] = useState("");
   const [type, setType] = useState("");
-  const [content, setContent] = useState("")
+  const [content, setContent] = useState("");
 
   const dispatch = useDispatch();
 
@@ -40,19 +40,32 @@ const ReportAbuseList = ({ history, match }) => {
     localStorage.setItem("abuseId", id);
   };
 
+  const redirect = () => {
+    history.push("/reportabuselist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
-      dispatch({type: ADMIN_ABUSEDELETE_RESET})
+      dispatch({ type: ADMIN_ABUSEDELETE_RESET });
       dispatch(getAllAbuseList(pageNumber, status2, type, content));
     } else {
       history.push("/admin-login");
     }
-  }, [adminInfo, dispatch, history, updateSuccess, pageNumber, status2, type, content]);
+  }, [
+    adminInfo,
+    dispatch,
+    history,
+    updateSuccess,
+    pageNumber,
+    status2,
+    type,
+    content,
+  ]);
 
   const resetFilter = () => {
     setStatus2("");
-    setType("")
-    setContent("")
+    setType("");
+    setContent("");
   };
 
   let renderPageNumbers;
@@ -89,7 +102,8 @@ const ReportAbuseList = ({ history, match }) => {
           row.reporterId.firstname.toLowerCase().indexOf(q) > -1) ||
         (row.reporterId.username &&
           row.reporterId.username.toLowerCase().indexOf(q) > -1) ||
-        (row.reporterId.email && row.user_details.email.toLowerCase().indexOf(q) > -1) ||
+        (row.reporterId.email &&
+          row.user_details.email.toLowerCase().indexOf(q) > -1) ||
         (row.reporterId.phoneNumber &&
           row.reporterId.phoneNumber.toLowerCase().indexOf(q) > -1) ||
         row.createdAt.toString().toLowerCase().indexOf(q) > -1
@@ -129,34 +143,52 @@ const ReportAbuseList = ({ history, match }) => {
         </div>
         <div className="filter-container">
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select
+            value={status2}
+            onChange={(e) => {
+              setStatus2(e.target.value);
+              redirect();
+            }}
+          >
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Active</option>
             <option value="false">Inactive</option>
           </select>
           <label>Content:</label>
-          <select value={content} onChange={(e) => setContent(e.target.value)}>
-          <option disabled>Select option</option>
-              <option value="">All</option>
-              <option value="Post">Post</option>
-              <option value="Profile">Profile</option>
-              <option value="Comment">Comment</option>
+          <select
+            value={content}
+            onChange={(e) => {
+              setContent(e.target.value);
+              redirect();
+            }}
+          >
+            <option disabled>Select option</option>
+            <option value="">All</option>
+            <option value="Post">Post</option>
+            <option value="Profile">Profile</option>
+            <option value="Comment">Comment</option>
           </select>
           <label>Type:</label>
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-          <option disabled>Select option</option>
-              <option value="">All</option>
-              <option>Nudity or sexual activity</option>
-              <option>Hate speech or symbol</option>
-              <option>Violence or dangerous organisation</option>
-              <option>Sale of illegal or regulated goods</option>
-              <option>Bullying or harassment</option>
-              <option>Intellectual property violation</option>
-              <option>Suicide, self-injury or eating disorders</option>
-              <option>Scam or Fraud</option>
-              <option>False information</option>
-              <option>I just don't like it</option>
+          <select
+            value={type}
+            onChange={(e) => {
+              setType(e.target.value);
+              redirect();
+            }}
+          >
+            <option disabled>Select option</option>
+            <option value="">All</option>
+            <option>Nudity or sexual activity</option>
+            <option>Hate speech or symbol</option>
+            <option>Violence or dangerous organisation</option>
+            <option>Sale of illegal or regulated goods</option>
+            <option>Bullying or harassment</option>
+            <option>Intellectual property violation</option>
+            <option>Suicide, self-injury or eating disorders</option>
+            <option>Scam or Fraud</option>
+            <option>False information</option>
+            <option>I just don't like it</option>
           </select>
           <div className="reset-icon" onClick={resetFilter}>
             <OverlayTrigger

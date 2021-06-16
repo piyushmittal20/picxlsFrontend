@@ -16,6 +16,7 @@ import { GrPowerReset } from "react-icons/gr";
 import {
   ADMIN_TAXUPDATE_RESET,
   ADMIN_TAXDELETE_RESET,
+  ADMIN_ADDTAX_RESET,
 } from "../../constants/adminConstants";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -69,8 +70,13 @@ const TaxListPage = ({ history, match }) => {
     newLast = moment(lastDate).toISOString();
   }
 
+  const redirect = () => {
+    history.push("/taxlist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
+      dispatch({ type: ADMIN_ADDTAX_RESET });
       dispatch({ type: ADMIN_TAXDELETE_RESET });
       dispatch({ type: ADMIN_TAXUPDATE_RESET });
       dispatch(getTaxlisting(pageNumber, status2, newStart, newLast));
@@ -185,17 +191,29 @@ const TaxListPage = ({ history, match }) => {
           <label>Start Date: </label>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>End Date: </label>
           <DatePicker
             selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            onChange={(date) => {
+              setLastDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select
+            value={status2}
+            onChange={(e) => {
+              setStatus2(e.target.value);
+              redirect();
+            }}
+          >
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Active</option>

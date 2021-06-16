@@ -5,62 +5,41 @@ import { Button, Spinner } from "react-bootstrap";
 import { createStartag } from "../../actions/startagActions";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { ADMIN_ADDSTARTAG_RESET } from "../../constants/adminConstants";
 
 const AddStartagPage = ({ history }) => {
-  const [name, setName] = useState("");
-  const [type, setType] = useState("");
-  const [cost, setCost] = useState(0);
-  const [image, setImage] = useState("");
-  const [nameErr, setNameErr] = useState("");
-  const [typeErr, setTypeErr] = useState("");
-  const [costErr, setCostErr] = useState("");
-
-  const validate = () => {
-    let nameErr = "";
-    let typeErr = "";
-    let costErr = "";
-
-    if (!name) {
-      nameErr = "Only empty sapce isn't required";
-    }
-    if (!type) {
-      typeErr = "Only empty sapce isn't required";
-    }
-    if (!cost) {
-      costErr = "Only empty sapce isn't required";
-    }
-
-    if (nameErr && typeErr && costErr) {
-      setNameErr(nameErr);
-      setTypeErr(typeErr);
-      setCostErr(costErr);
-      return false;
-    }
-
-    return true;
-  };
-
   const dispatch = useDispatch();
 
   const startagCreate = useSelector((state) => state.startagCreate);
   const { loading, error, success: createSuccess } = startagCreate;
 
-  const submitForm = (e) => {
-    e.preventDefault();
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .required("Name is Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name*")
+      .lowercase()
+      .trim(),
+    type: yup.string().required("Type is Required*"),
+  });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      cost: 0,
+    },
+    resolver: yupResolver(schema),
+  });
 
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("cost", cost);
-    formData.append("type", type);
-    formData.append("image", image);
-
-    const isValid = validate();
-    if (isValid) {
-    }
-
-    dispatch(createStartag(formData));
-  };
+  var type = watch("type");
 
   useEffect(() => {
     if (createSuccess) {
@@ -73,13 +52,28 @@ const AddStartagPage = ({ history }) => {
     }
   }, [history, createSuccess, dispatch, error]);
 
+  const submitForm = (data) => {
+    console.log(data);
+    console.log(data.image[0]);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("cost", data.cost);
+    formData.append("type", data.type);
+    formData.append("image", data.image[0]);
+
+    dispatch(createStartag(formData));
+  };
+
+  console.log(errors);
+
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Startag - Picxls" />
       <div className="container-fluid mt-40">
         <container>
           {error && <ErrorToast message={error} />}
-          <form className="m-3 p-2" onSubmit={submitForm}>
+          <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1>
               {" "}
               <Link to="/startaglist">
@@ -107,37 +101,38 @@ const AddStartagPage = ({ history }) => {
                   <label>Startag Name</label>
                   <input
                     type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    {...register("name")}
                     className="form-control my-5"
                     placeholder="Enter Name"
                   />
-                  <span className="error-msg">{nameErr}</span>
+                  {errors.name && (
+                    <p className="error-text">{errors.name.message}</p>
+                  )}
                 </div>
                 <div class="col-sm-12">
                   <label>Startag Type</label>
                   <select
                     className="form-select my-5"
                     aria-label="Select example"
-                    value={type}
-                    onChange={(e) => setType(e.target.value)}
+                    {...register("type")}
                   >
-                    <option>Select Role</option>
+                    <option value="">Select Role</option>
                     <option value="General">General</option>
                     <option value="Bussiness">Bussiness</option>
                   </select>
-                  <span className="error-msg">{typeErr}</span>
+                  {errors.type && (
+                    <p className="error-text">{errors.type.message}</p>
+                  )}
                   {type === "Bussiness" ? (
                     <div>
                       <label>Startag Cost</label>
                       <input
-                        type="text"
-                        value={cost}
-                        onChange={(e) => setCost(e.target.value)}
+                        type="number"
+                        {...register("cost")}
                         className="form-control my-5"
                         placeholder="Enter Cost"
                       />
-                      <span className="error-msg">{costErr}</span>
+                      <p className="error-text"></p>
                     </div>
                   ) : (
                     ""
@@ -147,10 +142,12 @@ const AddStartagPage = ({ history }) => {
                   <label>Select Image</label>
                   <input
                     type="file"
-                    onChange={(e) => setImage(e.target.files[0])}
+                    {...register("image", { required: true })}
                     className="form-control my-5"
-                    placeholder="Enter Image"
                   />
+                  {errors.image && (
+                    <p className="error-text">You need to provide an image</p>
+                  )}
                 </div>
                 <div className="text-right col-sm-12">
                   <Link to="/startaglist">

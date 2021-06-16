@@ -26,14 +26,13 @@ const TaxViewPage = ({ history, match }) => {
   const { success: deleteSuccess } = deleteTax;
 
   useEffect(() => {
-    if (adminInfo) {
-      dispatch(getTaxDetail(taxId));
-    } 
-    if(deleteSuccess) {
-      history.push('/taxlist')
-    }
-    else {
+    if (!adminInfo) {
       history.push("/admin-login");
+    }
+    if (deleteSuccess) {
+      history.push("/taxlist");
+    } else {
+      dispatch(getTaxDetail(taxId));
     }
   }, [dispatch, adminInfo, history, taxId, deleteSuccess]);
 

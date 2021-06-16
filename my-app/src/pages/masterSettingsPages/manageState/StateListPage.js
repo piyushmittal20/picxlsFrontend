@@ -111,7 +111,7 @@ const StateListPage = ({ history }) => {
                   <tr key={state._id}>
                     <td>{index + 1}.</td>
                     <td>{state.title}</td>
-                    <td>{state.country.title}</td>
+                    <td>{state.country && state.country.title}</td>
                     <td>
                       {moment(state.createdAt.substring(0, 10)).format(
                         "MMMM DD YYYY"

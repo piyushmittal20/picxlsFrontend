@@ -59,8 +59,19 @@ export const listUsers =
     try {
       dispatch({ type: ADMIN_USERLIST_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
       const { data } = await axios.get(
-        `${userList}/user?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`
+        `${userList}/user?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`,
+        config
       );
 
       dispatch({
@@ -82,9 +93,14 @@ export const createUser = (newUser) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDUSER_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -111,7 +127,17 @@ export const deleteUser = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DELETEUSER_REQUEST });
 
-    const { data } = await axios.delete(`${removeUser}/user/${id}`);
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`${removeUser}/user/${id}`, config);
 
     dispatch({
       type: ADMIN_DELETEUSER_SUCCESS,
@@ -133,8 +159,18 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_USERDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { user },
-    } = await axios.get(`${detailUser}/user/${id}`);
+    } = await axios.get(`${detailUser}/user/${id}`, config);
 
     dispatch({
       type: ADMIN_USERDETAIL_SUCCESS,
@@ -156,9 +192,14 @@ export const userUpdate = (user, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_UPDATEUSER_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -187,8 +228,18 @@ export const verifyRequestList = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_VERIFYREQUESTLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { requests },
-    } = await axios.get(`${verifyRequest}/request`);
+    } = await axios.get(`${verifyRequest}/request`, config);
 
     dispatch({
       type: ADMIN_VERIFYREQUESTLIST_SUCCESS,
@@ -210,8 +261,18 @@ export const verifyRequestDetail = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_VERIFYREQUESTDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { request },
-    } = await axios.get(`${requestDetail}/request/${id}`);
+    } = await axios.get(`${requestDetail}/request/${id}`, config);
 
     dispatch({
       type: ADMIN_VERIFYREQUESTDETAIL_SUCCESS,
@@ -233,8 +294,18 @@ export const verifying = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_VERIFYING_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { savedUser },
-    } = await axios.put(`${verifyingUser}/verifying/${id}`);
+    } = await axios.put(`${verifyingUser}/verifying/${id}`, config);
 
     dispatch({
       type: ADMIN_VERIFYING_SUCCESS,
@@ -255,9 +326,14 @@ export const dropping = (reason, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DROPPING_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -286,9 +362,14 @@ export const updateUserStatus = (user, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_USERSTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -316,8 +397,18 @@ export const userReportList = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_USERREPORTS_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { reports },
-    } = await axios.get(`${userReportStatus}/userReports/${id}`);
+    } = await axios.get(`${userReportStatus}/userReports/${id}`, config);
 
     dispatch({
       type: ADMIN_USERREPORTS_SUCCESS,
@@ -340,8 +431,22 @@ export const userReportUpdateStatus =
       dispatch({ type: ADMIN_USERREPORTSTATUS_REQUEST });
 
       const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
+      const {
         data: { updatedReport },
-      } = await axios.put(`${userReportStatus}/userReport/${id}`, status);
+      } = await axios.put(
+        `${userReportStatus}/userReport/${id}`,
+        status,
+        config
+      );
 
       dispatch({
         type: ADMIN_USERREPORTSTATUS_SUCCESS,

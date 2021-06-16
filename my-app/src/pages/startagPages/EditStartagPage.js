@@ -58,7 +58,7 @@ const EditStartagPage = ({ history, match }) => {
 
   useEffect(() => {
     if (updateSuccess) {
-      history.push("/startaglist");
+      history.goBack();
     } else {
       if (startag) {
         if (!startag.name || startag._id !== startagId) {
@@ -135,7 +135,7 @@ const EditStartagPage = ({ history, match }) => {
                       className="form-control my-5"
                       placeholder="Enter Name"
                     />
-                    <span className="error-msg">{nameErr}</span>
+                    <span className="error-text">{nameErr}</span>
                   </div>
                   <div class="col-sm-12">
                     <label>Startag Type</label>
@@ -145,11 +145,11 @@ const EditStartagPage = ({ history, match }) => {
                       value={type}
                       onChange={(e) => setType(e.target.value)}
                     >
-                      <option>Select Role</option>
+                      <option disabled>Select Role</option>
                       <option value="General">General</option>
                       <option value="Bussiness">Bussiness</option>
                     </select>
-                    <span className="error-msg">{typeErr}</span>
+                    <span className="error-text">{typeErr}</span>
                     {type === "Bussiness" ? (
                       <div>
                         <label>Startag Cost</label>
@@ -160,7 +160,7 @@ const EditStartagPage = ({ history, match }) => {
                           className="form-control my-5"
                           placeholder="Enter Cost"
                         />
-                        <span className="error-msg">{costErr}</span>
+                        <span className="error-text">{costErr}</span>
                       </div>
                     ) : (
                       ""

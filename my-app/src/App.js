@@ -1,7 +1,7 @@
 import { Route, Switch } from "react-router-dom";
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {getTitleLogo} from './actions/logoActions';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getTitleLogo } from "./actions/logoActions";
 import Dashboard from "./pages/Dashboard";
 import Navbar from "./components/Navbar";
 import CmsPageList from "./pages/cmsPages/CmsPageList";
@@ -41,27 +41,28 @@ import ReportAbuseList from "./pages/reportAbusePages/ReportAbuseList";
 import ReportAbuseView from "./pages/reportAbusePages/ReportAbuseView";
 import LogoList from "./pages/logoPages/LogoList";
 import LogoEdit from "./pages/logoPages/LogoEdit";
+import NotificationList from "./pages/notificationPages/NotificationList";
+import AddNotificationPage from "./pages/notificationPages/AddNotificationPage";
+import EditNotificationPage from "./pages/notificationPages/EditNotificationPage";
 
 function App() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const title = 'Admin Page Title'
+  const title = "Admin Page Title";
 
-  const logoUpdate = useSelector((state) => state.logoUpdate)
-  const {success: updateSuccess} = logoUpdate
+  const logoUpdate = useSelector((state) => state.logoUpdate);
+  const { success: updateSuccess } = logoUpdate;
 
-  const titleLogo = useSelector((state) => state.titleLogo)
-  const {logo} = titleLogo
-
-  console.log(logo);
+  const titleLogo = useSelector((state) => state.titleLogo);
+  const { logo } = titleLogo;
 
   useEffect(() => {
     dispatch(getTitleLogo(title));
-  }, [title, updateSuccess])
+  }, [title, updateSuccess]);
 
-  if(logo) {
-  var favicon = document.getElementById("logo");
-  favicon.href = logo.image
+  if (logo) {
+    var favicon = document.getElementById("logo");
+    favicon.href = logo.image;
   }
 
   const adminLogin = useSelector((state) => state.adminLogin);
@@ -138,9 +139,24 @@ function App() {
             exact
             component={ReportAbuseList}
           />
-          <Route path="/reportabuseview/:id" exact component={ReportAbuseView} />
+          <Route
+            path="/reportabuseview/:id"
+            exact
+            component={ReportAbuseView}
+          />
           <Route path="/logolist" exact component={LogoList} />
           <Route path="/editlogo/:id" exact component={LogoEdit} />
+          <Route path="/notificationlist" exact component={NotificationList} />
+          <Route
+            path="/addnotification"
+            exact
+            component={AddNotificationPage}
+          />
+          <Route
+            path="/editnotification"
+            exact
+            component={EditNotificationPage}
+          />
         </Switch>
       </div>
       <Footer />

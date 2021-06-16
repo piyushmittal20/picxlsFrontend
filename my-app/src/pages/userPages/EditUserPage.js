@@ -9,6 +9,7 @@ import Meta from "../../components/Meta";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast, ToastContainer } from "react-toastify";
 
 const EditUserPage = ({ history, match }) => {
   const userId = match.params.id;
@@ -26,9 +27,12 @@ const EditUserPage = ({ history, match }) => {
   } = updateUser;
 
   const schema = yup.object().shape({
-    firstname: yup.string().required("This Field is Required").max(50).trim(),
-    lastname: yup.string().required("This Field is Required").max(50).trim(),
-    email: yup.string().email().required("This Field is Required").trim(),
+    firstname: yup
+      .string()
+      .required("First Name Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name")
+      .trim(),
   });
   const {
     register,
@@ -42,7 +46,7 @@ const EditUserPage = ({ history, match }) => {
 
   useEffect(() => {
     if (updateSuccess) {
-      history.push("/userlist");
+      history.goBack();
     } else {
       if (user) {
         if (!user.firstname || user._id !== userId) {
@@ -104,9 +108,7 @@ const EditUserPage = ({ history, match }) => {
                       placeholder="Enter firstname"
                     />
                     {errors.firstname && (
-                      <p className="text-danger small p-1">
-                        {errors.firstname.message}
-                      </p>
+                      <p className="error-text">{errors.firstname.message}</p>
                     )}
                   </div>
                   <div class="col-sm-6">
@@ -117,11 +119,6 @@ const EditUserPage = ({ history, match }) => {
                       className="form-control my-5"
                       placeholder="Enter lastname"
                     />
-                    {errors.lastname && (
-                      <p className="text-danger small p-1">
-                        {errors.lastname.message}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <div class="row">
@@ -133,11 +130,6 @@ const EditUserPage = ({ history, match }) => {
                       className="form-control my-5"
                       placeholder="Enter Email"
                     />
-                    {errors.email && (
-                      <p className="text-danger small p-1">
-                        {errors.email.message}
-                      </p>
-                    )}
                   </div>
                 </div>
                 <div class="row">
@@ -149,11 +141,6 @@ const EditUserPage = ({ history, match }) => {
                       className="form-control my-5"
                       placeholder="Enter Contact number"
                     />
-                    {errors.phoneNumber && (
-                      <p className="text-danger small p-1">
-                        {errors.phoneNumber.message}
-                      </p>
-                    )}
                   </div>
                 </div>
 

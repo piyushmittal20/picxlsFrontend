@@ -18,6 +18,7 @@ import {
 } from "../../constants/adminConstants";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import ExportCSV from "../../components/ExportCSV";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -70,6 +71,15 @@ const UserListPage = ({ history, match }) => {
     newLast = moment(lastDate).toISOString();
   }
 
+  const statusChange = (e) => {
+    setStatus2(e.target.value);
+    history.push("/userlist");
+  };
+
+  const redirect = () => {
+    history.push("/userlist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDUSER_RESET });
@@ -113,7 +123,7 @@ const UserListPage = ({ history, match }) => {
     if (
       number == 1 ||
       number == total ||
-      (number >= page - 2 && number <= page + 2)
+      (number >= page - 1 && number <= page + 1)
     ) {
       return (
         <span key={number}>
@@ -177,17 +187,23 @@ const UserListPage = ({ history, match }) => {
           <label>Start Date: </label>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>End Date: </label>
           <DatePicker
             selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            onChange={(date) => {
+              setLastDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select value={status2} onChange={statusChange}>
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Active</option>
@@ -210,6 +226,7 @@ const UserListPage = ({ history, match }) => {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+        <ExportCSV csvData={users} fileName="users_list" />
         {loading ? (
           <Loader />
         ) : error ? (

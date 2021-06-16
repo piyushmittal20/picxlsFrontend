@@ -36,8 +36,19 @@ export const getAllStartag =
     try {
       dispatch({ type: ADMIN_STARTAGLIST_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
       const { data } = await axios.get(
-        `${startagList}/startags?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`
+        `${startagList}/startags?search=${search}&pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`,
+        config
       );
 
       dispatch({
@@ -61,8 +72,19 @@ export const createStartag = (startag) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_ADDSTARTAG_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { savedStartag },
-    } = await axios.post(`${addStartag}/startag`, startag);
+    } = await axios.post(`${addStartag}/startag`, startag, config);
 
     dispatch({
       type: ADMIN_ADDSTARTAG_SUCCESS,
@@ -83,7 +105,20 @@ export const removeStartag = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DELETESTARTAG_REQUEST });
 
-    const { data } = await axios.delete(`${deleteStartag}/startag/${id}`);
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(
+      `${deleteStartag}/startag/${id}`,
+      config
+    );
 
     dispatch({
       type: ADMIN_DELETESTARTAG_SUCCESS,
@@ -105,10 +140,18 @@ export const getStartag = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_STARTAGDETAIL_REQUEST });
 
     const {
-      data: { startag },
-    } = await axios.get(`${startagDetail}/startag/${id}`);
+      adminLogin: { adminInfo },
+    } = getState();
 
-    console.log(startag);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
+      data: { startag },
+    } = await axios.get(`${startagDetail}/startag/${id}`, config);
 
     dispatch({
       type: ADMIN_STARTAGDETAIL_SUCCESS,
@@ -131,19 +174,20 @@ export const updateStartag = (startag, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_UPDATESTARTAG_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
     const {
       data: { savedStartag },
-    } = await axios.put(
-      `${startagUpdate}/startag/${id}`,
-      startag,
-      config
-    );
+    } = await axios.put(`${startagUpdate}/startag/${id}`, startag, config);
 
     dispatch({ type: ADMIN_UPDATESTARTAG_SUCCESS });
     dispatch({
@@ -166,9 +210,14 @@ export const updateStartagStatus =
     try {
       dispatch({ type: ADMIN_STARTAGSTATUS_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 

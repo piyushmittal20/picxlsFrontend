@@ -9,6 +9,7 @@ import {
   ADMIN_DELETEUSER_SUCCESS,
   ADMIN_DROPPING_FAIL,
   ADMIN_DROPPING_REQUEST,
+  ADMIN_DROPPING_RESET,
   ADMIN_DROPPING_SUCCESS,
   ADMIN_UPDATEUSER_FAIL,
   ADMIN_UPDATEUSER_REQUEST,
@@ -202,13 +203,13 @@ export const userVerifyingReducer = (state = {}, action) => {
         error: action.payload,
       };
     case ADMIN_VERIFYING_RESET:
-      return {};
+      return { user: {} };
     default:
       return state;
   }
 };
 
-export const userDroppingReducer = (state = {}, action) => {
+export const userDroppingReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case ADMIN_DROPPING_REQUEST:
       return { loading: true };
@@ -222,6 +223,8 @@ export const userDroppingReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case ADMIN_DROPPING_RESET:
+      return { user: {} };
     default:
       return state;
   }

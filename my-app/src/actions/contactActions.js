@@ -28,8 +28,19 @@ export const getContactListing =
     try {
       dispatch({ type: ADMIN_CONTACTLIST_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
       const { data } = await axios.get(
-        `${getContactList}/contactlist?pageNumber=${pageNumber}&status=${status}&startDate=${startaDate}&lastDate=${lastDate}`
+        `${getContactList}/contactlist?pageNumber=${pageNumber}&status=${status}&startDate=${startaDate}&lastDate=${lastDate}`,
+        config
       );
 
       dispatch({
@@ -47,13 +58,23 @@ export const getContactListing =
     }
   };
 
-export const contactDetails = (id) => async (dispatch, action) => {
+export const contactDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_CONTACTDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { contact },
-    } = await axios.get(`${getContactDetail}/contact/${id}`);
+    } = await axios.get(`${getContactDetail}/contact/${id}`, config);
 
     dispatch({
       type: ADMIN_CONTACTDETAIL_SUCCESS,
@@ -75,9 +96,14 @@ export const contactStatusUpdate =
     try {
       dispatch({ type: ADMIN_STATUSCHANGE_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 
@@ -108,9 +134,14 @@ export const addAnswer = (answer, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDANSWER_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 

@@ -6,7 +6,6 @@ import {} from "../../actions/taxActions";
 import Loader from "../../components/Loader";
 import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
-import { getTaxDetail, updateTax } from "../../actions/taxActions";
 import { getAllCountries, getAllStates } from "../../actions/masterSettings";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -29,31 +28,6 @@ const EditTaxPage = ({ history, match }) => {
 
   const stateList = useSelector((state) => state.stateList);
   const { states } = stateList;
-
-  const schema = yup.object().shape({
-    title: yup.string().required("This Field is Required").max(50).trim(),
-    country: yup.string().required("This Field is Required").max(50).trim(),
-    state: yup.string().required("This Field is required").max(50).trim(),
-    taxPercentage: yup.string().required("This Field is Required").trim(),
-  });
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    watch,
-  } = useForm({
-    mode: "onTouched",
-    resolver: yupResolver(schema),
-  });
-
-  const countryOptions =
-    countries &&
-    countries.map((ele) => {
-      return { label: ele.title, value: ele._id };
-    });
-
-  const country = watch("country");
 
   const getDetails = async (id) => {
     setLoading(true);
@@ -78,6 +52,39 @@ const EditTaxPage = ({ history, match }) => {
       );
     }
   };
+
+  const schema = yup.object().shape({
+    title: yup
+      .string()
+      .required("Title is Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name*")
+      .trim(),
+    country: yup.string().required("Country is Required*").max(50).trim(),
+    state: yup.string().required("State is Required*").max(50).trim(),
+    taxPercentage: yup
+      .string()
+      .required("Tax Percentage Required*")
+      .matches(/^[0-9]+$/, "Not a Valid Number*"),
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    watch,
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
+
+  const countryOptions =
+    countries &&
+    countries.map((ele) => {
+      return { label: ele.title, value: ele._id };
+    });
+
+  const country = watch("country");
 
   useEffect(() => {
     dispatch(getAllCountries());

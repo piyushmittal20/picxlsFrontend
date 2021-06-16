@@ -18,8 +18,18 @@ export const getAllPages = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_PAGELIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { pages },
-    } = await axios.get(`${getPages}/pages`);
+    } = await axios.get(`${getPages}/pages`, config);
 
     dispatch({
       type: ADMIN_PAGELIST_SUCCESS,
@@ -40,9 +50,14 @@ export const createPage = (page) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ADDPAGE_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -73,9 +88,14 @@ export const changeStatus = (page, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_PAGESTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 

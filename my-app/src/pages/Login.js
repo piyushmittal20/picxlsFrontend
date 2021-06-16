@@ -3,7 +3,8 @@ import { login } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
 import { ADMIN_LOGIN_RESET } from "../constants/adminConstants";
-import ErrorToast from "../components/ErrorToast";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Meta from "../components/Meta";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
@@ -11,38 +12,8 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = ({ history }) => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [emailErr, setEmailErr] = useState("");
-  // const [passwordErr, setPasswordErr] = useState("");
   const [token, setToken] = useState("");
-  // const [tokenErr, setTokenErr] = useState("");
   const reCapatcha = useRef();
-
-  // const validate = () => {
-  //   let emailErr = "";
-  //   let passwordErr = "";
-  //   let tokenErr = "";
-
-  //   if (!email) {
-  //     emailErr = "Email cannot be empty";
-  //   }
-  //   if (!password) {
-  //     passwordErr = "Password cannot be empty";
-  //   }
-  //   if (!token) {
-  //     tokenErr = "Please verify the captcha";
-  //   }
-
-  //   if (emailErr && passwordErr && tokenErr) {
-  //     setEmailErr(emailErr);
-  //     setPasswordErr(passwordErr);
-  //     setTokenErr(tokenErr);
-  //     return false;
-  //   }
-
-  //   return true;
-  // };
 
   const dispatch = useDispatch();
 
@@ -50,8 +21,13 @@ const Login = ({ history }) => {
   const { loading, error, adminInfo } = adminLogin;
 
   const schema = yup.object().shape({
-    email: yup.string().required("This Field is Required").max(50).trim(),
-    password: yup.string().required("This Field is required").trim(),
+    email: yup
+      .string()
+      .required("Email Required*")
+      .max(50, "Not more that 50 cahr long")
+      .matches(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Not a Valid Email")
+      .trim(),
+    password: yup.string().required("Password Required*").trim(),
   });
   const {
     register,
@@ -67,20 +43,11 @@ const Login = ({ history }) => {
       history.push("/");
     }
     if (error) {
-      setTimeout(() => {
-        dispatch({ type: ADMIN_LOGIN_RESET });
-      }, 2000);
+      toast.error(error);
     }
   }, [adminInfo, history, dispatch, error]);
 
   const submitHandler = (data) => {
-    // e.preventDefault();
-
-    // const isValid = validate();
-    // if (isValid) {
-    //   setPassword("");
-    // }
-
     const creds = {
       email: data.email,
       password: data.password,
@@ -93,7 +60,7 @@ const Login = ({ history }) => {
   return (
     <div class="p-0">
       <Meta title="Sign In - Picxls" />
-      {error && <ErrorToast message={error} />}
+      <ToastContainer position="top-right" autoClose={2000} />
       <div className="d-flex flex-column flex-root">
         <div
           className="d-flex flex-column flex-lg-row flex-column-fluid"
@@ -136,14 +103,16 @@ const Login = ({ history }) => {
                     Email
                   </label>
                   <input
-                    className="form-control form-control-lg form-control-solid"
+                    className={
+                      errors.email
+                        ? "input-err form-control form-control-lg form-control-solid"
+                        : "form-control form-control-lg form-control-solid"
+                    }
                     type="text"
                     {...register("email")}
                   />
                   {errors.email && (
-                    <p className="text-danger small p-1">
-                      {errors.email.message}
-                    </p>
+                    <p className="error-text">{errors.email.message}</p>
                   )}
                 </div>
                 <div className="fv-row mb-7">
@@ -152,14 +121,16 @@ const Login = ({ history }) => {
                   </label>
                   <div>
                     <input
-                      className="form-control form-control-lg form-control-solid"
+                      className={
+                        errors.password
+                          ? "input-err form-control form-control-lg form-control-solid"
+                          : "form-control form-control-lg form-control-solid"
+                      }
                       type="password"
                       {...register("password")}
                     />
                     {errors.password && (
-                      <p className="text-danger small p-1">
-                        {errors.password.message}
-                      </p>
+                      <p className="error-text">{errors.password.message}</p>
                     )}
                   </div>
                 </div>

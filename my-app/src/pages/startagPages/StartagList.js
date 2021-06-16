@@ -71,6 +71,10 @@ const StartagList = ({ history, match }) => {
     newLast = moment(lastDate).toISOString();
   }
 
+  const redirect = () => {
+    history.push("/startaglist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDSTARTAG_RESET });
@@ -92,41 +96,6 @@ const StartagList = ({ history, match }) => {
     newStart,
     newLast,
   ]);
-
-  // var result = [];
-
-  // if (!startDate && !lastDate && role === "all" && status2 === "every") {
-  //   data = startags;
-  // }
-
-  // useEffect(() => {
-  //   if (startDate) {
-  //     console.log("Hello");
-  //     console.log(startDate);
-  //     result =
-  //       startags &&
-  //       startags.filter((startag) =>
-  //         moment(startag.createdAt).isSame(startDate)
-  //       );
-  //   }
-  //   if (startDate && lastDate) {
-  //     console.log("Hello");
-  //     result =
-  //       startags &&
-  //       startags.filter((startag) =>
-  //         moment(startag.createdAt).isBetween(startDate, lastDate)
-  //       );
-  //   }
-  //   if (role !== "all") {
-  //     result = startags && startags.filter((startag) => startag.type === role);
-  //   }
-  //   if (status2 !== "every") {
-  //     result =
-  //       startags &&
-  //       startags.filter((startag) => startag.isActive.toString() === status2);
-  //   }
-  //   setData(result);
-  // }, [startDate, lastDate, role, status2]);
 
   const resetFilter = () => {
     setLastDate("");
@@ -151,6 +120,7 @@ const StartagList = ({ history, match }) => {
       number == total ||
       (number >= page - 2 && number <= page + 2)
     ) {
+      console.log(number);
       return (
         <span key={number}>
           <Link to={`/startaglist/page/${number}`} className={classes}>
@@ -213,24 +183,29 @@ const StartagList = ({ history, match }) => {
           <label>Start Date: </label>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>End Date: </label>
           <DatePicker
             selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            onChange={(date) => {
+              setLastDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
-          {/* <label>Type:</label> */}
-          {/* <select value={role} onChange={(e) => setRole(e.target.value)}>
-            <option disabled>Select option</option>
-            <option value="">All</option>
-            <option value="General">General</option>
-            <option value="Bussiness">Bussiness</option>
-          </select> */}
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select
+            value={status2}
+            onChange={(e) => {
+              setStatus2(e.target.value);
+              redirect();
+            }}
+          >
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Active</option>

@@ -42,6 +42,8 @@ const CityListPage = ({ history }) => {
     localStorage.setItem("cityId", id);
   };
 
+  console.log(cities);
+
   useEffect(() => {
     if (adminInfo) {
       dispatch({ type: ADMIN_ADDCITY_RESET });
@@ -103,6 +105,8 @@ const CityListPage = ({ history }) => {
                   <bold>#</bold>
                 </th>
                 <th className="colorblack">Title</th>
+                <th className="colorblack">Country</th>
+                <th className="colorblack"> State</th>
                 <th className="colorblack">Created On</th>
                 <th className="colorblack">Status</th>
                 <th className="colorblack">Actions</th>
@@ -114,6 +118,8 @@ const CityListPage = ({ history }) => {
                   <tr key={city._id}>
                     <td>{index + 1}.</td>
                     <td>{city.title}</td>
+                    <td>{city.country && city.country.title}</td>
+                    <td>{city.state && city.state.title}</td>
                     <td>
                       {moment(city.createdAt.substring(0, 10)).format(
                         "MMMM DD YYYY"

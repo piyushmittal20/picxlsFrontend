@@ -29,14 +29,21 @@
   margin: 0 !important;
 }
 
-.error-msg {
-  color: red;
+.error-text {
+  color: #dd0000;
+  font-weight: 900;
 }
+
+.input-err {
+  border: 1.5px solid #dd0000 !important;
+  color: #dd0000 !important;
+}
+
 .footer {
-  /*min-height: calc(100vh - 150px)*/
-  /*position: absolute;*/
-  /*bottom: 0px;*/
-  /*width: 100%*/
+  /* min-height: calc(100vh - 150px);
+  position: absolute;
+  bottom: 0px;
+  width: 100%; */
 }
 .text-right {
   text-align: right;

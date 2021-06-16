@@ -28,7 +28,20 @@ export const getAllAbuseList =
     try {
       dispatch({ type: ADMIN_ABUSELIST_REQUEST });
 
-      const { data } = await axios.get(`${getAbuseList}/reportlist?pageNumber=${pageNumber}&status=${status}&type=${type}&content=${content}`);
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
+      const { data } = await axios.get(
+        `${getAbuseList}/reportlist?pageNumber=${pageNumber}&status=${status}&type=${type}&content=${content}`,
+        config
+      );
 
       dispatch({
         type: ADMIN_ABUSELIST_SUCCESS,
@@ -49,9 +62,17 @@ export const getAbuseDetails = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ABUSEDETAIL_REQUEST });
 
-    const { data } = await axios.get(`${getAbuseDetail}/report/${id}`);
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
 
-    console.log(data);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${getAbuseDetail}/report/${id}`, config);
 
     dispatch({
       type: ADMIN_ABUSEDETAIL_SUCCESS,
@@ -72,9 +93,14 @@ export const abuseStatusUpdate = (status, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ABUSESTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -101,9 +127,14 @@ export const removeContent = (reason, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_ABUSEDELETE_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 

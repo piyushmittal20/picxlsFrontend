@@ -66,6 +66,10 @@ const PostListPage = ({ history, match }) => {
     newLast = moment(lastDate).toISOString();
   }
 
+  const redirect = () => {
+    history.push("/postlist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
       dispatch({ type: ADMIN_POSTDELETE_RESET });
@@ -84,35 +88,6 @@ const PostListPage = ({ history, match }) => {
     newStart,
     newLast,
   ]);
-
-  // var result = [];
-
-  // if (!startDate && !lastDate && status2 === "every") {
-  //   data = posts;
-  // }
-
-  // useEffect(() => {
-  //   if (startDate && lastDate) {
-  //     result =
-  //       posts &&
-  //       posts.filter((post) =>
-  //         moment(post.createdAt).isBetween(startDate, lastDate)
-  //       );
-  //   }
-  //   if (status2 !== "every") {
-  //     result =
-  //       posts && posts.filter((post) => post.status.toString() === status2);
-  //   }
-  //   setData(result);
-  // }, [startDate, lastDate, status2]);
-
-  // const handleClick1 = (e) => {
-  //   setStartDate(e.target.value);
-  // };
-
-  // const handleClick2 = (e) => {
-  //   setLastDate(e.target.value);
-  // };
 
   const resetFilter = () => {
     setLastDate("");
@@ -209,17 +184,29 @@ const PostListPage = ({ history, match }) => {
           <label>Start Date: </label>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>End Date: </label>
           <DatePicker
             selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            onChange={(date) => {
+              setLastDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select
+            value={status2}
+            onChange={(e) => {
+              setStatus2(e.target.value);
+              redirect();
+            }}
+          >
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Active</option>

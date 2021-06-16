@@ -31,9 +31,14 @@ const AddCityPage = ({ history }) => {
   } = cityCreate;
 
   const schema = yup.object().shape({
-    title: yup.string().required("This Field is Required").max(50).trim(),
-    country: yup.string().required("This Field is Required").max(50).trim(),
-    state: yup.string().required("This Field is required").max(50).trim(),
+    title: yup
+      .string()
+      .required("City name Required*")
+      .max(50)
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name*")
+      .trim(),
+    country: yup.string().required("Country name Required*").max(50).trim(),
+    state: yup.string().required("State name Required*").max(50).trim(),
   });
   const {
     register,
@@ -63,7 +68,6 @@ const AddCityPage = ({ history }) => {
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Country - Picxls" />
       <div className="container-fluid mt-40">
-        {errors.title && <ErrorToast message={errors.title.message} />}
         <container>
           {createError && <ErrorToast message={createError} />}
           {loading ? (
@@ -106,9 +110,7 @@ const AddCityPage = ({ history }) => {
                         ))}
                     </select>
                     {errors.country && (
-                      <p className="text-danger small p-1">
-                        {errors.country.message}
-                      </p>
+                      <p className="error-text">{errors.country.message}</p>
                     )}
                   </div>
                   <div class="col-sm-12">
@@ -128,9 +130,7 @@ const AddCityPage = ({ history }) => {
                           ))}
                     </select>
                     {errors.state && (
-                      <p className="text-danger small p-1">
-                        {errors.state.message}
-                      </p>
+                      <p className="error-text">{errors.state.message}</p>
                     )}
                   </div>
                   <div class="col-sm-12">
@@ -142,9 +142,7 @@ const AddCityPage = ({ history }) => {
                       placeholder="Enter City"
                     />
                     {errors.title && (
-                      <p className="text-danger small p-1">
-                        {errors.title.message}
-                      </p>
+                      <p className="error-text">{errors.title.message}</p>
                     )}
                   </div>
                   <div className="text-right col-sm-12">

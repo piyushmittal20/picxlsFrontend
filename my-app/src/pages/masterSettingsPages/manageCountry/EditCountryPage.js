@@ -62,7 +62,7 @@ const EditCountryPage = ({ history, match }) => {
       <div class="container-fluid mt-40">
         <container>
           {error && <ErrorToast message={error} />}
-          {updateError && <ErrorToast message={updateError.message} />}
+          {updateError && <ErrorToast message={updateError} />}
           {errors.title && <ErrorToast message={errors.title.message} />}
           {loading ? (
             <Loader />

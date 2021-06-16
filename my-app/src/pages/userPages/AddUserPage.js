@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Spinner } from "react-bootstrap";
 import { createUser } from "../../actions/userActions";
-import ErrorToast from "../../components/ErrorToast";
 import Meta from "../../components/Meta";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -16,10 +17,38 @@ const AddUserPage = ({ history }) => {
   const { loading, success: createSuccess, error } = userCreate;
 
   const schema = yup.object().shape({
-    firstname: yup.string().required("This Field is Required").max(50).trim(),
-    lastname: yup.string().required("This Field is Required").max(50).trim(),
-    email: yup.string().email().required("This Field is Required").trim(),
-    phoneNumber: yup.number().required("This Field is Required").min(7),
+    firstname: yup
+      .string()
+      .required("First Name Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name*")
+      .trim(),
+    lastname: yup
+      .string()
+      .required("Last Name Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name")
+      .trim(),
+    email: yup
+      .string()
+      .required("Email Required*")
+      .max(50, "Not more that 50 cahr long")
+      .matches(/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/, "Not a Valid Email")
+      .trim(),
+    password: yup
+      .string()
+      .required("Password Required*")
+      .min(6, "Password should be 6 character long")
+      .matches(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{6,}$/,
+        "At least 1 uppercase letter, 1 lowercase letter, 1 number and 1 Special Char"
+      ),
+    phoneNumber: yup
+      .string()
+      .required("Phone Number Required*")
+      .min(7, "Not less than 7 charaters*")
+      .max(15, "Not grater than 15 characters*")
+      .matches(/^\d{10}$/, "Not a Valid Number*"),
   });
   const {
     register,
@@ -38,17 +67,17 @@ const AddUserPage = ({ history }) => {
     if (createSuccess) {
       history.push("/userlist");
     }
-  }, [createSuccess, history]);
+    if (error) {
+      toast.error(error);
+    }
+  }, [createSuccess, history, error]);
 
   return (
     <div className="wapper" style={{ paddingBottom: "50px" }}>
       <Meta title="Add User - Picxls" />
       <div className="container-fluid mt-40">
         <container>
-          {error && <ErrorToast message={error} />}
-          {errors.firstname && (
-            <ErrorToast message={errors.firstname.message} />
-          )}
+          <ToastContainer position="top-right" autoClose={2000} />
           <form className="m-3 p-2" onSubmit={handleSubmit(submitForm)}>
             <h1>
               {" "}
@@ -82,9 +111,7 @@ const AddUserPage = ({ history }) => {
                     placeholder="Enter firstname"
                   />
                   {errors.firstname && (
-                    <p className="text-danger small p-1">
-                      {errors.firstname.message}
-                    </p>
+                    <p className="error-text">{errors.firstname.message}</p>
                   )}
                 </div>
                 <div class="col-sm-6">
@@ -96,14 +123,12 @@ const AddUserPage = ({ history }) => {
                     placeholder="Enter lastname"
                   />
                   {errors.lastname && (
-                    <p className="text-danger small p-1">
-                      {errors.lastname.message}
-                    </p>
+                    <p className="error-text">{errors.lastname.message}</p>
                   )}
                 </div>
               </div>
               <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-6">
                   <label>Email</label>
                   <input
                     type="text"
@@ -112,9 +137,19 @@ const AddUserPage = ({ history }) => {
                     placeholder="Enter Email"
                   />
                   {errors.email && (
-                    <p className="text-danger small p-1">
-                      {errors.email.message}
-                    </p>
+                    <p className="error-text">{errors.email.message}</p>
+                  )}
+                </div>
+                <div class="col-sm-6">
+                  <label>Password</label>
+                  <input
+                    type="text"
+                    {...register("password")}
+                    className="form-control my-5"
+                    placeholder="Enter Password"
+                  />
+                  {errors.password && (
+                    <p className="error-text">{errors.password.message}</p>
                   )}
                 </div>
               </div>
@@ -128,9 +163,7 @@ const AddUserPage = ({ history }) => {
                     placeholder="Enter Contact number"
                   />
                   {errors.phoneNumber && (
-                    <p className="text-danger small p-1">
-                      {errors.phoneNumber.message}
-                    </p>
+                    <p className="error-text">{errors.phoneNumber.message}</p>
                   )}
                 </div>
               </div>
@@ -146,7 +179,7 @@ const AddUserPage = ({ history }) => {
                     <Spinner
                       animation="border"
                       size="sm"
-                      style={{ marginRight: "5px" }}
+                      style={{ marginRight: "5px", marginBottom: "3px" }}
                     />
                     Creating...
                   </Button>

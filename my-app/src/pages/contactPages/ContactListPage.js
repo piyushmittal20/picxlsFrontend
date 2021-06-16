@@ -53,6 +53,10 @@ const ContactListPage = ({ history, match }) => {
     newLast = moment(lastDate).toISOString();
   }
 
+  const redirect = () => {
+    history.push("/contactlist");
+  };
+
   useEffect(() => {
     if (adminInfo) {
       dispatch(getContactListing(pageNumber, status2, newStart, newLast));
@@ -152,17 +156,29 @@ const ContactListPage = ({ history, match }) => {
           <label>Start Date: </label>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => {
+              setStartDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>End Date: </label>
           <DatePicker
             selected={lastDate}
-            onChange={(date) => setLastDate(date)}
+            onChange={(date) => {
+              setLastDate(date);
+              redirect();
+            }}
             dateFormat="MMMM d, yyyy"
           />
           <label>Status:</label>
-          <select value={status2} onChange={(e) => setStatus2(e.target.value)}>
+          <select
+            value={status2}
+            onChange={(e) => {
+              setStatus2(e.target.value);
+              redirect();
+            }}
+          >
             <option disabled>Select option</option>
             <option value="">All</option>
             <option value="true">Pending</option>

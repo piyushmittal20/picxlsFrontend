@@ -18,12 +18,22 @@ export const adminDashboardData = () => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_DASHBOARD_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
     const response = await Promise.allSettled([
-      axios.get(`${totalusercount}/totalusers`),
-      axios.get(`${last24hourusercount}/lastonedayusers`),
-      axios.get(`${last7dayusercount}/lastsevendayusers`),
-      axios.get(`${last14dayusercount}/lastfourteendayusers`),
-      axios.get(`${last28dayusercount}/lasttwentyeightdayusers`),
+      axios.get(`${totalusercount}/totalusers`, config),
+      axios.get(`${last24hourusercount}/lastonedayusers`, config),
+      axios.get(`${last7dayusercount}/lastsevendayusers`, config),
+      axios.get(`${last14dayusercount}/lastfourteendayusers`, config),
+      axios.get(`${last28dayusercount}/lasttwentyeightdayusers`, config),
     ]);
 
     const [total, last24, last7, last14, last28] = response;

@@ -35,8 +35,19 @@ export const getAllPosts =
     try {
       dispatch({ type: ADMIN_POSTLIST_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
       const { data } = await axios.get(
-        `${postList}/posts?pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`
+        `${postList}/posts?pageNumber=${pageNumber}&status=${status}&startDate=${startDate}&lastDate=${lastDate}`,
+        config
       );
 
       dispatch({
@@ -59,8 +70,18 @@ export const getPost = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_POSTDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { post },
-    } = await axios.get(`${postDetail}/post/${id}`);
+    } = await axios.get(`${postDetail}/post/${id}`, config);
 
     dispatch({
       type: ADMIN_POSTDETAIL_SUCCESS,
@@ -81,7 +102,17 @@ export const deletePost = (id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_POSTDELETE_REQUEST });
 
-    const { data } = await axios.delete(`${postDelete}/post/${id}`);
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.delete(`${postDelete}/post/${id}`, config);
 
     dispatch({
       type: ADMIN_POSTDELETE_SUCCESS,
@@ -102,9 +133,14 @@ export const updatePostStatus = (post, id) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_POSTSTATUS_REQUEST });
 
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
     const config = {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
@@ -132,8 +168,18 @@ export const reportList = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_REPORTLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { reports },
-    } = await axios.get(`${reportsList}/reports/${id}`);
+    } = await axios.get(`${reportsList}/reports/${id}`, config);
 
     dispatch({
       type: ADMIN_REPORTLIST_SUCCESS,
@@ -156,8 +202,18 @@ export const reportStatusUpdate =
       dispatch({ type: ADMIN_REPORTSTATUS_REQUEST });
 
       const {
+        adminLogin: { adminInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
+
+      const {
         data: { updatedReport },
-      } = await axios.put(`${reportStatus}/postReport/${id}`, report);
+      } = await axios.put(`${reportStatus}/postReport/${id}`, report, config);
 
       dispatch({
         type: ADMIN_REPORTSTATUS_SUCCESS,

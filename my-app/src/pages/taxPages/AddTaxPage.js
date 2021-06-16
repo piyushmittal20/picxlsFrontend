@@ -29,10 +29,18 @@ const AddTaxPage = ({ history }) => {
   } = taxCreate;
 
   const schema = yup.object().shape({
-    title: yup.string().required("This Field is Required").max(50).trim(),
-    country: yup.string().required("This Field is Required").max(50).trim(),
-    state: yup.string().required("This Field is required").max(50).trim(),
-    taxPercentage: yup.string().required("This Field is required").trim(),
+    title: yup
+      .string()
+      .required("Title is Required*")
+      .max(50, "Not more than 50 char long")
+      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid Name*")
+      .trim(),
+    country: yup.string().required("Country is Required*").max(50).trim(),
+    state: yup.string().required("State is Required*").max(50).trim(),
+    taxPercentage: yup
+      .string()
+      .required("Tax Percentage Required*")
+      .matches(/^[0-9]+$/, "Not a Valid Number*"),
   });
   const {
     register,
@@ -77,7 +85,6 @@ const AddTaxPage = ({ history }) => {
     <div className="" style={{ paddingBottom: "50px" }}>
       <Meta title="Add Country - Picxls" />
       <div className="container-fluid mt-40">
-        {errors.title && <ErrorToast message={errors.title.message} />}
         <container>
           {createError && <ErrorToast message={createError} />}
           {loading ? (
@@ -115,9 +122,7 @@ const AddTaxPage = ({ history }) => {
                       placeholder="Enter Name"
                     />
                     {errors.title && (
-                      <p className="text-danger small p-1">
-                        {errors.title.message}
-                      </p>
+                      <p className="error-text">{errors.title.message}</p>
                     )}
                   </div>
                   <div class="col-sm-12">
@@ -132,9 +137,7 @@ const AddTaxPage = ({ history }) => {
                       placeholder="Select Country"
                     />
                     {errors.country && (
-                      <p className="text-danger small p-1">
-                        {errors.country.message}
-                      </p>
+                      <p className="error-text">{errors.country.message}</p>
                     )}
                     {/* <select
                       className="form-select my-5"
@@ -185,9 +188,7 @@ const AddTaxPage = ({ history }) => {
                       placeholder="Select State"
                     />
                     {errors.state && (
-                      <p className="text-danger small p-1">
-                        {errors.state.message}
-                      </p>
+                      <p className="error-text">{errors.state.message}</p>
                     )}
                   </div>
                   <div class="col-sm-12">
@@ -199,7 +200,7 @@ const AddTaxPage = ({ history }) => {
                       placeholder="Enter Tax Percentage"
                     />
                     {errors.taxPercentage && (
-                      <p className="text-danger small p-1">
+                      <p className="error-text">
                         {errors.taxPercentage.message}
                       </p>
                     )}

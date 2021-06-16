@@ -26,8 +26,18 @@ export const getNotificationListing = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_NOTIFICATIONLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { notifications },
-    } = await axios.get(`${notificationList}/notification`);
+    } = await axios.get(`${notificationList}/notification`, config);
 
     dispatch({
       type: ADMIN_NOTIFICATIONLIST_SUCCESS,
@@ -49,8 +59,18 @@ export const getNotificationDetail = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_NOTIFICATIONDETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { notification },
-    } = await axios.get(`${notificationDetail}/notification/${id}`);
+    } = await axios.get(`${notificationDetail}/notification/${id}`, config);
 
     dispatch({
       type: ADMIN_NOTIFICATIONDETAIL_SUCCESS,
@@ -72,9 +92,14 @@ export const createNotification =
     try {
       dispatch({ type: ADMIN_ADDNOTIFICATION_REQUEST });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 
@@ -108,9 +133,14 @@ export const editNotification =
         type: ADMIN_UPDATENOTIFICATION_REQUEST,
       });
 
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
+
       const config = {
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo.token}`,
         },
       };
 

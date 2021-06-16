@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, Spinner } from "react-bootstrap";
@@ -21,7 +21,7 @@ const ReplyContactPage = ({ history, match }) => {
   const { loading, error, success: updateSuccess } = answerConcern;
 
   const schema = yup.object().shape({
-    answer: yup.string().required("This Field is Required").trim(),
+    answer: yup.string().required("Answer is Required*").trim(),
   });
   const {
     register,
@@ -87,9 +87,7 @@ const ReplyContactPage = ({ history, match }) => {
                     ></textarea>
                   </div>
                   {errors.answer && (
-                    <p className="text-danger small p-1">
-                      {errors.answer.message}
-                    </p>
+                    <p className="error-text">{errors.answer.message}</p>
                   )}
                   <div className="text-right">
                     <Link to={`/contactview/${contactId}`}>

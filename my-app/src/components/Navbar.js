@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { IoIosLogOut } from "react-icons/io";
+// import { IoIosLogOut } from "react-icons/io";
+import { FaSignOutAlt } from "react-icons/fa";
 import LogoutBox from "./LogoutBox";
 import { Link } from "react-router-dom";
 import { Tooltip, OverlayTrigger } from "react-bootstrap";
@@ -63,19 +64,24 @@ const Navbar = () => {
             <h2>Picxls - Admin </h2>
           </div>
           <div class="d-flex align-items-center">
-            <div class="ms-1 ms-lg-6" onClick={handleClick}>
+            <div
+              class="ms-1 ms-lg-6"
+              onClick={handleClick}
+              style={{
+                fontSize: "23px",
+                padding: "2px 8px 4px",
+                color: "white",
+                backgroundColor: "#09204e",
+                borderRadius: "3px",
+                cursor: "pointer",
+              }}
+            >
               <OverlayTrigger
                 placement="bottom"
                 delay={{ show: 100, hide: 100 }}
                 overlay={(props) => <Tooltip {...props}>Logout</Tooltip>}
               >
-                <IoIosLogOut
-                  style={{
-                    color: "#09204e",
-                    fontSize: "25px",
-                    cursor: "pointer",
-                  }}
-                />
+                <FaSignOutAlt />
               </OverlayTrigger>
             </div>
 
@@ -597,7 +603,7 @@ const Navbar = () => {
                     {/*begin::Row*/}
                     <div className="row">
                       <div className="col-sm-4">
-                        <h3 className="fw-bolder mb-5">Dashboards</h3>
+                        <h3 className="fw-bolder mb-5">Dashboard</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
                             <a className="menu-link ps-0 py-2" href="/">
@@ -612,12 +618,9 @@ const Navbar = () => {
                         </h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
-                              className="menu-link ps-0 py-2"
-                              to="/countrylist"
-                            >
+                            <a className="menu-link ps-0 py-2" href="/CMS">
                               Manage Page
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -625,28 +628,25 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">Master Settings</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
+                            <a
                               className="menu-link ps-0 py-2"
-                              to="/countrylist"
+                              href="/countrylist"
                             >
                               Manage Country
-                            </Link>
+                            </a>
                           </li>
                           <li className="menu-item">
-                            <Link
+                            <a
                               className="menu-link ps-0 py-2"
-                              to="/statelist"
+                              href="/statelist"
                             >
                               Manage State
-                            </Link>
+                            </a>
                           </li>
                           <li className="menu-item">
-                            <Link
-                              className="menu-link ps-0 py-2"
-                              to="/citylist"
-                            >
+                            <a className="menu-link ps-0 py-2" href="/citylist">
                               Manage City
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -654,12 +654,9 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">User Management</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
-                              className="menu-link ps-0 py-2"
-                              to="/userlist"
-                            >
+                            <a className="menu-link ps-0 py-2" href="/userlist">
                               Manage Users
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -667,12 +664,12 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">Startag Management</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
+                            <a
                               className="menu-link ps-0 py-2"
-                              to="/startaglist"
+                              href="/startaglist"
                             >
                               Manage Startags
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -680,12 +677,9 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">Post Management</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
-                              className="menu-link ps-0 py-2"
-                              to="/postlist"
-                            >
+                            <a className="menu-link ps-0 py-2" href="/postlist">
                               Manage Posts
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -693,12 +687,12 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">Request Verification</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link
+                            <a
                               className="menu-link ps-0 py-2"
-                              to="/requestlist"
+                              href="/requestlist"
                             >
                               Manage Requests
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -706,9 +700,9 @@ const Navbar = () => {
                         <h3 className="fw-bolder mb-5">Tax Management</h3>
                         <ul className="menu menu-column menu-fit menu-rounded menu-gray-600 menu-hover-primary menu-active-primary fw-bold fs-6 mb-10">
                           <li className="menu-item">
-                            <Link className="menu-link ps-0 py-2" to="/taxlist">
+                            <a className="menu-link ps-0 py-2" href="/taxlist">
                               Manage Taxlist
-                            </Link>
+                            </a>
                           </li>
                         </ul>
                       </div>

@@ -25,8 +25,18 @@ export const getLogoList = () => async (dispatch, getState) => {
     dispatch({ type: ADMIN_LOGOLIST_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { logos },
-    } = await axios.get(`${logoList}/logo`);
+    } = await axios.get(`${logoList}/logo`, config);
 
     dispatch({
       type: ADMIN_LOGOLIST_SUCCESS,
@@ -48,8 +58,18 @@ export const getLogoDetail = (id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_LOGODETAIL_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { logo },
-    } = await axios.get(`${logoDetail}/logo/${id}`);
+    } = await axios.get(`${logoDetail}/logo/${id}`, config);
 
     dispatch({
       type: ADMIN_LOGODETAIL_SUCCESS,
@@ -71,8 +91,19 @@ export const updateLogo = (logo, id) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_LOGOUPDATE_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { updatedLogo },
-    } = await axios.put(`${logoUpdate}/logo/${id}`, logo);
+    } = await axios.put(`${logoUpdate}/logo/${id}`, logo, config);
 
     dispatch({ type: ADMIN_LOGOUPDATE_SUCCESS });
     dispatch({
@@ -95,8 +126,18 @@ export const getPannelLogo = (title) => async (dispatch, getState) => {
     dispatch({ type: ADMIN_PANNELLOGO_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { logo },
-    } = await axios.get(`${logoDetails}/logoDetail?title=${title}`);
+    } = await axios.get(`${logoDetails}/logoDetail?title=${title}`, config);
 
     dispatch({
       type: ADMIN_PANNELLOGO_SUCCESS,
@@ -113,13 +154,23 @@ export const getPannelLogo = (title) => async (dispatch, getState) => {
   }
 };
 
-export const getTitleLogo = (title) => async(dispatch, getState) => {
+export const getTitleLogo = (title) => async (dispatch, getState) => {
   try {
     dispatch({ type: ADMIN_TITLELOGO_REQUEST });
 
     const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
       data: { logo },
-    } = await axios.get(`${logoDetails}/logoDetail?title=${title}`);
+    } = await axios.get(`${logoDetails}/logoDetail?title=${title}`, config);
 
     dispatch({
       type: ADMIN_TITLELOGO_SUCCESS,
@@ -134,4 +185,4 @@ export const getTitleLogo = (title) => async(dispatch, getState) => {
           : error.message,
     });
   }
-}
+};
