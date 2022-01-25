@@ -1,13 +1,13 @@
-import {useDispatch} from 'react-redux';
-import {logout} from '../actions/authActions';
+import { useDispatch } from "react-redux";
+import { logout } from "../actions/authActions";
 import { Button, Modal } from "react-bootstrap";
 
-const LogoutBox = ({show, setShow}) => {
-    const dispatch = useDispatch();
+const LogoutBox = ({ show, setShow }) => {
+  const dispatch = useDispatch();
 
-    return (
-        <>
-            <Modal show={show} onHide={() => setShow(false)}>
+  return (
+    <>
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
             <strong>Logout</strong>
@@ -29,8 +29,8 @@ const LogoutBox = ({show, setShow}) => {
           </Button>
         </Modal.Footer>
       </Modal>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default LogoutBox
+export default LogoutBox;

@@ -1,22 +1,22 @@
 import { Button, Modal } from "react-bootstrap";
-import {useDispatch} from 'react-redux';
-import {verifying} from '../actions/userActions';
+import { useDispatch } from "react-redux";
+import { verifying } from "../actions/userActions";
 
-const VerifyBox = ({show, setShow}) => {
-    const dispatch = useDispatch()
+const VerifyBox = ({ show, setShow }) => {
+  const dispatch = useDispatch();
 
-    const userId = localStorage.getItem('userVerifyId')
+  const userId = localStorage.getItem("userVerifyId");
 
-    const deleteHandler = () => {
-        if(userId) {
-            dispatch(verifying(userId))
-            localStorage.removeItem('userVerifyId')
-        }
+  const deleteHandler = () => {
+    if (userId) {
+      dispatch(verifying(userId));
+      localStorage.removeItem("userVerifyId");
     }
+  };
 
-    return (
-        <>
-        <Modal show={show} onHide={() => setShow(false)}>
+  return (
+    <>
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>
             <strong>Verify</strong>
@@ -38,8 +38,8 @@ const VerifyBox = ({show, setShow}) => {
           </Button>
         </Modal.Footer>
       </Modal>
-        </>
-    )
-}
+    </>
+  );
+};
 
-export default VerifyBox
+export default VerifyBox;

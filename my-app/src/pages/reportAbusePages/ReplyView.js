@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCommentDetail } from "../../actions/abuseActions";
+import { getReplyDetail } from "../../actions/abuseActions";
 import { Link } from "react-router-dom";
 import { OverlayTrigger, Tooltip, Row, Badge, Col } from "react-bootstrap";
 import { BsToggleOff, BsToggleOn } from "react-icons/bs";
@@ -12,8 +12,8 @@ import $ from "jquery";
 import "datatables.net-dt/js/dataTables.dataTables";
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 
-const ReportAbuseView = ({ history, match }) => {
-  const commentId = match.params.id;
+const ReplyView = ({ history, match }) => {
+  const replyId = match.params.id;
 
   const [show2, setShow2] = useState(false);
   const [show, setShow] = useState(false);
@@ -24,32 +24,29 @@ const ReportAbuseView = ({ history, match }) => {
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
 
-  const { comment, error, loading } = useSelector(
-    (state) => state.detailComment
-  );
+  const { reply, error, loading } = useSelector((state) => state.detailReply);
 
   const handleShow2 = () => setShow2(true);
 
   const statusHandler = (id) => {
-    localStorage.setItem("commentId", id);
+    localStorage.setItem("replyId", id);
   };
 
   const handleShow = () => setShow(true);
 
   useEffect(() => {
     if (adminInfo) {
-      dispatch(getCommentDetail(commentId));
+      dispatch(getReplyDetail(replyId));
       setTimeout(() => {
         $("#datatable1").DataTable();
       }, 2000);
     } else {
       history.push("/admin-login");
     }
-  }, [adminInfo, history, commentId, dispatch]);
+  }, [adminInfo, history, replyId, dispatch]);
 
   return (
     <div style={{ paddingBottom: "50px" }}>
-      {/* {show && <DeleteModal show={show} setShow={setShow} />} */}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -63,7 +60,7 @@ const ReportAbuseView = ({ history, match }) => {
             >
               <h2 className="head">
                 {" "}
-                <Link to="/commentlist">
+                <Link to="/replylist">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="icon icon-tabler icon-tabler-chevron-left"
@@ -80,15 +77,15 @@ const ReportAbuseView = ({ history, match }) => {
                     <polyline points="15 6 9 12 15 18" />
                   </svg>
                 </Link>{" "}
-                Comment Detail
+                Reply Detail
               </h2>
             </div>
-            {comment && (
+            {reply && (
               <Row className="box">
                 <div class="card  shadow">
                   <div class="card-header">
                     <h3 class="card-title">
-                      {comment[0]?.author_detail?.username}
+                      {reply[0]?.author_detail?.username}
                     </h3>
                     <div class="card-toolbar">
                       <OverlayTrigger
@@ -97,7 +94,7 @@ const ReportAbuseView = ({ history, match }) => {
                       >
                         <Link
                           className="mr-15"
-                          to={`/viewpost/${comment[0]?.postId}`}
+                          to={`/commentview/${reply[0]?.commentId}`}
                         >
                           <RiEyeFill />
                         </Link>
@@ -124,28 +121,28 @@ const ReportAbuseView = ({ history, match }) => {
                       <div class="card-body bg-light px-12 py-10">
                         <h3 class="fw-bolder fs-1 mb-9">
                           <a href="#" class="text-gray-800">
-                            {comment[0]?.description}
+                            {reply[0]?.description}
                           </a>
                         </h3>
                         <table class="table table-borderless align-middle fw-bold">
                           <tr>
                             <td class="tdpd text-gray-600 ps-0">Username</td>
                             <td class="tdpd text-dark pe-0">
-                              {comment[0]?.author_detail?.username}
+                              {reply[0]?.author_detail?.username}
                             </td>
                           </tr>
                           <tr>
                             <td class="tdpd text-gray-600 ps-0">Email</td>
                             <td class="tdpd text-dark pe-0">
-                              {comment[0]?.author_detail?.email
-                                ? comment[0]?.author_detail?.email
+                              {reply[0]?.author_detail?.email
+                                ? reply[0]?.author_detail?.email
                                 : "NA"}
                             </td>
                           </tr>
                           <tr>
                             <td class="tdpd text-gray-600 ps-0">Added on</td>
                             <td class="tdpd text-dark pe-0">
-                              {comment[0]?.createdAt.substring(0, 10)}
+                              {reply[0]?.createdAt.substring(0, 10)}
                             </td>
                           </tr>
                         </table>
@@ -172,72 +169,73 @@ const ReportAbuseView = ({ history, match }) => {
                       </tr>
                     </thead>
                     <tbody>
-                      {comment[0]?.reports?.map((report, index) => (
-                        <tr key={report._id}>
-                          <td>{index + 1}.</td>
-                          <td>{report.user_details?.firstname}</td>
-                          <td>{report.user_details?.username}</td>
-                          <td>
-                            {report.user_details?.email ? (
-                              report.user_details?.email
-                            ) : (
-                              <span>NA</span>
-                            )}
-                          </td>
-                          <td>{report?.reason}</td>
-                          <td>{report?.createdAt?.substring(0, 10)}</td>
-                          <td>
-                            {report.isActive ? (
-                              <Badge
-                                pill
-                                variant="success"
-                                style={{ backgroundColor: "green" }}
-                              >
-                                Active
-                              </Badge>
-                            ) : (
-                              <Badge
-                                pill
-                                variant="danger"
-                                style={{
-                                  backgroundColor: "red",
-                                  cursor: "pointer",
-                                }}
-                              >
-                                Inactive
-                              </Badge>
-                            )}
-                          </td>
-                          <td style={{ padding: "10px" }}>
-                            <ul className="action-list">
-                              <li
-                                className="action-list-item"
-                                onClick={() => {
-                                  handleShow2();
-                                  // showHandler(report._id);
-                                  setStatus(report.isActive);
-                                }}
-                              >
-                                {report.isActive ? (
-                                  <BsToggleOn
-                                    style={{
-                                      color: "green",
-                                      fontSize: "25px",
-                                    }}
-                                  />
-                                ) : (
-                                  <BsToggleOff
-                                    style={{
-                                      color: "red",
-                                      fontSize: "25px",
-                                    }}
-                                  />
-                                )}
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                      ))}
+                      {reply[0]?.reports[0].user_details?.length > 0 &&
+                        reply[0]?.reports?.map((report, index) => (
+                          <tr key={report._id}>
+                            <td>{index + 1}.</td>
+                            <td>{report.user_details?.firstname}</td>
+                            <td>{report.user_details?.username}</td>
+                            <td>
+                              {report.user_details?.email ? (
+                                report.user_details.email
+                              ) : (
+                                <span>NA</span>
+                              )}
+                            </td>
+                            <td>{report?.reason}</td>
+                            <td>{report?.createdAt?.substring(0, 10)}</td>
+                            <td>
+                              {report.isActive ? (
+                                <Badge
+                                  pill
+                                  variant="success"
+                                  style={{ backgroundColor: "green" }}
+                                >
+                                  Active
+                                </Badge>
+                              ) : (
+                                <Badge
+                                  pill
+                                  variant="danger"
+                                  style={{
+                                    backgroundColor: "red",
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  Inactive
+                                </Badge>
+                              )}
+                            </td>
+                            <td style={{ padding: "10px" }}>
+                              <ul className="action-list">
+                                <li
+                                  className="action-list-item"
+                                  onClick={() => {
+                                    handleShow2();
+                                    // showHandler(report._id);
+                                    setStatus(report.isActive);
+                                  }}
+                                >
+                                  {report.isActive ? (
+                                    <BsToggleOn
+                                      style={{
+                                        color: "green",
+                                        fontSize: "25px",
+                                      }}
+                                    />
+                                  ) : (
+                                    <BsToggleOff
+                                      style={{
+                                        color: "red",
+                                        fontSize: "25px",
+                                      }}
+                                    />
+                                  )}
+                                </li>
+                              </ul>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </Col>
@@ -250,4 +248,4 @@ const ReportAbuseView = ({ history, match }) => {
   );
 };
 
-export default ReportAbuseView;
+export default ReplyView;

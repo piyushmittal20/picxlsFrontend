@@ -29,12 +29,22 @@ const EditTaxPage = ({ history, match }) => {
   const stateList = useSelector((state) => state.stateList);
   const { states } = stateList;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   const getDetails = async (id) => {
     setLoading(true);
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
     try {
       const {
         data: { tax },
-      } = await axios.get(`${getTaxDetails}/taxDetail/${id}`);
+      } = await axios.get(`${getTaxDetails}/taxdetail/${id}`, config);
 
       if (tax) {
         setLoading(false);
@@ -94,10 +104,17 @@ const EditTaxPage = ({ history, match }) => {
 
   const submitForm = async (data) => {
     setUpdateLoading(true);
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
     try {
       const {
         data: { savedTax },
-      } = await axios.put(`${taxUpdate}/tax/${taxId}`, data);
+      } = await axios.put(`${taxUpdate}/tax/${taxId}`, data, config);
 
       if (savedTax) {
         setUpdateLoading(false);

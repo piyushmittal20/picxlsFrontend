@@ -198,9 +198,10 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 
 .pagination-div {
-  float: right;
-  margin: 15px;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 15px auto;
+  padding: 15px;
   font-size: large;
   font-weight: 700;
 }
@@ -254,4 +255,8 @@ div.dataTables_wrapper div.dataTables_filter {
 .errorCmp {
   margin: 20px auto;
   width: 500px;
+}
+
+.disable {
+  cursor: pointer;
 }

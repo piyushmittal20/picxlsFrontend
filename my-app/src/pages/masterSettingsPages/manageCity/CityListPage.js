@@ -94,7 +94,7 @@ const CityListPage = ({ history }) => {
             </h2>
             <Link to="/addcity">
               <Button variant="dark" className="add-btn">
-                <i className="fas fa-plus"></i>Add City
+                <i className="fas fa-plus"></i>Add
               </Button>
             </Link>
           </div>

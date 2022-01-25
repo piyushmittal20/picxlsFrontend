@@ -79,9 +79,13 @@ export const getTaxDetail = (id) => async (dispatch, getState) => {
       },
     };
 
+    console.log("Hi");
+
     const {
       data: { tax },
     } = await axios.get(`${getTaxDetails}/taxdetail/${id}`, config);
+
+    console.log("Hello");
 
     dispatch({
       type: ADMIN_TAXDETAIL_SUCCESS,

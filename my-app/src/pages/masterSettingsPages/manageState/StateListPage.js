@@ -88,7 +88,7 @@ const StateListPage = ({ history }) => {
             </h2>
             <Link to="/addstate">
               <Button variant="dark" className="add-btn">
-                <i className="fas fa-plus"></i>Add State
+                <i className="fas fa-plus"></i>Add
               </Button>
             </Link>
           </div>

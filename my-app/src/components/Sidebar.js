@@ -197,12 +197,16 @@ const Sidebar = () => {
                         </h4>
                         <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
                           <div className="menu-item">
-                            <Link
-                              className="menu-link py-2"
-                              to="/reportabuselist"
-                            >
+                            <Link className="menu-link py-2" to="/commentlist">
                               <span className="menu-title">
-                                Manage Report Abuse
+                                Manage Comment Report
+                              </span>
+                            </Link>
+                          </div>
+                          <div className="menu-item">
+                            <Link className="menu-link py-2" to="/replylist">
+                              <span className="menu-title">
+                                Manage Reply Report
                               </span>
                             </Link>
                           </div>
@@ -216,6 +220,23 @@ const Sidebar = () => {
                           <div className="menu-item">
                             <Link className="menu-link py-2" to="/logolist">
                               <span className="menu-title">Manage Logo</span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="menu-item show">
+                        <h4 className="menu-content text-muted mb-0 fs-6 fw-bold text-uppercase">
+                          Notification Management
+                        </h4>
+                        <div className="menu-sub menu-fit menu-sub-accordion show pb-10">
+                          <div className="menu-item">
+                            <Link
+                              className="menu-link py-2"
+                              to="/notificationlist"
+                            >
+                              <span className="menu-title">
+                                Manage Notification
+                              </span>
                             </Link>
                           </div>
                         </div>

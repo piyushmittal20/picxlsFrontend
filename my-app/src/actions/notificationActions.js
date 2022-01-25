@@ -21,38 +21,41 @@ import {
   notificationList,
 } from "../service";
 
-export const getNotificationListing = () => async (dispatch, getState) => {
-  try {
-    dispatch({ type: ADMIN_NOTIFICATIONLIST_REQUEST });
+export const getNotificationListing =
+  (pageNumber = "") =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({ type: ADMIN_NOTIFICATIONLIST_REQUEST });
 
-    const {
-      adminLogin: { adminInfo },
-    } = getState();
+      const {
+        adminLogin: { adminInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${adminInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          Authorization: `Bearer ${adminInfo.token}`,
+        },
+      };
 
-    const {
-      data: { notifications },
-    } = await axios.get(`${notificationList}/notification`, config);
+      const { data } = await axios.get(
+        `${notificationList}/notification?pageNumber=${pageNumber}`,
+        config
+      );
 
-    dispatch({
-      type: ADMIN_NOTIFICATIONLIST_SUCCESS,
-      payload: notifications,
-    });
-  } catch (error) {
-    dispatch({
-      type: ADMIN_NOTIFICATIONLIST_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
+      dispatch({
+        type: ADMIN_NOTIFICATIONLIST_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ADMIN_NOTIFICATIONLIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const getNotificationDetail = (id) => async (dispatch, getState) => {
   try {

@@ -19,6 +19,9 @@ import {
   ADMIN_STARTAGSTATUS_REQUEST,
   ADMIN_STARTAGSTATUS_SUCCESS,
   ADMIN_STARTAGSTATUS_FAIL,
+  ADMIN_REPORTSTARTAGLIST_REQUEST,
+  ADMIN_REPORTSTARTAGLIST_SUCCESS,
+  ADMIN_REPORTSTARTAGLIST_FAIL,
 } from "../constants/adminConstants";
 
 import {
@@ -28,6 +31,7 @@ import {
   startagDetail,
   startagUpdate,
   startagStatus,
+  startagReport,
 } from "../service";
 
 export const getAllStartag =
@@ -243,3 +247,38 @@ export const updateStartagStatus =
       });
     }
   };
+
+export const reportStartagList = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: ADMIN_REPORTSTARTAGLIST_REQUEST,
+    });
+    const {
+      adminLogin: { adminInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminInfo.token}`,
+      },
+    };
+
+    const {
+      data: { reportedStartag },
+    } = await axios.get(`${startagReport}/startagreport/${id}`, config);
+
+    dispatch({
+      type: ADMIN_REPORTSTARTAGLIST_SUCCESS,
+      payload: reportedStartag,
+    });
+  } catch (error) {
+    dispatch({
+      type: ADMIN_REPORTSTARTAGLIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};

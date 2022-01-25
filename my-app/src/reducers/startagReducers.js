@@ -20,6 +20,9 @@ import {
   ADMIN_STARTAGSTATUS_SUCCESS,
   ADMIN_STARTAGSTATUS_FAIL,
   ADMIN_DELETESTARTAG_RESET,
+  ADMIN_REPORTSTARTAGLIST_REQUEST,
+  ADMIN_REPORTSTARTAGLIST_SUCCESS,
+  ADMIN_REPORTSTARTAGLIST_FAIL,
 } from "../constants/adminConstants";
 
 export const startagListReducer = (state = { startags: [] }, action) => {
@@ -139,6 +142,28 @@ export const startagStatusReducer = (state = {}, action) => {
         success: true,
       };
     case ADMIN_STARTAGSTATUS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const startagReportlistReducer = (
+  state = { startagReports: [] },
+  action
+) => {
+  switch (action.type) {
+    case ADMIN_REPORTSTARTAGLIST_REQUEST:
+      return { loading: true };
+    case ADMIN_REPORTSTARTAGLIST_SUCCESS:
+      return {
+        loading: false,
+        startagReports: action.payload,
+      };
+    case ADMIN_REPORTSTARTAGLIST_FAIL:
       return {
         loading: false,
         error: action.payload,

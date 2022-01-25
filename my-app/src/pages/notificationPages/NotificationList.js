@@ -7,16 +7,16 @@ import ErrorToast from "../../components/ErrorToast";
 import Loader from "../../components/Loader";
 import { FaEdit } from "react-icons/fa";
 import moment from "moment";
-import $ from "jquery";
-import "datatables.net-dt/js/dataTables.dataTables";
-import "datatables.net-dt/css/jquery.dataTables.min.css";
 import { getNotificationListing } from "../../actions/notificationActions";
+import Pagination from "@material-ui/lab/Pagination";
 
 const NotificationList = ({ history }) => {
   const dispatch = useDispatch();
 
+  const [pageNumber, setPageNumber] = useState(1);
+
   const notificationList = useSelector((state) => state.notificationList);
-  const { loading, error, notifications } = notificationList;
+  const { loading, error, notifications, pages } = notificationList;
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
@@ -24,9 +24,6 @@ const NotificationList = ({ history }) => {
   useEffect(() => {
     if (adminInfo) {
       dispatch(getNotificationListing());
-      setTimeout(() => {
-        $("#datatable1").DataTable();
-      }, 2000);
     } else {
       history.push("/admin-login");
     }
@@ -67,7 +64,7 @@ const NotificationList = ({ history }) => {
             </h2>
             <Link to="/addnotification">
               <Button variant="dark" className="add-btn">
-                <i className="fas fa-plus"></i>Create Notification
+                <i className="fas fa-plus"></i>Create
               </Button>
             </Link>
           </div>
@@ -115,6 +112,14 @@ const NotificationList = ({ history }) => {
                 ))}
             </tbody>
           </table>
+          <div className="pagination-div">
+            <Pagination
+              page={pageNumber}
+              count={pages}
+              size="large"
+              onChange={(e, val) => setPageNumber(val)}
+            />
+          </div>
         </div>
       ) : (
         <div className="errorCmp">

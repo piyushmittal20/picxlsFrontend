@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { login } from "../actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "react-bootstrap";
-import { ADMIN_LOGIN_RESET } from "../constants/adminConstants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Meta from "../components/Meta";
@@ -13,6 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 const Login = ({ history }) => {
   const [token, setToken] = useState("");
+
   const reCapatcha = useRef();
 
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const Login = ({ history }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -103,6 +103,7 @@ const Login = ({ history }) => {
                     Email
                   </label>
                   <input
+                    style={{ borderColor: "#dadbdb" }}
                     className={
                       errors.email
                         ? "input-err form-control form-control-lg form-control-solid"
@@ -121,6 +122,7 @@ const Login = ({ history }) => {
                   </label>
                   <div>
                     <input
+                      style={{ borderColor: "#dadbdb" }}
                       className={
                         errors.password
                           ? "input-err form-control form-control-lg form-control-solid"
@@ -129,10 +131,10 @@ const Login = ({ history }) => {
                       type="password"
                       {...register("password")}
                     />
-                    {errors.password && (
-                      <p className="error-text">{errors.password.message}</p>
-                    )}
                   </div>
+                  {errors.password && (
+                    <p className="error-text">{errors.password.message}</p>
+                  )}
                 </div>
                 <div className="fv-row mb-7">
                   <ReCAPTCHA
@@ -156,7 +158,12 @@ const Login = ({ history }) => {
                       />
                     </button>
                   ) : (
-                    <button type="submit" className="btn btn-dark login-btn">
+                    <button
+                      disabled={!isValid}
+                      style={{ cursor: "pointer" }}
+                      type="submit"
+                      className="btn btn-dark login-btn"
+                    >
                       Sign In
                     </button>
                   )}

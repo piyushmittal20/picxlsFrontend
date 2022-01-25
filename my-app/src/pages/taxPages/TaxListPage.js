@@ -183,7 +183,7 @@ const TaxListPage = ({ history, match }) => {
           </h2>
           <Link to="/addtax">
             <Button variant="dark" className="add-btn">
-              <i className="fas fa-plus"></i>Add Tax
+              <i className="fas fa-plus"></i>Add
             </Button>
           </Link>
         </div>

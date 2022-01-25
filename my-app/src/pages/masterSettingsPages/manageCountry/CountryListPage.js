@@ -91,7 +91,7 @@ const CountryListcountry = ({ history }) => {
             </h2>
             <Link to="/addcountry">
               <Button variant="dark" className="add-btn">
-                <i className="fas fa-plus"></i>Add Country
+                <i className="fas fa-plus"></i>Add
               </Button>
             </Link>
           </div>

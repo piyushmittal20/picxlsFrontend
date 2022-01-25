@@ -31,7 +31,7 @@ const AddCountryPage = ({ history }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -84,7 +84,7 @@ const AddCountryPage = ({ history }) => {
             <div class="form rounded border p-10">
               <div class="row">
                 <div class="col-sm-12">
-                  <label>Add Country Name</label>
+                  <label> Name</label>
                   <div>
                     <input
                       type="text"
@@ -110,13 +110,19 @@ const AddCountryPage = ({ history }) => {
                       <Button variant="dark" disabled>
                         <Spinner
                           animation="border"
+                          disabled="true"
                           size="sm"
                           style={{ marginRight: "5px", marginBottom: "3px" }}
                         />
                         Creating...
                       </Button>
                     ) : (
-                      <Button type="submit" variant="dark">
+                      <Button
+                        disabled={!isValid}
+                        className="disable"
+                        type="submit"
+                        variant="dark"
+                      >
                         Create
                       </Button>
                     )}

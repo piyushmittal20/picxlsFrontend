@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllComment } from "../../actions/abuseActions";
+import { getAllReply } from "../../actions/abuseActions";
 import { Link } from "react-router-dom";
 import Meta from "../../components/Meta";
 import ErrorToast from "../../components/ErrorToast";
@@ -13,11 +13,8 @@ import { Badge, OverlayTrigger, Tooltip, Alert } from "react-bootstrap";
 import moment from "moment";
 import Pagination from "@material-ui/lab/Pagination";
 
-const ReportAbuseList = ({ history, match }) => {
-  // const pageNumber = match.params.pageNumber || 1;
-
+const ReportReplyList = ({ history }) => {
   const [pageNumber, setPageNumber] = useState(1);
-
   const [q, setQ] = useState("");
   const [status2, setStatus2] = useState("");
   const [show2, setShow2] = useState(false);
@@ -30,61 +27,29 @@ const ReportAbuseList = ({ history, match }) => {
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
 
-  const listComment = useSelector((state) => state.listComment);
-  const { comments, loading, error, pages } = listComment;
-
-  const { success } = useSelector((state) => state.statusUpdateComment);
+  const { loading, error, replies, pages } = useSelector(
+    (state) => state.listReply
+  );
 
   const handleShow2 = () => setShow2(true);
 
   const statusHandler = (id) => {
-    localStorage.setItem("commentId", id);
-  };
-
-  const redirect = () => {
-    history.push("/commentabuselist");
+    localStorage.setItem("replyId", id);
   };
 
   useEffect(() => {
     if (adminInfo) {
-      dispatch(getAllComment(pageNumber));
+      dispatch(getAllReply(pageNumber));
     } else {
       history.push("/admin-login");
     }
-  }, [adminInfo, dispatch, history, pageNumber, success]);
+  }, [adminInfo, dispatch, history, pageNumber]);
 
   const resetFilter = () => {
     setStatus2("");
     setType("");
     setContent("");
   };
-
-  // let renderPageNumbers;
-
-  // const pageNumbers = [];
-  // if (total !== null) {
-  //   for (let i = 1; i <= pages; i++) {
-  //     pageNumbers.push(i);
-  //   }
-  // }
-
-  // renderPageNumbers = pageNumbers.map((number) => {
-  //   let classes = page === number ? "pagination-btn active" : "pagination-btn";
-
-  //   if (
-  //     number == 1 ||
-  //     number == total ||
-  //     (number >= page - 2 && number <= page + 2)
-  //   ) {
-  //     return (
-  //       <span key={number}>
-  //         <Link to={`/reportabuselist/page/${number}`} className={classes}>
-  //           {number}
-  //         </Link>
-  //       </span>
-  //     );
-  //   }
-  // });
 
   const search = (rows) => {
     return rows.filter(
@@ -103,7 +68,7 @@ const ReportAbuseList = ({ history, match }) => {
 
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
-      <Meta title="Report Abuse Management - Picxls" />
+      <Meta title="Reply Report Management - Picxls" />
       {show2 && <Modals show={show2} setShow={setShow2} status={status} />}
       <div className="container-fluid mt-10 pb-18">
         <div
@@ -129,7 +94,7 @@ const ReportAbuseList = ({ history, match }) => {
                 <polyline points="15 6 9 12 15 18" />
               </svg>
             </Link>{" "}
-            Comment Management
+            Reply Management
           </h2>
         </div>
         <div className="filter-container">
@@ -138,7 +103,7 @@ const ReportAbuseList = ({ history, match }) => {
             value={status2}
             onChange={(e) => {
               setStatus2(e.target.value);
-              redirect();
+              //   redirect();
             }}
           >
             <option disabled>Select option</option>
@@ -151,7 +116,7 @@ const ReportAbuseList = ({ history, match }) => {
             value={content}
             onChange={(e) => {
               setContent(e.target.value);
-              redirect();
+              //   redirect();
             }}
           >
             <option disabled>Select option</option>
@@ -165,7 +130,7 @@ const ReportAbuseList = ({ history, match }) => {
             value={type}
             onChange={(e) => {
               setType(e.target.value);
-              redirect();
+              //   redirect();
             }}
           >
             <option disabled>Select option</option>
@@ -198,7 +163,7 @@ const ReportAbuseList = ({ history, match }) => {
           <Loader />
         ) : error ? (
           <ErrorToast message={error} />
-        ) : comments !== undefined ? (
+        ) : replies !== undefined ? (
           <table id="datatable1" className="table table-row-bordered gy-5">
             <thead style={{ borderBottom: "1px solid black" }}>
               <tr className="fw-bold fs-6 text-muted">
@@ -215,34 +180,34 @@ const ReportAbuseList = ({ history, match }) => {
               </tr>
             </thead>
             <tbody style={{ borderBottom: "1px solid black" }}>
-              {comments &&
-                search(comments).map((comment, index) => (
-                  <tr key={comment._id}>
+              {replies &&
+                search(replies).map((reply, index) => (
+                  <tr key={reply._id}>
                     <td>{index + 1}.</td>
-                    <td>{comment.description}</td>
-                    <td>{comment.author.username}</td>
+                    <td>{reply.description}</td>
+                    <td>{reply.author.username}</td>
                     <td>
-                      {comment.author.email ? (
-                        comment.author.email
+                      {reply.author.email ? (
+                        reply.author.email
                       ) : (
                         <span>NA</span>
                       )}
                     </td>
                     <td>
-                      {comment.author.phoneNumber ? (
-                        comment.author.phoneNumber
+                      {reply.author.phoneNumber ? (
+                        reply.author.phoneNumber
                       ) : (
                         <span>NA</span>
                       )}
                     </td>
                     <td>
                       {" "}
-                      {moment(comment.createdAt.substring(0, 10)).format(
+                      {moment(reply.createdAt.substring(0, 10)).format(
                         "MMMM DD YYYY"
                       )}
                     </td>
                     <td>
-                      {comment.isActive ? (
+                      {reply.isActive ? (
                         <Badge
                           pill
                           variant="success"
@@ -265,7 +230,7 @@ const ReportAbuseList = ({ history, match }) => {
                     </td>
                     <td style={{ padding: "10px" }}>
                       <ul className="action-list">
-                        <Link to={`/commentview/${comment._id}`}>
+                        <Link to={`/replyview/${reply._id}`}>
                           <OverlayTrigger
                             placement="bottom"
                             overlay={(props) => (
@@ -287,11 +252,11 @@ const ReportAbuseList = ({ history, match }) => {
                             className="action-list-item"
                             onClick={() => {
                               handleShow2();
-                              statusHandler(comment._id);
-                              setStatus(comment.isActive);
+                              statusHandler(reply._id);
+                              setStatus(reply.isActive);
                             }}
                           >
-                            {comment.isActive ? (
+                            {reply.isActive ? (
                               <BsToggleOn
                                 style={{ color: "green", fontSize: "25px" }}
                               />
@@ -333,4 +298,4 @@ const ReportAbuseList = ({ history, match }) => {
   );
 };
 
-export default ReportAbuseList;
+export default ReportReplyList;

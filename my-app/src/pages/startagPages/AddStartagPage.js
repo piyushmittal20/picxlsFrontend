@@ -30,7 +30,7 @@ const AddStartagPage = ({ history }) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: "onTouched",
     defaultValues: {
@@ -165,7 +165,12 @@ const AddStartagPage = ({ history }) => {
                       Creating...
                     </Button>
                   ) : (
-                    <Button type="submit" variant="dark">
+                    <Button
+                      disabled={!isValid}
+                      className="disable"
+                      type="submit"
+                      variant="dark"
+                    >
                       Create
                     </Button>
                   )}

@@ -43,7 +43,7 @@ const AddCityPage = ({ history }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
   } = useForm({
     mode: "onTouched",
@@ -165,7 +165,12 @@ const AddCityPage = ({ history }) => {
                         Creating...
                       </Button>
                     ) : (
-                      <Button type="submit" variant="dark">
+                      <Button
+                        disabled={!isValid}
+                        className="disable"
+                        type="submit"
+                        variant="dark"
+                      >
                         Create
                       </Button>
                     )}

@@ -23,10 +23,9 @@ const AddNotificationPage = ({ history }) => {
       .string()
       .required("Text is Required*")
       .max(50, "Not more than 50 char long")
-      .matches(/^([a-zA-Z]+\s)*[a-zA-Z]+$/, "Not a Valid text*")
+      .matches(/^([a-zA-Z.-]+\s)*[a-zA-Z.-]+$/, "Not a Valid text*")
       .trim(),
     URL: yup.string().required("URL is Required*").trim(),
-    type: yup.string().required("Type is Required*").max(50).trim(),
   });
   const {
     register,
@@ -87,10 +86,10 @@ const AddNotificationPage = ({ history }) => {
                     aria-label="Select example"
                     {...register("type")}
                   >
-                    <option value="">Select Type</option>
-                    <option value="End Users">End Users</option>
-                    <option value="Business">Business</option>
-                    <option value="Both">Both</option>
+                    <option disabled>Select Type</option>
+                    <option value="user">End Users</option>
+                    <option value="business">Business</option>
+                    <option value="">Both</option>
                   </select>
                   {errors.type && (
                     <p className="error-text">{errors.type.message}</p>

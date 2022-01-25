@@ -2,11 +2,10 @@ import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import { removeContent } from "../actions/abuseActions";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import ErrorToast from "./ErrorToast";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 const RemoveModal = ({ show, setShow, history }) => {
   const schema = yup.object().shape({
@@ -28,9 +27,7 @@ const RemoveModal = ({ show, setShow, history }) => {
 
   const delAbuseId = localStorage.getItem("delAbuseId");
 
-  const deleteHandler = (data) => {
-    dispatch(removeContent(data, delAbuseId));
-  };
+  const deleteHandler = (data) => {};
 
   useEffect(() => {
     if (success) {

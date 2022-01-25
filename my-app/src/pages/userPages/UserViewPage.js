@@ -86,7 +86,7 @@ const UserViewPage = ({ history, match }) => {
                 <Link to="/userlist">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="icon icon-tabler icon-tabler-chevron-left"
+                    className="icon icon-tabler icon-tabler-chevron-left"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -134,42 +134,50 @@ const UserViewPage = ({ history, match }) => {
                       </OverlayTrigger>
                     </div>
                   </div>
-                  <div class="card-body">
-                    <div class="">
-                      <div class="">
-                        <table class="table table-borderless align-middle fw-bold">
+                  <div className="card-body">
+                    <div className="">
+                      <div className="">
+                        <table className="table table-borderless align-middle fw-bold">
                           <tr>
-                            <td class="tdpd text-gray-600 ps-0">Name</td>
-                            <td class="tdpd text-dark pe-0">
+                            <td className="tdpd text-gray-600 ps-0">Name</td>
+                            <td className="tdpd text-dark pe-0">
                               {user.firstname}
                             </td>
                           </tr>
                           <tr>
-                            <td class="tdpd text-gray-600 ps-0">Added on</td>
-                            <td class="tdpd text-dark pe-0">
+                            <td className="tdpd text-gray-600 ps-0">
+                              Added on
+                            </td>
+                            <td className="tdpd text-dark pe-0">
                               {user.createdAt &&
                                 user.createdAt.substring(0, 10)}
                             </td>
                           </tr>
                           <tr>
-                            <td class="tdpd text-gray-600 ps-0">Email</td>
-                            <td class="tdpd text-dark pe-0">{user.email}</td>
+                            <td className="tdpd text-gray-600 ps-0">Email</td>
+                            <td className="tdpd text-dark pe-0">
+                              {user.email}
+                            </td>
                           </tr>
                           <tr>
-                            <td class="tdpd text-gray-600 ps-0">
+                            <td className="tdpd text-gray-600 ps-0">
                               Date of birth
                             </td>
-                            <td class="tdpd text-dark pe-0">{user.birthday}</td>
-                          </tr>
-                          <tr>
-                            <td class="tdpd text-gray-600 ps-0">Contact</td>
-                            <td class="tdpd text-dark pe-0">
-                              {user.phoneNumber}
+                            <td className="tdpd text-dark pe-0">
+                              {user.birthday}
                             </td>
                           </tr>
                           <tr>
-                            <td class="tdpd text-gray-600 ps-0">Bio</td>
-                            <td class="tdpd text-dark pe-0">{user.about}</td>
+                            <td className="tdpd text-gray-600 ps-0">Contact</td>
+                            <td className="tdpd text-dark pe-0">
+                              {user?.phoneNumber ? user?.phoneNumber : "NA"}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="tdpd text-gray-600 ps-0">Bio</td>
+                            <td className="tdpd text-dark pe-0">
+                              {user?.about ? user?.about : "NA"}
+                            </td>
                           </tr>
                         </table>
                       </div>

@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTitleLogo } from "./actions/logoActions";
@@ -44,6 +44,11 @@ import LogoEdit from "./pages/logoPages/LogoEdit";
 import NotificationList from "./pages/notificationPages/NotificationList";
 import AddNotificationPage from "./pages/notificationPages/AddNotificationPage";
 import EditNotificationPage from "./pages/notificationPages/EditNotificationPage";
+import ReportReplyList from "./pages/reportAbusePages/ReportReplyList";
+import ReplyView from "./pages/reportAbusePages/ReplyView";
+
+import jwt from "jsonwebtoken";
+import { logout } from "./actions/authActions";
 
 function App() {
   const dispatch = useDispatch();
@@ -56,7 +61,20 @@ function App() {
   const titleLogo = useSelector((state) => state.titleLogo);
   const { logo } = titleLogo;
 
+  const token = JSON.parse(localStorage.getItem("adminInfo"))?.token;
+
+  console.log(token);
+
   useEffect(() => {
+    if (token !== undefined) {
+      jwt.verify(token, "imbatman", function (err, decoded) {
+        if (err) {
+          console.log(err);
+          localStorage.clear();
+          dispatch(logout());
+        }
+      });
+    }
     dispatch(getTitleLogo(title));
   }, [title, updateSuccess]);
 
@@ -133,17 +151,10 @@ function App() {
           />
           <Route path="/contactview/:id" exact component={ContactViewPage} />
           <Route path="/answerconcern/:id" exact component={ReplyContactPage} />
-          <Route path="/reportabuselist" exact component={ReportAbuseList} />
-          <Route
-            path="/reportabuselist/page/:pageNumber"
-            exact
-            component={ReportAbuseList}
-          />
-          <Route
-            path="/reportabuseview/:id"
-            exact
-            component={ReportAbuseView}
-          />
+          <Route path="/commentlist" exact component={ReportAbuseList} />
+          <Route path="/replylist" exact component={ReportReplyList} />
+          <Route path="/replyview/:id" exact component={ReplyView} />
+          <Route path="/commentview/:id" exact component={ReportAbuseView} />
           <Route path="/logolist" exact component={LogoList} />
           <Route path="/editlogo/:id" exact component={LogoEdit} />
           <Route path="/notificationlist" exact component={NotificationList} />

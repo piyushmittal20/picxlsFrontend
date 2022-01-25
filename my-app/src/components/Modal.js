@@ -14,7 +14,10 @@ import { updateStartagStatus } from "../actions/startagActions";
 import { updatePostStatus, reportStatusUpdate } from "../actions/postActions";
 import { taxUpdateStatus } from "../actions/taxActions";
 import { contactStatusUpdate } from "../actions/contactActions";
-import {abuseStatusUpdate} from "../actions/abuseActions";
+import {
+  commentStatusUpdate,
+  updateReplyStatus,
+} from "../actions/abuseActions";
 
 const Modals = ({ show, setShow, status }) => {
   const countryId = localStorage.getItem("countryId");
@@ -28,7 +31,8 @@ const Modals = ({ show, setShow, status }) => {
   const reportUserId = localStorage.getItem("reportUserId");
   const taxId = localStorage.getItem("taxId");
   const contactId = localStorage.getItem("contactId");
-  const abuseId = localStorage.getItem("abuseId")
+  const commentId = localStorage.getItem("commentId");
+  const replyId = localStorage.getItem("replyId");
 
   const dispatch = useDispatch();
 
@@ -110,12 +114,19 @@ const Modals = ({ show, setShow, status }) => {
       dispatch(contactStatusUpdate(contact, contactId));
       localStorage.removeItem("contactId");
     }
-    if(abuseId) {
-      const abuse = {
-        status: !status
-      }
-      dispatch(abuseStatusUpdate(abuse, abuseId));
-      localStorage.removeItem('abuseId')
+    if (commentId) {
+      const comment = {
+        isActive: !status,
+      };
+      console.log(comment);
+      dispatch(commentStatusUpdate(comment, commentId));
+      localStorage.removeItem("commentId");
+    }
+    if (replyId) {
+      const reply = {
+        isActive: !status,
+      };
+      dispatch(updateReplyStatus(reply, replyId));
     }
   };
 

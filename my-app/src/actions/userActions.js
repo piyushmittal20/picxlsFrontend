@@ -299,13 +299,14 @@ export const verifying = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
+        "Content-Type": "application/json",
         Authorization: `Bearer ${adminInfo.token}`,
       },
     };
 
     const {
       data: { savedUser },
-    } = await axios.put(`${verifyingUser}/verifying/${id}`, config);
+    } = await axios.put(`${verifyingUser}/verifying/${id}`, {}, config);
 
     dispatch({
       type: ADMIN_VERIFYING_SUCCESS,

@@ -66,7 +66,8 @@ export const notificationListReducer = (state = {}, action) => {
     case ADMIN_NOTIFICATIONLIST_SUCCESS:
       return {
         loading: false,
-        notifications: action.payload,
+        notifications: action.payload.notifications,
+        pages: action.payload.pages,
       };
     case ADMIN_NOTIFICATIONLIST_FAIL:
       return {

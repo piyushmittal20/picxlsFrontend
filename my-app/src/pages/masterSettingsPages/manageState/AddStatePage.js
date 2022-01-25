@@ -35,7 +35,7 @@ const AddStatePage = ({ history }) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -134,7 +134,12 @@ const AddStatePage = ({ history }) => {
                         Creating...
                       </Button>
                     ) : (
-                      <Button type="submit" variant="dark">
+                      <Button
+                        disabled={!isValid}
+                        className="disable"
+                        type="submit"
+                        variant="dark"
+                      >
                         Create
                       </Button>
                     )}

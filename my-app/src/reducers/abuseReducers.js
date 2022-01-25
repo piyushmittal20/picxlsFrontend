@@ -1,35 +1,35 @@
 import {
-  ADMIN_ABUSEDELETE_FAIL,
-  ADMIN_ABUSEDELETE_REQUEST,
-  ADMIN_ABUSEDELETE_RESET,
-  ADMIN_ABUSEDELETE_SUCCESS,
-  ADMIN_ABUSEDETAIL_FAIL,
-  ADMIN_ABUSEDETAIL_REQUEST,
-  ADMIN_ABUSEDETAIL_SUCCESS,
-  ADMIN_ABUSELIST_FAIL,
-  ADMIN_ABUSELIST_REQUEST,
-  ADMIN_ABUSELIST_SUCCESS,
-  ADMIN_ABUSESTATUS_FAIL,
-  ADMIN_ABUSESTATUS_REQUEST,
-  ADMIN_ABUSESTATUS_SUCCESS,
+  ADMIN_COMMENTDETAIL_FAIL,
+  ADMIN_COMMENTDETAIL_REQUEST,
+  ADMIN_COMMENTDETAIL_SUCCESS,
+  ADMIN_COMMENTLIST_FAIL,
+  ADMIN_COMMENTLIST_REQUEST,
+  ADMIN_COMMENTLIST_SUCCESS,
+  ADMIN_COMMENTSTATUS_FAIL,
+  ADMIN_COMMENTSTATUS_REQUEST,
+  ADMIN_COMMENTSTATUS_SUCCESS,
+  ADMIN_REPLYDETAIL_FAIL,
+  ADMIN_REPLYDETAIL_REQUEST,
+  ADMIN_REPLYDETAIL_SUCCESS,
+  ADMIN_REPLYLIST_FAIL,
+  ADMIN_REPLYLIST_REQUEST,
+  ADMIN_REPLYLIST_SUCCESS,
+  ADMIN_REPLYSTATUS_FAIL,
+  ADMIN_REPLYSTATUS_REQUEST,
+  ADMIN_REPLYSTATUS_SUCCESS,
 } from "../constants/adminConstants";
 
-export const listAbuseReducer = (state = { reports: [] }, action) => {
+export const listCommentReducer = (state = {}, action) => {
   switch (action.type) {
-    case ADMIN_ABUSELIST_REQUEST:
-      return {
-        loading: true,
-        reports: [],
-      };
-    case ADMIN_ABUSELIST_SUCCESS:
+    case ADMIN_COMMENTLIST_REQUEST:
+      return { loading: true };
+    case ADMIN_COMMENTLIST_SUCCESS:
       return {
         loading: false,
-        reports: action.payload.reports,
+        comments: action.payload.comments,
         pages: action.payload.pages,
-        page: action.payload.page,
-        total: action.payload.total,
       };
-    case ADMIN_ABUSELIST_FAIL:
+    case ADMIN_COMMENTLIST_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -39,36 +39,16 @@ export const listAbuseReducer = (state = { reports: [] }, action) => {
   }
 };
 
-export const detailAbuseReducer = (state = { report: {} }, action) => {
+export const statusUpdateCommentReducer = (state = {}, action) => {
   switch (action.type) {
-    case ADMIN_ABUSEDETAIL_REQUEST:
+    case ADMIN_COMMENTSTATUS_REQUEST:
       return { loading: true };
-    case ADMIN_ABUSEDETAIL_SUCCESS:
-      return {
-        loading: false,
-        report: action.payload.report,
-        contentDetails: action.payload.contentDetails,
-      };
-    case ADMIN_ABUSEDETAIL_FAIL:
-      return {
-        loading: false,
-        error: action.payload,
-      };
-    default:
-      return state;
-  }
-};
-
-export const abuseStatusReducer = (state = {}, action) => {
-  switch (action.type) {
-    case ADMIN_ABUSESTATUS_REQUEST:
-      return { loading: true };
-    case ADMIN_ABUSESTATUS_SUCCESS:
+    case ADMIN_COMMENTSTATUS_SUCCESS:
       return {
         loading: false,
         success: true,
       };
-    case ADMIN_ABUSESTATUS_FAIL:
+    case ADMIN_COMMENTSTATUS_FAIL:
       return {
         loading: false,
         error: action.payload,
@@ -78,22 +58,78 @@ export const abuseStatusReducer = (state = {}, action) => {
   }
 };
 
-export const abuseRemoveReducer = (state = {}, action) => {
+export const detailCommentReducer = (state = { comment: {} }, action) => {
   switch (action.type) {
-    case ADMIN_ABUSEDELETE_REQUEST:
+    case ADMIN_COMMENTDETAIL_REQUEST:
       return { loading: true };
-    case ADMIN_ABUSEDELETE_SUCCESS:
+    case ADMIN_COMMENTDETAIL_SUCCESS:
       return {
         loading: false,
-        success: true,
+        comment: action.payload,
       };
-    case ADMIN_ABUSEDELETE_FAIL:
+    case ADMIN_COMMENTDETAIL_FAIL:
       return {
         loading: false,
         error: action.payload,
       };
-    case ADMIN_ABUSEDELETE_RESET:
-      return {}
+    default:
+      return state;
+  }
+};
+
+export const listReplyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_REPLYLIST_REQUEST:
+      return { loading: true };
+    case ADMIN_REPLYLIST_SUCCESS:
+      return {
+        loading: false,
+        replies: action.payload.replyList,
+        pages: action.payload.pages,
+      };
+    case ADMIN_REPLYLIST_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const statusReplyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case ADMIN_REPLYSTATUS_REQUEST:
+      return { loading: true };
+    case ADMIN_REPLYSTATUS_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case ADMIN_REPLYSTATUS_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const detailReplyReducer = (state = { reply: {} }, action) => {
+  switch (action.type) {
+    case ADMIN_REPLYDETAIL_REQUEST:
+      return { loading: true };
+    case ADMIN_REPLYDETAIL_SUCCESS:
+      return {
+        loading: false,
+        reply: action.payload,
+      };
+    case ADMIN_REPLYDETAIL_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
     default:
       return state;
   }

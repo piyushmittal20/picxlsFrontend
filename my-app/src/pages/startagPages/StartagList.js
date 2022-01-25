@@ -20,9 +20,11 @@ import {
 import Meta from "../../components/Meta";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Pagination from "@material-ui/lab/Pagination";
 
 const StartagList = ({ history, match }) => {
-  const pageNumber = match.params.pageNumber || 1;
+  // const pageNumber = match.params.pageNumber || 1;
+  const [pageNumber, setPageNumber] = useState(1);
 
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
@@ -103,33 +105,33 @@ const StartagList = ({ history, match }) => {
     setStatus2("");
   };
 
-  let renderPageNumbers;
+  // let renderPageNumbers;
 
-  const pageNumbers = [];
-  if (total !== null) {
-    for (let i = 1; i <= pages; i++) {
-      pageNumbers.push(i);
-    }
-  }
+  // const pageNumbers = [];
+  // if (total !== null) {
+  //   for (let i = 1; i <= pages; i++) {
+  //     pageNumbers.push(i);
+  //   }
+  // }
 
-  renderPageNumbers = pageNumbers.map((number) => {
-    let classes = page === number ? "pagination-btn active" : "pagination-btn";
+  // renderPageNumbers = pageNumbers.map((number) => {
+  //   let classes = page === number ? "pagination-btn active" : "pagination-btn";
 
-    if (
-      number == 1 ||
-      number == total ||
-      (number >= page - 2 && number <= page + 2)
-    ) {
-      console.log(number);
-      return (
-        <span key={number}>
-          <Link to={`/startaglist/page/${number}`} className={classes}>
-            {number}
-          </Link>
-        </span>
-      );
-    }
-  });
+  //   if (
+  //     number == 1 ||
+  //     number == total ||
+  //     (number >= page - 2 && number <= page + 2)
+  //   ) {
+  //     console.log(number);
+  //     return (
+  //       <span key={number}>
+  // <Link to={`/startaglist/page/${number}`} className={classes}>
+  //   {number}
+  // </Link>
+  //       </span>
+  //     );
+  //   }
+  // });
 
   return (
     <div className="" style={{ paddingBottom: "50px" }}>
@@ -175,7 +177,7 @@ const StartagList = ({ history, match }) => {
           </h2>
           <Link to="/addstartag">
             <Button variant="dark" className="add-btn">
-              <i className="fas fa-plus"></i>Add Startag
+              <i className="fas fa-plus"></i>Add
             </Button>
           </Link>
         </div>
@@ -354,7 +356,15 @@ const StartagList = ({ history, match }) => {
             </tbody>
           </table>
         )}
-        <div className="pagination-div">{renderPageNumbers}</div>
+        {/* <div className="pagination-div">{renderPageNumbers}</div> */}
+        <div className="pagination-div">
+          <Pagination
+            page={pageNumber}
+            count={pages}
+            size="large"
+            onChange={(e, val) => setPageNumber(val)}
+          />
+        </div>
       </div>
     </div>
   );

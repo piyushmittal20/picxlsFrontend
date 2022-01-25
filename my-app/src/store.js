@@ -38,6 +38,7 @@ import {
   startagDetailReducer,
   startagUpdateReducer,
   startagStatusReducer,
+  startagReportlistReducer,
 } from "./reducers/startagReducers";
 
 import {
@@ -82,10 +83,11 @@ import {
   answerConcernReducer,
 } from "./reducers/contactReducers";
 import {
-  abuseRemoveReducer,
-  abuseStatusReducer,
-  detailAbuseReducer,
-  listAbuseReducer,
+  detailCommentReducer,
+  detailReplyReducer,
+  listCommentReducer,
+  listReplyReducer,
+  statusUpdateCommentReducer,
 } from "./reducers/abuseReducers";
 import {
   logoDetailReducer,
@@ -128,6 +130,7 @@ const reducer = combineReducers({
   startagDelete: startagDeleteReducer,
   startagDetail: startagDetailReducer,
   startagUpdate: startagUpdateReducer,
+  startagReports: startagReportlistReducer,
   userList: userListReducer,
   userCreate: userCreateReducer,
   userDelete: userDeleteReducer,
@@ -159,10 +162,6 @@ const reducer = combineReducers({
   detailContact: detailContactReducer,
   statusContact: statusContactReducer,
   answerConcern: answerConcernReducer,
-  listAbuse: listAbuseReducer,
-  detailAbuse: detailAbuseReducer,
-  abuseStatus: abuseStatusReducer,
-  abuseRemove: abuseRemoveReducer,
   logoList: logoListReducer,
   logoDetail: logoDetailReducer,
   logoUpdate: logoUpdateReducer,
@@ -172,6 +171,11 @@ const reducer = combineReducers({
   notificationDetail: notificationDetailReducer,
   notificationList: notificationListReducer,
   notificationEdit: notificationEditReducer,
+  listComment: listCommentReducer,
+  detailComment: detailCommentReducer,
+  statusUpdateComment: statusUpdateCommentReducer,
+  listReply: listReplyReducer,
+  detailReply: detailReplyReducer,
 });
 
 const adminInfoFromStorage = localStorage.getItem("adminInfo")
